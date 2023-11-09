@@ -105,6 +105,18 @@ func (f RoleFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RoleMutation", m)
 }
 
+// The StockFunc type is an adapter to allow the use of ordinary
+// function as Stock mutator.
+type StockFunc func(context.Context, *ent.StockMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f StockFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.StockMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.StockMutation", m)
+}
+
 // The TokenFunc type is an adapter to allow the use of ordinary
 // function as Token mutator.
 type TokenFunc func(context.Context, *ent.TokenMutation) (ent.Value, error)

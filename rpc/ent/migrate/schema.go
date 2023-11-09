@@ -227,6 +227,22 @@ var (
 			},
 		},
 	}
+	// StocksColumns holds the columns for the "stocks" table.
+	StocksColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "stock_name", Type: field.TypeString, Comment: "Stock name"},
+		{Name: "stock_code", Type: field.TypeInt32, Comment: "Stock code"},
+		{Name: "is_recommend", Type: field.TypeBool, Comment: "Stock code", Default: false},
+	}
+	// StocksTable holds the schema information for the "stocks" table.
+	StocksTable = &schema.Table{
+		Name:       "stocks",
+		Columns:    StocksColumns,
+		PrimaryKey: []*schema.Column{StocksColumns[0]},
+	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
@@ -379,6 +395,7 @@ var (
 		SysOauthProvidersTable,
 		SysPositionsTable,
 		SysRolesTable,
+		StocksTable,
 		SysTokensTable,
 		SysUsersTable,
 		RoleMenusTable,

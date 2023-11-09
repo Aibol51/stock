@@ -28,6 +28,9 @@ ENT_FEATURE=sql/execquery,intercept
 # The arch of the build | 构建的架构
 GOARCH=amd64
 
+# PWD | 当前目录
+PWD=$(shell pwd)
+UI=$(shell cd ${PWD} && cd ../simple-admin-backend-ui && pwd)
 # ---- You may not need to modify the codes below | 下面的代码大概率不需要更改 ----
 
 GO ?= go
@@ -119,3 +122,8 @@ serve-swagger: # Run the swagger server | 运行 swagger 服务
 .PHONY: help
 help: # Show help | 显示帮助
 	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
+
+.PHONY: gen-ui
+gen-ui: # Generate UI files | 生成 UI 文件 
+	goctls frontend vben -api_file=${PWD}/api/desc/core/$(api).api --output=${UI}/ --folder_name=sys --prefix=sys-api --sub_folder=$(sub)
+	@echo "Generate UI files successfully" 

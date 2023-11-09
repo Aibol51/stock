@@ -14,6 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -688,6 +689,85 @@ func (r *RoleQuery) Page(
 
 	r = r.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := r.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type StockPager struct {
+	Order  stock.OrderOption
+	Filter func(*StockQuery) (*StockQuery, error)
+}
+
+// StockPaginateOption enables pagination customization.
+type StockPaginateOption func(*StockPager)
+
+// DefaultStockOrder is the default ordering of Stock.
+var DefaultStockOrder = Desc(stock.FieldID)
+
+func newStockPager(opts []StockPaginateOption) (*StockPager, error) {
+	pager := &StockPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultStockOrder
+	}
+	return pager, nil
+}
+
+func (p *StockPager) ApplyFilter(query *StockQuery) (*StockQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// StockPageList is Stock PageList result.
+type StockPageList struct {
+	List        []*Stock     `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (s *StockQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...StockPaginateOption,
+) (*StockPageList, error) {
+
+	pager, err := newStockPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if s, err = pager.ApplyFilter(s); err != nil {
+		return nil, err
+	}
+
+	ret := &StockPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := s.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		s = s.Order(pager.Order)
+	} else {
+		s = s.Order(DefaultStockOrder)
+	}
+
+	s = s.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := s.All(ctx)
 	if err != nil {
 		return nil, err
 	}

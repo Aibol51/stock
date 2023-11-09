@@ -1761,6 +1761,126 @@ func (r *RoleCreate) SetNotNilSort(value *uint32) *RoleCreate {
 }
 
 // set field if value's pointer is not nil.
+func (s *StockUpdate) SetNotNilUpdatedAt(value *time.Time) *StockUpdate {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdateOne) SetNotNilUpdatedAt(value *time.Time) *StockUpdateOne {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockCreate) SetNotNilUpdatedAt(value *time.Time) *StockCreate {
+	if value != nil {
+		return s.SetUpdatedAt(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdate) SetNotNilStatus(value *uint8) *StockUpdate {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdateOne) SetNotNilStatus(value *uint8) *StockUpdateOne {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockCreate) SetNotNilStatus(value *uint8) *StockCreate {
+	if value != nil {
+		return s.SetStatus(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdate) SetNotNilStockName(value *string) *StockUpdate {
+	if value != nil {
+		return s.SetStockName(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdateOne) SetNotNilStockName(value *string) *StockUpdateOne {
+	if value != nil {
+		return s.SetStockName(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockCreate) SetNotNilStockName(value *string) *StockCreate {
+	if value != nil {
+		return s.SetStockName(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdate) SetNotNilStockCode(value *int32) *StockUpdate {
+	if value != nil {
+		return s.SetStockCode(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdateOne) SetNotNilStockCode(value *int32) *StockUpdateOne {
+	if value != nil {
+		return s.SetStockCode(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockCreate) SetNotNilStockCode(value *int32) *StockCreate {
+	if value != nil {
+		return s.SetStockCode(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdate) SetNotNilIsRecommend(value *bool) *StockUpdate {
+	if value != nil {
+		return s.SetIsRecommend(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockUpdateOne) SetNotNilIsRecommend(value *bool) *StockUpdateOne {
+	if value != nil {
+		return s.SetIsRecommend(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
+func (s *StockCreate) SetNotNilIsRecommend(value *bool) *StockCreate {
+	if value != nil {
+		return s.SetIsRecommend(*value)
+	}
+	return s
+}
+
+// set field if value's pointer is not nil.
 func (t *TokenUpdate) SetNotNilUpdatedAt(value *time.Time) *TokenUpdate {
 	if value != nil {
 		return t.SetUpdatedAt(*value)

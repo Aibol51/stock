@@ -65,6 +65,11 @@ const (
 	Core_GetRoleList_FullMethodName                         = "/core.Core/getRoleList"
 	Core_GetRoleById_FullMethodName                         = "/core.Core/getRoleById"
 	Core_DeleteRole_FullMethodName                          = "/core.Core/deleteRole"
+	Core_CreateStock_FullMethodName                         = "/core.Core/createStock"
+	Core_UpdateStock_FullMethodName                         = "/core.Core/updateStock"
+	Core_GetStockList_FullMethodName                        = "/core.Core/getStockList"
+	Core_GetStockById_FullMethodName                        = "/core.Core/getStockById"
+	Core_DeleteStock_FullMethodName                         = "/core.Core/deleteStock"
 	Core_CreateToken_FullMethodName                         = "/core.Core/createToken"
 	Core_DeleteToken_FullMethodName                         = "/core.Core/deleteToken"
 	Core_GetTokenList_FullMethodName                        = "/core.Core/getTokenList"
@@ -182,6 +187,17 @@ type CoreClient interface {
 	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 	// group: role
 	DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// Stock management
+	// group: stock
+	CreateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: stock
+	UpdateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: stock
+	GetStockList(ctx context.Context, in *StockListReq, opts ...grpc.CallOption) (*StockListResp, error)
+	// group: stock
+	GetStockById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockInfo, error)
+	// group: stock
+	DeleteStock(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Token management
 	// group: token
 	CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
@@ -632,6 +648,51 @@ func (c *coreClient) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.Ca
 	return out, nil
 }
 
+func (c *coreClient) CreateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateStock_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateStock_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetStockList(ctx context.Context, in *StockListReq, opts ...grpc.CallOption) (*StockListResp, error) {
+	out := new(StockListResp)
+	err := c.cc.Invoke(ctx, Core_GetStockList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetStockById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockInfo, error) {
+	out := new(StockInfo)
+	err := c.cc.Invoke(ctx, Core_GetStockById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteStock(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteStock_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
 	out := new(BaseUUIDResp)
 	err := c.cc.Invoke(ctx, Core_CreateToken_FullMethodName, in, out, opts...)
@@ -843,6 +904,17 @@ type CoreServer interface {
 	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
 	// group: role
 	DeleteRole(context.Context, *IDsReq) (*BaseResp, error)
+	// Stock management
+	// group: stock
+	CreateStock(context.Context, *StockInfo) (*BaseUUIDResp, error)
+	// group: stock
+	UpdateStock(context.Context, *StockInfo) (*BaseResp, error)
+	// group: stock
+	GetStockList(context.Context, *StockListReq) (*StockListResp, error)
+	// group: stock
+	GetStockById(context.Context, *UUIDReq) (*StockInfo, error)
+	// group: stock
+	DeleteStock(context.Context, *UUIDsReq) (*BaseResp, error)
 	// Token management
 	// group: token
 	CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error)
@@ -1013,6 +1085,21 @@ func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, 
 }
 func (UnimplementedCoreServer) DeleteRole(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedCoreServer) CreateStock(context.Context, *StockInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateStock not implemented")
+}
+func (UnimplementedCoreServer) UpdateStock(context.Context, *StockInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateStock not implemented")
+}
+func (UnimplementedCoreServer) GetStockList(context.Context, *StockListReq) (*StockListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStockList not implemented")
+}
+func (UnimplementedCoreServer) GetStockById(context.Context, *UUIDReq) (*StockInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStockById not implemented")
+}
+func (UnimplementedCoreServer) DeleteStock(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteStock not implemented")
 }
 func (UnimplementedCoreServer) CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateToken not implemented")
@@ -1891,6 +1978,96 @@ func _Core_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateStock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StockInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateStock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateStock_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateStock(ctx, req.(*StockInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateStock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StockInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateStock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateStock_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateStock(ctx, req.(*StockInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetStockList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StockListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetStockList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetStockList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetStockList(ctx, req.(*StockListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetStockById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetStockById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetStockById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetStockById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteStock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteStock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteStock_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteStock(ctx, req.(*UUIDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(TokenInfo)
 	if err := dec(in); err != nil {
@@ -2297,6 +2474,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteRole",
 			Handler:    _Core_DeleteRole_Handler,
+		},
+		{
+			MethodName: "createStock",
+			Handler:    _Core_CreateStock_Handler,
+		},
+		{
+			MethodName: "updateStock",
+			Handler:    _Core_UpdateStock_Handler,
+		},
+		{
+			MethodName: "getStockList",
+			Handler:    _Core_GetStockList_Handler,
+		},
+		{
+			MethodName: "getStockById",
+			Handler:    _Core_GetStockById_Handler,
+		},
+		{
+			MethodName: "deleteStock",
+			Handler:    _Core_DeleteStock_Handler,
 		},
 		{
 			MethodName: "createToken",

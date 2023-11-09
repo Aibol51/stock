@@ -2050,6 +2050,146 @@
         }
       }
     },
+    "/stock": {
+      "post": {
+        "description": "Get stock by ID | 通过ID获取Stock",
+        "tags": [
+          "stock"
+        ],
+        "summary": "Get stock by ID | 通过ID获取Stock",
+        "operationId": "GetStockById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockInfoResp",
+            "schema": {
+              "$ref": "#/definitions/StockInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/stock/create": {
+      "post": {
+        "description": "Create stock information | 创建Stock",
+        "tags": [
+          "stock"
+        ],
+        "summary": "Create stock information | 创建Stock",
+        "operationId": "CreateStock",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stock/delete": {
+      "post": {
+        "description": "Delete stock information | 删除Stock信息",
+        "tags": [
+          "stock"
+        ],
+        "summary": "Delete stock information | 删除Stock信息",
+        "operationId": "DeleteStock",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stock/list": {
+      "post": {
+        "description": "Get stock list | 获取Stock列表",
+        "tags": [
+          "stock"
+        ],
+        "summary": "Get stock list | 获取Stock列表",
+        "operationId": "GetStockList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockListResp",
+            "schema": {
+              "$ref": "#/definitions/StockListResp"
+            }
+          }
+        }
+      }
+    },
+    "/stock/update": {
+      "post": {
+        "description": "Update stock information | 更新Stock",
+        "tags": [
+          "stock"
+        ],
+        "summary": "Update stock information | 更新Stock",
+        "operationId": "UpdateStock",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/task": {
       "post": {
         "description": "Get task by ID | 通过ID获取Task",
@@ -6234,6 +6374,151 @@
           "type": "string",
           "x-go-name": "Data",
           "$ref": "#/definitions/SmsProviderListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockInfo": {
+      "description": "The response data of stock information | Stock信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "isRecommend": {
+          "description": "Stock code",
+          "type": "boolean",
+          "x-go-name": "IsRecommend"
+        },
+        "status": {
+          "description": "Status 1: normal 2: ban | 状态 1 正常 2 禁用",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Status"
+        },
+        "stockCode": {
+          "description": "Stock code",
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "StockCode"
+        },
+        "stockName": {
+          "description": "Stock name",
+          "type": "string",
+          "x-go-name": "StockName"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockInfoResp": {
+      "description": "Stock information response | Stock信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockListInfo": {
+      "description": "Stock list data | Stock列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | Stock列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockListReq": {
+      "description": "Get stock list request params | Stock列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "stockName": {
+          "description": "StockName",
+          "type": "string",
+          "x-go-name": "StockName"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockListResp": {
+      "description": "The response data of stock list | Stock列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockListInfo"
         },
         "msg": {
           "description": "Message | 提示信息",

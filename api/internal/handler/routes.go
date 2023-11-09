@@ -21,6 +21,7 @@ import (
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	smslog "github.com/suyuan32/simple-admin-core/api/internal/handler/smslog"
 	smsprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/smsprovider"
+	stock "github.com/suyuan32/simple-admin-core/api/internal/handler/stock"
 	task "github.com/suyuan32/simple-admin-core/api/internal/handler/task"
 	tasklog "github.com/suyuan32/simple-admin-core/api/internal/handler/tasklog"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
@@ -771,6 +772,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/email/send",
 					Handler: messagesender.SendEmailHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/stock/create",
+					Handler: stock.CreateStockHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/stock/update",
+					Handler: stock.UpdateStockHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/stock/delete",
+					Handler: stock.DeleteStockHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/stock/list",
+					Handler: stock.GetStockListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/stock",
+					Handler: stock.GetStockByIdHandler(serverCtx),
 				},
 			}...,
 		),

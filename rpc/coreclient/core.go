@@ -52,6 +52,9 @@ type (
 	RoleListResp             = core.RoleListResp
 	RoleMenuAuthorityReq     = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp    = core.RoleMenuAuthorityResp
+	StockInfo                = core.StockInfo
+	StockListReq             = core.StockListReq
+	StockListResp            = core.StockListResp
 	TokenInfo                = core.TokenInfo
 	TokenListReq             = core.TokenListReq
 	TokenListResp            = core.TokenListResp
@@ -116,6 +119,12 @@ type (
 		GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 		DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Stock management
+		CreateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetStockList(ctx context.Context, in *StockListReq, opts ...grpc.CallOption) (*StockListResp, error)
+		GetStockById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockInfo, error)
+		DeleteStock(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Token management
 		CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
 		DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -378,6 +387,32 @@ func (m *defaultCore) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.C
 func (m *defaultCore) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteRole(ctx, in, opts...)
+}
+
+// Stock management
+func (m *defaultCore) CreateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateStock(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateStock(ctx context.Context, in *StockInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateStock(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockList(ctx context.Context, in *StockListReq, opts ...grpc.CallOption) (*StockListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteStock(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteStock(ctx, in, opts...)
 }
 
 // Token management

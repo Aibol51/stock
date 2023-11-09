@@ -16,6 +16,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/stock"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -268,6 +269,32 @@ func (s *CoreServer) GetRoleById(ctx context.Context, in *core.IDReq) (*core.Rol
 func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := role.NewDeleteRoleLogic(ctx, s.svcCtx)
 	return l.DeleteRole(in)
+}
+
+// Stock management
+func (s *CoreServer) CreateStock(ctx context.Context, in *core.StockInfo) (*core.BaseUUIDResp, error) {
+	l := stock.NewCreateStockLogic(ctx, s.svcCtx)
+	return l.CreateStock(in)
+}
+
+func (s *CoreServer) UpdateStock(ctx context.Context, in *core.StockInfo) (*core.BaseResp, error) {
+	l := stock.NewUpdateStockLogic(ctx, s.svcCtx)
+	return l.UpdateStock(in)
+}
+
+func (s *CoreServer) GetStockList(ctx context.Context, in *core.StockListReq) (*core.StockListResp, error) {
+	l := stock.NewGetStockListLogic(ctx, s.svcCtx)
+	return l.GetStockList(in)
+}
+
+func (s *CoreServer) GetStockById(ctx context.Context, in *core.UUIDReq) (*core.StockInfo, error) {
+	l := stock.NewGetStockByIdLogic(ctx, s.svcCtx)
+	return l.GetStockById(in)
+}
+
+func (s *CoreServer) DeleteStock(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := stock.NewDeleteStockLogic(ctx, s.svcCtx)
+	return l.DeleteStock(in)
 }
 
 // Token management

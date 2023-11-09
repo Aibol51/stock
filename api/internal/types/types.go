@@ -1577,3 +1577,49 @@ type SendEmailReq struct {
 	// The email provider | 邮件服务提供商
 	Provider *string `json:"provider,optional"`
 }
+
+// The response data of stock information | Stock信息
+// swagger:model StockInfo
+type StockInfo struct {
+	BaseUUIDInfo
+	// Status 1: normal 2: ban | 状态 1 正常 2 禁用
+	Status *uint32 `json:"status,optional"`
+	// Stock name
+	StockName *string `json:"stockName,optional"`
+	// Stock code
+	StockCode *int32 `json:"stockCode,optional"`
+	// Stock code
+	IsRecommend *bool `json:"isRecommend,optional"`
+}
+
+// The response data of stock list | Stock列表数据
+// swagger:model StockListResp
+type StockListResp struct {
+	BaseDataInfo
+	// Stock list data | Stock列表数据
+	Data StockListInfo `json:"data"`
+}
+
+// Stock list data | Stock列表数据
+// swagger:model StockListInfo
+type StockListInfo struct {
+	BaseListInfo
+	// The API list data | Stock列表数据
+	Data []StockInfo `json:"data"`
+}
+
+// Get stock list request params | Stock列表请求参数
+// swagger:model StockListReq
+type StockListReq struct {
+	PageInfo
+	// StockName
+	StockName *string `json:"stockName,optional"`
+}
+
+// Stock information response | Stock信息返回体
+// swagger:model StockInfoResp
+type StockInfoResp struct {
+	BaseDataInfo
+	// Stock information | Stock数据
+	Data StockInfo `json:"data"`
+}

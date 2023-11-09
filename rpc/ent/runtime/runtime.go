@@ -15,6 +15,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/schema"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -281,6 +282,35 @@ func init() {
 	roleDescSort := roleFields[4].Descriptor()
 	// role.DefaultSort holds the default value on creation for the sort field.
 	role.DefaultSort = roleDescSort.Default.(uint32)
+	stockMixin := schema.Stock{}.Mixin()
+	stockMixinFields0 := stockMixin[0].Fields()
+	_ = stockMixinFields0
+	stockMixinFields1 := stockMixin[1].Fields()
+	_ = stockMixinFields1
+	stockFields := schema.Stock{}.Fields()
+	_ = stockFields
+	// stockDescCreatedAt is the schema descriptor for created_at field.
+	stockDescCreatedAt := stockMixinFields0[1].Descriptor()
+	// stock.DefaultCreatedAt holds the default value on creation for the created_at field.
+	stock.DefaultCreatedAt = stockDescCreatedAt.Default.(func() time.Time)
+	// stockDescUpdatedAt is the schema descriptor for updated_at field.
+	stockDescUpdatedAt := stockMixinFields0[2].Descriptor()
+	// stock.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	stock.DefaultUpdatedAt = stockDescUpdatedAt.Default.(func() time.Time)
+	// stock.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	stock.UpdateDefaultUpdatedAt = stockDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// stockDescStatus is the schema descriptor for status field.
+	stockDescStatus := stockMixinFields1[0].Descriptor()
+	// stock.DefaultStatus holds the default value on creation for the status field.
+	stock.DefaultStatus = stockDescStatus.Default.(uint8)
+	// stockDescIsRecommend is the schema descriptor for is_recommend field.
+	stockDescIsRecommend := stockFields[2].Descriptor()
+	// stock.DefaultIsRecommend holds the default value on creation for the is_recommend field.
+	stock.DefaultIsRecommend = stockDescIsRecommend.Default.(bool)
+	// stockDescID is the schema descriptor for id field.
+	stockDescID := stockMixinFields0[0].Descriptor()
+	// stock.DefaultID holds the default value on creation for the id field.
+	stock.DefaultID = stockDescID.Default.(func() uuid.UUID)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0

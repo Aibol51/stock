@@ -30,6 +30,9 @@ type Position func(*sql.Selector)
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)
 
+// Stock is the predicate function for stock builders.
+type Stock func(*sql.Selector)
+
 // Token is the predicate function for token builders.
 type Token func(*sql.Selector)
 
