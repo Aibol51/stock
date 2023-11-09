@@ -11,7 +11,7 @@ message StockInfo {
   // Stock name
   optional string stock_name = 5;
   // Stock code
-  optional int32 stock_code = 6;
+  optional string stock_code = 6;
   // Stock code
   optional bool is_recommend = 7;
 }
@@ -25,6 +25,7 @@ message StockListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   optional string stock_name = 3;
+  optional string stock_code = 4;
 }
 
 

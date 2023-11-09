@@ -32,6 +32,9 @@ func (l *GetStockListLogic) GetStockList(in *core.StockListReq) (*core.StockList
 	if in.StockName != nil {
 		predicates = append(predicates, stock.StockNameContains(*in.StockName))
 	}
+	if in.StockCode != nil {
+		predicates = append(predicates, stock.StockCodeContains(*in.StockCode))
+	}
 	result, err := l.svcCtx.DB.Stock.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 
 	if err != nil {

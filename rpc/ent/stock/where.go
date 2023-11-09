@@ -76,7 +76,7 @@ func StockName(v string) predicate.Stock {
 }
 
 // StockCode applies equality check predicate on the "stock_code" field. It's identical to StockCodeEQ.
-func StockCode(v int32) predicate.Stock {
+func StockCode(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldEQ(FieldStockCode, v))
 }
 
@@ -281,43 +281,68 @@ func StockNameContainsFold(v string) predicate.Stock {
 }
 
 // StockCodeEQ applies the EQ predicate on the "stock_code" field.
-func StockCodeEQ(v int32) predicate.Stock {
+func StockCodeEQ(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldEQ(FieldStockCode, v))
 }
 
 // StockCodeNEQ applies the NEQ predicate on the "stock_code" field.
-func StockCodeNEQ(v int32) predicate.Stock {
+func StockCodeNEQ(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldNEQ(FieldStockCode, v))
 }
 
 // StockCodeIn applies the In predicate on the "stock_code" field.
-func StockCodeIn(vs ...int32) predicate.Stock {
+func StockCodeIn(vs ...string) predicate.Stock {
 	return predicate.Stock(sql.FieldIn(FieldStockCode, vs...))
 }
 
 // StockCodeNotIn applies the NotIn predicate on the "stock_code" field.
-func StockCodeNotIn(vs ...int32) predicate.Stock {
+func StockCodeNotIn(vs ...string) predicate.Stock {
 	return predicate.Stock(sql.FieldNotIn(FieldStockCode, vs...))
 }
 
 // StockCodeGT applies the GT predicate on the "stock_code" field.
-func StockCodeGT(v int32) predicate.Stock {
+func StockCodeGT(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldGT(FieldStockCode, v))
 }
 
 // StockCodeGTE applies the GTE predicate on the "stock_code" field.
-func StockCodeGTE(v int32) predicate.Stock {
+func StockCodeGTE(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldGTE(FieldStockCode, v))
 }
 
 // StockCodeLT applies the LT predicate on the "stock_code" field.
-func StockCodeLT(v int32) predicate.Stock {
+func StockCodeLT(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldLT(FieldStockCode, v))
 }
 
 // StockCodeLTE applies the LTE predicate on the "stock_code" field.
-func StockCodeLTE(v int32) predicate.Stock {
+func StockCodeLTE(v string) predicate.Stock {
 	return predicate.Stock(sql.FieldLTE(FieldStockCode, v))
+}
+
+// StockCodeContains applies the Contains predicate on the "stock_code" field.
+func StockCodeContains(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContains(FieldStockCode, v))
+}
+
+// StockCodeHasPrefix applies the HasPrefix predicate on the "stock_code" field.
+func StockCodeHasPrefix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasPrefix(FieldStockCode, v))
+}
+
+// StockCodeHasSuffix applies the HasSuffix predicate on the "stock_code" field.
+func StockCodeHasSuffix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasSuffix(FieldStockCode, v))
+}
+
+// StockCodeEqualFold applies the EqualFold predicate on the "stock_code" field.
+func StockCodeEqualFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEqualFold(FieldStockCode, v))
+}
+
+// StockCodeContainsFold applies the ContainsFold predicate on the "stock_code" field.
+func StockCodeContainsFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContainsFold(FieldStockCode, v))
 }
 
 // IsRecommendEQ applies the EQ predicate on the "is_recommend" field.

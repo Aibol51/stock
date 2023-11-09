@@ -38,3 +38,4 @@ LDFLAGS := -s -w
 .PHONY: gen-api-proto-logic
 gen-api-proto-logic: # Generate logic code from Proto, need model and group params
 	goctls api proto --proto=../rpc/core.proto --style=go_zero --api_service_name=core --rpc_service_name=Core --output=./ --model=$(model) --rpc_name=Core --grpc_package=github.com/suyuan32/simple-admin-core/rpc/types/core --i18n=true
+	@echo "Generate logic codes from Ent successfully"

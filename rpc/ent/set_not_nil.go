@@ -1833,7 +1833,7 @@ func (s *StockCreate) SetNotNilStockName(value *string) *StockCreate {
 }
 
 // set field if value's pointer is not nil.
-func (s *StockUpdate) SetNotNilStockCode(value *int32) *StockUpdate {
+func (s *StockUpdate) SetNotNilStockCode(value *string) *StockUpdate {
 	if value != nil {
 		return s.SetStockCode(*value)
 	}
@@ -1841,7 +1841,7 @@ func (s *StockUpdate) SetNotNilStockCode(value *int32) *StockUpdate {
 }
 
 // set field if value's pointer is not nil.
-func (s *StockUpdateOne) SetNotNilStockCode(value *int32) *StockUpdateOne {
+func (s *StockUpdateOne) SetNotNilStockCode(value *string) *StockUpdateOne {
 	if value != nil {
 		return s.SetStockCode(*value)
 	}
@@ -1849,7 +1849,7 @@ func (s *StockUpdateOne) SetNotNilStockCode(value *int32) *StockUpdateOne {
 }
 
 // set field if value's pointer is not nil.
-func (s *StockCreate) SetNotNilStockCode(value *int32) *StockCreate {
+func (s *StockCreate) SetNotNilStockCode(value *string) *StockCreate {
 	if value != nil {
 		return s.SetStockCode(*value)
 	}

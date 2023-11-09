@@ -1587,7 +1587,7 @@ type StockInfo struct {
 	// Stock name
 	StockName *string `json:"stockName,optional"`
 	// Stock code
-	StockCode *int32 `json:"stockCode,optional"`
+	StockCode *string `json:"stockCode,optional"`
 	// Stock code
 	IsRecommend *bool `json:"isRecommend,optional"`
 }

@@ -28,7 +28,7 @@ type Stock struct {
 	// Stock name
 	StockName string `json:"stock_name,omitempty"`
 	// Stock code
-	StockCode int32 `json:"stock_code,omitempty"`
+	StockCode string `json:"stock_code,omitempty"`
 	// Stock code
 	IsRecommend  bool `json:"is_recommend,omitempty"`
 	selectValues sql.SelectValues
@@ -41,9 +41,9 @@ func (*Stock) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case stock.FieldIsRecommend:
 			values[i] = new(sql.NullBool)
-		case stock.FieldStatus, stock.FieldStockCode:
+		case stock.FieldStatus:
 			values[i] = new(sql.NullInt64)
-		case stock.FieldStockName:
+		case stock.FieldStockName, stock.FieldStockCode:
 			values[i] = new(sql.NullString)
 		case stock.FieldCreatedAt, stock.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -95,10 +95,10 @@ func (s *Stock) assignValues(columns []string, values []any) error {
 				s.StockName = value.String
 			}
 		case stock.FieldStockCode:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field stock_code", values[i])
 			} else if value.Valid {
-				s.StockCode = int32(value.Int64)
+				s.StockCode = value.String
 			}
 		case stock.FieldIsRecommend:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -155,7 +155,7 @@ func (s *Stock) String() string {
 	builder.WriteString(s.StockName)
 	builder.WriteString(", ")
 	builder.WriteString("stock_code=")
-	builder.WriteString(fmt.Sprintf("%v", s.StockCode))
+	builder.WriteString(s.StockCode)
 	builder.WriteString(", ")
 	builder.WriteString("is_recommend=")
 	builder.WriteString(fmt.Sprintf("%v", s.IsRecommend))

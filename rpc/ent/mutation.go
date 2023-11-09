@@ -8531,8 +8531,7 @@ type StockMutation struct {
 	status        *uint8
 	addstatus     *int8
 	stock_name    *string
-	stock_code    *int32
-	addstock_code *int32
+	stock_code    *string
 	is_recommend  *bool
 	clearedFields map[string]struct{}
 	done          bool
@@ -8823,13 +8822,12 @@ func (m *StockMutation) ResetStockName() {
 }
 
 // SetStockCode sets the "stock_code" field.
-func (m *StockMutation) SetStockCode(i int32) {
-	m.stock_code = &i
-	m.addstock_code = nil
+func (m *StockMutation) SetStockCode(s string) {
+	m.stock_code = &s
 }
 
 // StockCode returns the value of the "stock_code" field in the mutation.
-func (m *StockMutation) StockCode() (r int32, exists bool) {
+func (m *StockMutation) StockCode() (r string, exists bool) {
 	v := m.stock_code
 	if v == nil {
 		return
@@ -8840,7 +8838,7 @@ func (m *StockMutation) StockCode() (r int32, exists bool) {
 // OldStockCode returns the old "stock_code" field's value of the Stock entity.
 // If the Stock object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldStockCode(ctx context.Context) (v int32, err error) {
+func (m *StockMutation) OldStockCode(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStockCode is only allowed on UpdateOne operations")
 	}
@@ -8854,28 +8852,9 @@ func (m *StockMutation) OldStockCode(ctx context.Context) (v int32, err error) {
 	return oldValue.StockCode, nil
 }
 
-// AddStockCode adds i to the "stock_code" field.
-func (m *StockMutation) AddStockCode(i int32) {
-	if m.addstock_code != nil {
-		*m.addstock_code += i
-	} else {
-		m.addstock_code = &i
-	}
-}
-
-// AddedStockCode returns the value that was added to the "stock_code" field in this mutation.
-func (m *StockMutation) AddedStockCode() (r int32, exists bool) {
-	v := m.addstock_code
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
 // ResetStockCode resets all changes to the "stock_code" field.
 func (m *StockMutation) ResetStockCode() {
 	m.stock_code = nil
-	m.addstock_code = nil
 }
 
 // SetIsRecommend sets the "is_recommend" field.
@@ -9046,7 +9025,7 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 		m.SetStockName(v)
 		return nil
 	case stock.FieldStockCode:
-		v, ok := value.(int32)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -9070,9 +9049,6 @@ func (m *StockMutation) AddedFields() []string {
 	if m.addstatus != nil {
 		fields = append(fields, stock.FieldStatus)
 	}
-	if m.addstock_code != nil {
-		fields = append(fields, stock.FieldStockCode)
-	}
 	return fields
 }
 
@@ -9083,8 +9059,6 @@ func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
 	case stock.FieldStatus:
 		return m.AddedStatus()
-	case stock.FieldStockCode:
-		return m.AddedStockCode()
 	}
 	return nil, false
 }
@@ -9100,13 +9074,6 @@ func (m *StockMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddStatus(v)
-		return nil
-	case stock.FieldStockCode:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddStockCode(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Stock numeric field %s", name)

@@ -779,36 +779,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	)
 
 	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.Authority},
-			[]rest.Route{
-				{
-					Method:  http.MethodPost,
-					Path:    "/stock/create",
-					Handler: stock.CreateStockHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/stock/update",
-					Handler: stock.UpdateStockHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/stock/delete",
-					Handler: stock.DeleteStockHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/stock/list",
-					Handler: stock.GetStockListHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/stock",
-					Handler: stock.GetStockByIdHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/stock/create",
+				Handler: stock.CreateStockHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stock/update",
+				Handler: stock.UpdateStockHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stock/delete",
+				Handler: stock.DeleteStockHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stock/list",
+				Handler: stock.GetStockListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stock",
+				Handler: stock.GetStockByIdHandler(serverCtx),
+			},
+		},
 	)
 }

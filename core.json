@@ -6411,8 +6411,7 @@
         },
         "stockCode": {
           "description": "Stock code",
-          "type": "integer",
-          "format": "int32",
+          "type": "string",
           "x-go-name": "StockCode"
         },
         "stockName": {

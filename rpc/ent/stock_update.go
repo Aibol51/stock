@@ -68,15 +68,8 @@ func (su *StockUpdate) SetStockName(s string) *StockUpdate {
 }
 
 // SetStockCode sets the "stock_code" field.
-func (su *StockUpdate) SetStockCode(i int32) *StockUpdate {
-	su.mutation.ResetStockCode()
-	su.mutation.SetStockCode(i)
-	return su
-}
-
-// AddStockCode adds i to the "stock_code" field.
-func (su *StockUpdate) AddStockCode(i int32) *StockUpdate {
-	su.mutation.AddStockCode(i)
+func (su *StockUpdate) SetStockCode(s string) *StockUpdate {
+	su.mutation.SetStockCode(s)
 	return su
 }
 
@@ -160,10 +153,7 @@ func (su *StockUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.SetField(stock.FieldStockName, field.TypeString, value)
 	}
 	if value, ok := su.mutation.StockCode(); ok {
-		_spec.SetField(stock.FieldStockCode, field.TypeInt32, value)
-	}
-	if value, ok := su.mutation.AddedStockCode(); ok {
-		_spec.AddField(stock.FieldStockCode, field.TypeInt32, value)
+		_spec.SetField(stock.FieldStockCode, field.TypeString, value)
 	}
 	if value, ok := su.mutation.IsRecommend(); ok {
 		_spec.SetField(stock.FieldIsRecommend, field.TypeBool, value)
@@ -228,15 +218,8 @@ func (suo *StockUpdateOne) SetStockName(s string) *StockUpdateOne {
 }
 
 // SetStockCode sets the "stock_code" field.
-func (suo *StockUpdateOne) SetStockCode(i int32) *StockUpdateOne {
-	suo.mutation.ResetStockCode()
-	suo.mutation.SetStockCode(i)
-	return suo
-}
-
-// AddStockCode adds i to the "stock_code" field.
-func (suo *StockUpdateOne) AddStockCode(i int32) *StockUpdateOne {
-	suo.mutation.AddStockCode(i)
+func (suo *StockUpdateOne) SetStockCode(s string) *StockUpdateOne {
+	suo.mutation.SetStockCode(s)
 	return suo
 }
 
@@ -350,10 +333,7 @@ func (suo *StockUpdateOne) sqlSave(ctx context.Context) (_node *Stock, err error
 		_spec.SetField(stock.FieldStockName, field.TypeString, value)
 	}
 	if value, ok := suo.mutation.StockCode(); ok {
-		_spec.SetField(stock.FieldStockCode, field.TypeInt32, value)
-	}
-	if value, ok := suo.mutation.AddedStockCode(); ok {
-		_spec.AddField(stock.FieldStockCode, field.TypeInt32, value)
+		_spec.SetField(stock.FieldStockCode, field.TypeString, value)
 	}
 	if value, ok := suo.mutation.IsRecommend(); ok {
 		_spec.SetField(stock.FieldIsRecommend, field.TypeBool, value)

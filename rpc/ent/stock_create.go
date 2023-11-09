@@ -70,8 +70,8 @@ func (sc *StockCreate) SetStockName(s string) *StockCreate {
 }
 
 // SetStockCode sets the "stock_code" field.
-func (sc *StockCreate) SetStockCode(i int32) *StockCreate {
-	sc.mutation.SetStockCode(i)
+func (sc *StockCreate) SetStockCode(s string) *StockCreate {
+	sc.mutation.SetStockCode(s)
 	return sc
 }
 
@@ -229,7 +229,7 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 		_node.StockName = value
 	}
 	if value, ok := sc.mutation.StockCode(); ok {
-		_spec.SetField(stock.FieldStockCode, field.TypeInt32, value)
+		_spec.SetField(stock.FieldStockCode, field.TypeString, value)
 		_node.StockCode = value
 	}
 	if value, ok := sc.mutation.IsRecommend(); ok {

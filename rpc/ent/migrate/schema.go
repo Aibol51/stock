@@ -234,7 +234,7 @@ var (
 		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "stock_name", Type: field.TypeString, Comment: "Stock name"},
-		{Name: "stock_code", Type: field.TypeInt32, Comment: "Stock code"},
+		{Name: "stock_code", Type: field.TypeString, Comment: "Stock code"},
 		{Name: "is_recommend", Type: field.TypeBool, Comment: "Stock code", Default: false},
 	}
 	// StocksTable holds the schema information for the "stocks" table.
