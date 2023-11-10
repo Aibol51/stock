@@ -16,7 +16,7 @@ func (Stock) Fields() []ent.Field {
 		field.String("stock_name").
 			Comment("Stock name").
 			Annotations(entsql.WithComments(true)),
-		field.Int32("stock_code").
+		field.String("stock_code").
 			Comment("Stock code").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("is_recommend").

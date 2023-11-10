@@ -52,9 +52,7 @@ type (
 )
 
 @server(
-    jwt: Auth
     group: stock
-    middleware: Authority
 )
 
 service Core {
