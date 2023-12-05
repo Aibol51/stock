@@ -45,6 +45,11 @@ func (l *GetStockByIdLogic) GetStockById(req *types.UUIDReq) (resp *types.StockI
 			StockName:   data.StockName,
 			StockCode:   data.StockCode,
 			IsRecommend: data.IsRecommend,
+			StockRise:   data.StockRise,
+			StockFall:   data.StockFall,
+			AddTime:     data.AddTime,
+			Details:     data.Details,
+			StockTags:   data.StockTags,
 		},
 	}, nil
 }

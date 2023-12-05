@@ -51,6 +51,11 @@ func (l *GetStockListLogic) GetStockList(req *types.StockListReq) (resp *types.S
 				StockName:   v.StockName,
 				StockCode:   v.StockCode,
 				IsRecommend: v.IsRecommend,
+				StockRise:   v.StockRise,
+				StockFall:   v.StockFall,
+				AddTime:     v.AddTime,
+				Details:     v.Details,
+				StockTags:   v.StockTags,
 			})
 	}
 	return resp, nil

@@ -23,6 +23,31 @@ func (Stock) Fields() []ent.Field {
 			Default(false).
 			Comment("Stock code").
 			Annotations(entsql.WithComments(true)),
+		// 添加上涨字段
+		field.String("stock_rise").
+			Optional().
+			Comment("Stock rise value").
+			Annotations(entsql.WithComments(true)),
+		// 添加下跌字段
+		field.String("stock_fall").
+			Optional().
+			Comment("Stock fall value").
+			Annotations(entsql.WithComments(true)),
+		// 添加股票添加时间字段
+		field.String("add_time").
+			Optional().
+			Comment("Stock addition time as a string").
+			Annotations(entsql.WithComments(true)),
+		// 添加股票详情信息字段
+		field.String("details").
+			Optional().
+			Comment("Detailed information about the stock").
+			Annotations(entsql.WithComments(true)),
+		// 添加股票标签字段
+		field.String("stock_tags").
+			Optional().
+			Comment("Tags associated with the stock").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 

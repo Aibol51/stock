@@ -33,12 +33,16 @@ func (l *GetStockByIdLogic) GetStockById(in *core.UUIDReq) (*core.StockInfo, err
 	}
 
 	return &core.StockInfo{
-		Id:          pointy.GetPointer(result.ID.String()),
-		CreatedAt:   pointy.GetPointer(result.CreatedAt.Unix()),
-		UpdatedAt:   pointy.GetPointer(result.UpdatedAt.Unix()),
-		Status:      pointy.GetPointer(uint32(result.Status)),
-		StockName:   &result.StockName,
-		StockCode:   &result.StockCode,
-		IsRecommend: &result.IsRecommend,
+		Id:        pointy.GetPointer(result.ID.String()),
+		CreatedAt: pointy.GetPointer(result.CreatedAt.Unix()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.Unix()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		StockName: &result.StockName,
+		StockCode: &result.StockCode,
+		StockRise: &result.StockRise,
+		StockFall: &result.StockFall,
+		AddTime:   &result.AddTime,
+		Details:   &result.Details,
+		StockTags: &result.StockTags,
 	}, nil
 }

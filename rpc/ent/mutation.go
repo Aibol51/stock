@@ -8533,6 +8533,11 @@ type StockMutation struct {
 	stock_name    *string
 	stock_code    *string
 	is_recommend  *bool
+	stock_rise    *string
+	stock_fall    *string
+	add_time      *string
+	details       *string
+	stock_tags    *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*Stock, error)
@@ -8893,6 +8898,251 @@ func (m *StockMutation) ResetIsRecommend() {
 	m.is_recommend = nil
 }
 
+// SetStockRise sets the "stock_rise" field.
+func (m *StockMutation) SetStockRise(s string) {
+	m.stock_rise = &s
+}
+
+// StockRise returns the value of the "stock_rise" field in the mutation.
+func (m *StockMutation) StockRise() (r string, exists bool) {
+	v := m.stock_rise
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStockRise returns the old "stock_rise" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldStockRise(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStockRise is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStockRise requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStockRise: %w", err)
+	}
+	return oldValue.StockRise, nil
+}
+
+// ClearStockRise clears the value of the "stock_rise" field.
+func (m *StockMutation) ClearStockRise() {
+	m.stock_rise = nil
+	m.clearedFields[stock.FieldStockRise] = struct{}{}
+}
+
+// StockRiseCleared returns if the "stock_rise" field was cleared in this mutation.
+func (m *StockMutation) StockRiseCleared() bool {
+	_, ok := m.clearedFields[stock.FieldStockRise]
+	return ok
+}
+
+// ResetStockRise resets all changes to the "stock_rise" field.
+func (m *StockMutation) ResetStockRise() {
+	m.stock_rise = nil
+	delete(m.clearedFields, stock.FieldStockRise)
+}
+
+// SetStockFall sets the "stock_fall" field.
+func (m *StockMutation) SetStockFall(s string) {
+	m.stock_fall = &s
+}
+
+// StockFall returns the value of the "stock_fall" field in the mutation.
+func (m *StockMutation) StockFall() (r string, exists bool) {
+	v := m.stock_fall
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStockFall returns the old "stock_fall" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldStockFall(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStockFall is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStockFall requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStockFall: %w", err)
+	}
+	return oldValue.StockFall, nil
+}
+
+// ClearStockFall clears the value of the "stock_fall" field.
+func (m *StockMutation) ClearStockFall() {
+	m.stock_fall = nil
+	m.clearedFields[stock.FieldStockFall] = struct{}{}
+}
+
+// StockFallCleared returns if the "stock_fall" field was cleared in this mutation.
+func (m *StockMutation) StockFallCleared() bool {
+	_, ok := m.clearedFields[stock.FieldStockFall]
+	return ok
+}
+
+// ResetStockFall resets all changes to the "stock_fall" field.
+func (m *StockMutation) ResetStockFall() {
+	m.stock_fall = nil
+	delete(m.clearedFields, stock.FieldStockFall)
+}
+
+// SetAddTime sets the "add_time" field.
+func (m *StockMutation) SetAddTime(s string) {
+	m.add_time = &s
+}
+
+// AddTime returns the value of the "add_time" field in the mutation.
+func (m *StockMutation) AddTime() (r string, exists bool) {
+	v := m.add_time
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAddTime returns the old "add_time" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldAddTime(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAddTime is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAddTime requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAddTime: %w", err)
+	}
+	return oldValue.AddTime, nil
+}
+
+// ClearAddTime clears the value of the "add_time" field.
+func (m *StockMutation) ClearAddTime() {
+	m.add_time = nil
+	m.clearedFields[stock.FieldAddTime] = struct{}{}
+}
+
+// AddTimeCleared returns if the "add_time" field was cleared in this mutation.
+func (m *StockMutation) AddTimeCleared() bool {
+	_, ok := m.clearedFields[stock.FieldAddTime]
+	return ok
+}
+
+// ResetAddTime resets all changes to the "add_time" field.
+func (m *StockMutation) ResetAddTime() {
+	m.add_time = nil
+	delete(m.clearedFields, stock.FieldAddTime)
+}
+
+// SetDetails sets the "details" field.
+func (m *StockMutation) SetDetails(s string) {
+	m.details = &s
+}
+
+// Details returns the value of the "details" field in the mutation.
+func (m *StockMutation) Details() (r string, exists bool) {
+	v := m.details
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDetails returns the old "details" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldDetails(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDetails is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDetails requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDetails: %w", err)
+	}
+	return oldValue.Details, nil
+}
+
+// ClearDetails clears the value of the "details" field.
+func (m *StockMutation) ClearDetails() {
+	m.details = nil
+	m.clearedFields[stock.FieldDetails] = struct{}{}
+}
+
+// DetailsCleared returns if the "details" field was cleared in this mutation.
+func (m *StockMutation) DetailsCleared() bool {
+	_, ok := m.clearedFields[stock.FieldDetails]
+	return ok
+}
+
+// ResetDetails resets all changes to the "details" field.
+func (m *StockMutation) ResetDetails() {
+	m.details = nil
+	delete(m.clearedFields, stock.FieldDetails)
+}
+
+// SetStockTags sets the "stock_tags" field.
+func (m *StockMutation) SetStockTags(s string) {
+	m.stock_tags = &s
+}
+
+// StockTags returns the value of the "stock_tags" field in the mutation.
+func (m *StockMutation) StockTags() (r string, exists bool) {
+	v := m.stock_tags
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStockTags returns the old "stock_tags" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldStockTags(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStockTags is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStockTags requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStockTags: %w", err)
+	}
+	return oldValue.StockTags, nil
+}
+
+// ClearStockTags clears the value of the "stock_tags" field.
+func (m *StockMutation) ClearStockTags() {
+	m.stock_tags = nil
+	m.clearedFields[stock.FieldStockTags] = struct{}{}
+}
+
+// StockTagsCleared returns if the "stock_tags" field was cleared in this mutation.
+func (m *StockMutation) StockTagsCleared() bool {
+	_, ok := m.clearedFields[stock.FieldStockTags]
+	return ok
+}
+
+// ResetStockTags resets all changes to the "stock_tags" field.
+func (m *StockMutation) ResetStockTags() {
+	m.stock_tags = nil
+	delete(m.clearedFields, stock.FieldStockTags)
+}
+
 // Where appends a list predicates to the StockMutation builder.
 func (m *StockMutation) Where(ps ...predicate.Stock) {
 	m.predicates = append(m.predicates, ps...)
@@ -8927,7 +9177,7 @@ func (m *StockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *StockMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 11)
 	if m.created_at != nil {
 		fields = append(fields, stock.FieldCreatedAt)
 	}
@@ -8945,6 +9195,21 @@ func (m *StockMutation) Fields() []string {
 	}
 	if m.is_recommend != nil {
 		fields = append(fields, stock.FieldIsRecommend)
+	}
+	if m.stock_rise != nil {
+		fields = append(fields, stock.FieldStockRise)
+	}
+	if m.stock_fall != nil {
+		fields = append(fields, stock.FieldStockFall)
+	}
+	if m.add_time != nil {
+		fields = append(fields, stock.FieldAddTime)
+	}
+	if m.details != nil {
+		fields = append(fields, stock.FieldDetails)
+	}
+	if m.stock_tags != nil {
+		fields = append(fields, stock.FieldStockTags)
 	}
 	return fields
 }
@@ -8966,6 +9231,16 @@ func (m *StockMutation) Field(name string) (ent.Value, bool) {
 		return m.StockCode()
 	case stock.FieldIsRecommend:
 		return m.IsRecommend()
+	case stock.FieldStockRise:
+		return m.StockRise()
+	case stock.FieldStockFall:
+		return m.StockFall()
+	case stock.FieldAddTime:
+		return m.AddTime()
+	case stock.FieldDetails:
+		return m.Details()
+	case stock.FieldStockTags:
+		return m.StockTags()
 	}
 	return nil, false
 }
@@ -8987,6 +9262,16 @@ func (m *StockMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldStockCode(ctx)
 	case stock.FieldIsRecommend:
 		return m.OldIsRecommend(ctx)
+	case stock.FieldStockRise:
+		return m.OldStockRise(ctx)
+	case stock.FieldStockFall:
+		return m.OldStockFall(ctx)
+	case stock.FieldAddTime:
+		return m.OldAddTime(ctx)
+	case stock.FieldDetails:
+		return m.OldDetails(ctx)
+	case stock.FieldStockTags:
+		return m.OldStockTags(ctx)
 	}
 	return nil, fmt.Errorf("unknown Stock field %s", name)
 }
@@ -9038,6 +9323,41 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetIsRecommend(v)
 		return nil
+	case stock.FieldStockRise:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStockRise(v)
+		return nil
+	case stock.FieldStockFall:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStockFall(v)
+		return nil
+	case stock.FieldAddTime:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAddTime(v)
+		return nil
+	case stock.FieldDetails:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDetails(v)
+		return nil
+	case stock.FieldStockTags:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStockTags(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Stock field %s", name)
 }
@@ -9086,6 +9406,21 @@ func (m *StockMutation) ClearedFields() []string {
 	if m.FieldCleared(stock.FieldStatus) {
 		fields = append(fields, stock.FieldStatus)
 	}
+	if m.FieldCleared(stock.FieldStockRise) {
+		fields = append(fields, stock.FieldStockRise)
+	}
+	if m.FieldCleared(stock.FieldStockFall) {
+		fields = append(fields, stock.FieldStockFall)
+	}
+	if m.FieldCleared(stock.FieldAddTime) {
+		fields = append(fields, stock.FieldAddTime)
+	}
+	if m.FieldCleared(stock.FieldDetails) {
+		fields = append(fields, stock.FieldDetails)
+	}
+	if m.FieldCleared(stock.FieldStockTags) {
+		fields = append(fields, stock.FieldStockTags)
+	}
 	return fields
 }
 
@@ -9102,6 +9437,21 @@ func (m *StockMutation) ClearField(name string) error {
 	switch name {
 	case stock.FieldStatus:
 		m.ClearStatus()
+		return nil
+	case stock.FieldStockRise:
+		m.ClearStockRise()
+		return nil
+	case stock.FieldStockFall:
+		m.ClearStockFall()
+		return nil
+	case stock.FieldAddTime:
+		m.ClearAddTime()
+		return nil
+	case stock.FieldDetails:
+		m.ClearDetails()
+		return nil
+	case stock.FieldStockTags:
+		m.ClearStockTags()
 		return nil
 	}
 	return fmt.Errorf("unknown Stock nullable field %s", name)
@@ -9128,6 +9478,21 @@ func (m *StockMutation) ResetField(name string) error {
 		return nil
 	case stock.FieldIsRecommend:
 		m.ResetIsRecommend()
+		return nil
+	case stock.FieldStockRise:
+		m.ResetStockRise()
+		return nil
+	case stock.FieldStockFall:
+		m.ResetStockFall()
+		return nil
+	case stock.FieldAddTime:
+		m.ResetAddTime()
+		return nil
+	case stock.FieldDetails:
+		m.ResetDetails()
+		return nil
+	case stock.FieldStockTags:
+		m.ResetStockTags()
 		return nil
 	}
 	return fmt.Errorf("unknown Stock field %s", name)

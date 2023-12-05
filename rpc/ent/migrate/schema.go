@@ -236,6 +236,11 @@ var (
 		{Name: "stock_name", Type: field.TypeString, Comment: "Stock name"},
 		{Name: "stock_code", Type: field.TypeString, Comment: "Stock code"},
 		{Name: "is_recommend", Type: field.TypeBool, Comment: "Stock code", Default: false},
+		{Name: "stock_rise", Type: field.TypeString, Nullable: true, Comment: "Stock rise value"},
+		{Name: "stock_fall", Type: field.TypeString, Nullable: true, Comment: "Stock fall value"},
+		{Name: "add_time", Type: field.TypeString, Nullable: true, Comment: "Stock addition time as a string"},
+		{Name: "details", Type: field.TypeString, Nullable: true, Comment: "Detailed information about the stock"},
+		{Name: "stock_tags", Type: field.TypeString, Nullable: true, Comment: "Tags associated with the stock"},
 	}
 	// StocksTable holds the schema information for the "stocks" table.
 	StocksTable = &schema.Table{

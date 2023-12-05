@@ -14,6 +14,16 @@ message StockInfo {
   optional string stock_code = 6;
   // Stock code
   optional bool is_recommend = 7;
+  // Stock rise value | 股票上涨值
+  optional string stock_rise = 8;
+  // Stock fall value | 股票下跌值
+  optional string stock_fall = 9;
+  // Stock addition time | 股票添加时间
+  optional string add_time = 10;
+  // Stock details | 股票详情信息
+  optional string details = 11;
+  // Stock stockTags | 股票标签
+  optional string stock_tags = 12;
 }
 
 message StockListResp {

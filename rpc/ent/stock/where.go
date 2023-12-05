@@ -85,6 +85,31 @@ func IsRecommend(v bool) predicate.Stock {
 	return predicate.Stock(sql.FieldEQ(FieldIsRecommend, v))
 }
 
+// StockRise applies equality check predicate on the "stock_rise" field. It's identical to StockRiseEQ.
+func StockRise(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldStockRise, v))
+}
+
+// StockFall applies equality check predicate on the "stock_fall" field. It's identical to StockFallEQ.
+func StockFall(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldStockFall, v))
+}
+
+// AddTime applies equality check predicate on the "add_time" field. It's identical to AddTimeEQ.
+func AddTime(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldAddTime, v))
+}
+
+// Details applies equality check predicate on the "details" field. It's identical to DetailsEQ.
+func Details(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldDetails, v))
+}
+
+// StockTags applies equality check predicate on the "stock_tags" field. It's identical to StockTagsEQ.
+func StockTags(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldStockTags, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.Stock {
 	return predicate.Stock(sql.FieldEQ(FieldCreatedAt, v))
@@ -353,6 +378,381 @@ func IsRecommendEQ(v bool) predicate.Stock {
 // IsRecommendNEQ applies the NEQ predicate on the "is_recommend" field.
 func IsRecommendNEQ(v bool) predicate.Stock {
 	return predicate.Stock(sql.FieldNEQ(FieldIsRecommend, v))
+}
+
+// StockRiseEQ applies the EQ predicate on the "stock_rise" field.
+func StockRiseEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldStockRise, v))
+}
+
+// StockRiseNEQ applies the NEQ predicate on the "stock_rise" field.
+func StockRiseNEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldNEQ(FieldStockRise, v))
+}
+
+// StockRiseIn applies the In predicate on the "stock_rise" field.
+func StockRiseIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldIn(FieldStockRise, vs...))
+}
+
+// StockRiseNotIn applies the NotIn predicate on the "stock_rise" field.
+func StockRiseNotIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldNotIn(FieldStockRise, vs...))
+}
+
+// StockRiseGT applies the GT predicate on the "stock_rise" field.
+func StockRiseGT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGT(FieldStockRise, v))
+}
+
+// StockRiseGTE applies the GTE predicate on the "stock_rise" field.
+func StockRiseGTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGTE(FieldStockRise, v))
+}
+
+// StockRiseLT applies the LT predicate on the "stock_rise" field.
+func StockRiseLT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLT(FieldStockRise, v))
+}
+
+// StockRiseLTE applies the LTE predicate on the "stock_rise" field.
+func StockRiseLTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLTE(FieldStockRise, v))
+}
+
+// StockRiseContains applies the Contains predicate on the "stock_rise" field.
+func StockRiseContains(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContains(FieldStockRise, v))
+}
+
+// StockRiseHasPrefix applies the HasPrefix predicate on the "stock_rise" field.
+func StockRiseHasPrefix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasPrefix(FieldStockRise, v))
+}
+
+// StockRiseHasSuffix applies the HasSuffix predicate on the "stock_rise" field.
+func StockRiseHasSuffix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasSuffix(FieldStockRise, v))
+}
+
+// StockRiseIsNil applies the IsNil predicate on the "stock_rise" field.
+func StockRiseIsNil() predicate.Stock {
+	return predicate.Stock(sql.FieldIsNull(FieldStockRise))
+}
+
+// StockRiseNotNil applies the NotNil predicate on the "stock_rise" field.
+func StockRiseNotNil() predicate.Stock {
+	return predicate.Stock(sql.FieldNotNull(FieldStockRise))
+}
+
+// StockRiseEqualFold applies the EqualFold predicate on the "stock_rise" field.
+func StockRiseEqualFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEqualFold(FieldStockRise, v))
+}
+
+// StockRiseContainsFold applies the ContainsFold predicate on the "stock_rise" field.
+func StockRiseContainsFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContainsFold(FieldStockRise, v))
+}
+
+// StockFallEQ applies the EQ predicate on the "stock_fall" field.
+func StockFallEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldStockFall, v))
+}
+
+// StockFallNEQ applies the NEQ predicate on the "stock_fall" field.
+func StockFallNEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldNEQ(FieldStockFall, v))
+}
+
+// StockFallIn applies the In predicate on the "stock_fall" field.
+func StockFallIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldIn(FieldStockFall, vs...))
+}
+
+// StockFallNotIn applies the NotIn predicate on the "stock_fall" field.
+func StockFallNotIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldNotIn(FieldStockFall, vs...))
+}
+
+// StockFallGT applies the GT predicate on the "stock_fall" field.
+func StockFallGT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGT(FieldStockFall, v))
+}
+
+// StockFallGTE applies the GTE predicate on the "stock_fall" field.
+func StockFallGTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGTE(FieldStockFall, v))
+}
+
+// StockFallLT applies the LT predicate on the "stock_fall" field.
+func StockFallLT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLT(FieldStockFall, v))
+}
+
+// StockFallLTE applies the LTE predicate on the "stock_fall" field.
+func StockFallLTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLTE(FieldStockFall, v))
+}
+
+// StockFallContains applies the Contains predicate on the "stock_fall" field.
+func StockFallContains(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContains(FieldStockFall, v))
+}
+
+// StockFallHasPrefix applies the HasPrefix predicate on the "stock_fall" field.
+func StockFallHasPrefix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasPrefix(FieldStockFall, v))
+}
+
+// StockFallHasSuffix applies the HasSuffix predicate on the "stock_fall" field.
+func StockFallHasSuffix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasSuffix(FieldStockFall, v))
+}
+
+// StockFallIsNil applies the IsNil predicate on the "stock_fall" field.
+func StockFallIsNil() predicate.Stock {
+	return predicate.Stock(sql.FieldIsNull(FieldStockFall))
+}
+
+// StockFallNotNil applies the NotNil predicate on the "stock_fall" field.
+func StockFallNotNil() predicate.Stock {
+	return predicate.Stock(sql.FieldNotNull(FieldStockFall))
+}
+
+// StockFallEqualFold applies the EqualFold predicate on the "stock_fall" field.
+func StockFallEqualFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEqualFold(FieldStockFall, v))
+}
+
+// StockFallContainsFold applies the ContainsFold predicate on the "stock_fall" field.
+func StockFallContainsFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContainsFold(FieldStockFall, v))
+}
+
+// AddTimeEQ applies the EQ predicate on the "add_time" field.
+func AddTimeEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldAddTime, v))
+}
+
+// AddTimeNEQ applies the NEQ predicate on the "add_time" field.
+func AddTimeNEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldNEQ(FieldAddTime, v))
+}
+
+// AddTimeIn applies the In predicate on the "add_time" field.
+func AddTimeIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldIn(FieldAddTime, vs...))
+}
+
+// AddTimeNotIn applies the NotIn predicate on the "add_time" field.
+func AddTimeNotIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldNotIn(FieldAddTime, vs...))
+}
+
+// AddTimeGT applies the GT predicate on the "add_time" field.
+func AddTimeGT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGT(FieldAddTime, v))
+}
+
+// AddTimeGTE applies the GTE predicate on the "add_time" field.
+func AddTimeGTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGTE(FieldAddTime, v))
+}
+
+// AddTimeLT applies the LT predicate on the "add_time" field.
+func AddTimeLT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLT(FieldAddTime, v))
+}
+
+// AddTimeLTE applies the LTE predicate on the "add_time" field.
+func AddTimeLTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLTE(FieldAddTime, v))
+}
+
+// AddTimeContains applies the Contains predicate on the "add_time" field.
+func AddTimeContains(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContains(FieldAddTime, v))
+}
+
+// AddTimeHasPrefix applies the HasPrefix predicate on the "add_time" field.
+func AddTimeHasPrefix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasPrefix(FieldAddTime, v))
+}
+
+// AddTimeHasSuffix applies the HasSuffix predicate on the "add_time" field.
+func AddTimeHasSuffix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasSuffix(FieldAddTime, v))
+}
+
+// AddTimeIsNil applies the IsNil predicate on the "add_time" field.
+func AddTimeIsNil() predicate.Stock {
+	return predicate.Stock(sql.FieldIsNull(FieldAddTime))
+}
+
+// AddTimeNotNil applies the NotNil predicate on the "add_time" field.
+func AddTimeNotNil() predicate.Stock {
+	return predicate.Stock(sql.FieldNotNull(FieldAddTime))
+}
+
+// AddTimeEqualFold applies the EqualFold predicate on the "add_time" field.
+func AddTimeEqualFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEqualFold(FieldAddTime, v))
+}
+
+// AddTimeContainsFold applies the ContainsFold predicate on the "add_time" field.
+func AddTimeContainsFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContainsFold(FieldAddTime, v))
+}
+
+// DetailsEQ applies the EQ predicate on the "details" field.
+func DetailsEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldDetails, v))
+}
+
+// DetailsNEQ applies the NEQ predicate on the "details" field.
+func DetailsNEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldNEQ(FieldDetails, v))
+}
+
+// DetailsIn applies the In predicate on the "details" field.
+func DetailsIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldIn(FieldDetails, vs...))
+}
+
+// DetailsNotIn applies the NotIn predicate on the "details" field.
+func DetailsNotIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldNotIn(FieldDetails, vs...))
+}
+
+// DetailsGT applies the GT predicate on the "details" field.
+func DetailsGT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGT(FieldDetails, v))
+}
+
+// DetailsGTE applies the GTE predicate on the "details" field.
+func DetailsGTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGTE(FieldDetails, v))
+}
+
+// DetailsLT applies the LT predicate on the "details" field.
+func DetailsLT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLT(FieldDetails, v))
+}
+
+// DetailsLTE applies the LTE predicate on the "details" field.
+func DetailsLTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLTE(FieldDetails, v))
+}
+
+// DetailsContains applies the Contains predicate on the "details" field.
+func DetailsContains(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContains(FieldDetails, v))
+}
+
+// DetailsHasPrefix applies the HasPrefix predicate on the "details" field.
+func DetailsHasPrefix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasPrefix(FieldDetails, v))
+}
+
+// DetailsHasSuffix applies the HasSuffix predicate on the "details" field.
+func DetailsHasSuffix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasSuffix(FieldDetails, v))
+}
+
+// DetailsIsNil applies the IsNil predicate on the "details" field.
+func DetailsIsNil() predicate.Stock {
+	return predicate.Stock(sql.FieldIsNull(FieldDetails))
+}
+
+// DetailsNotNil applies the NotNil predicate on the "details" field.
+func DetailsNotNil() predicate.Stock {
+	return predicate.Stock(sql.FieldNotNull(FieldDetails))
+}
+
+// DetailsEqualFold applies the EqualFold predicate on the "details" field.
+func DetailsEqualFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEqualFold(FieldDetails, v))
+}
+
+// DetailsContainsFold applies the ContainsFold predicate on the "details" field.
+func DetailsContainsFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContainsFold(FieldDetails, v))
+}
+
+// StockTagsEQ applies the EQ predicate on the "stock_tags" field.
+func StockTagsEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEQ(FieldStockTags, v))
+}
+
+// StockTagsNEQ applies the NEQ predicate on the "stock_tags" field.
+func StockTagsNEQ(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldNEQ(FieldStockTags, v))
+}
+
+// StockTagsIn applies the In predicate on the "stock_tags" field.
+func StockTagsIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldIn(FieldStockTags, vs...))
+}
+
+// StockTagsNotIn applies the NotIn predicate on the "stock_tags" field.
+func StockTagsNotIn(vs ...string) predicate.Stock {
+	return predicate.Stock(sql.FieldNotIn(FieldStockTags, vs...))
+}
+
+// StockTagsGT applies the GT predicate on the "stock_tags" field.
+func StockTagsGT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGT(FieldStockTags, v))
+}
+
+// StockTagsGTE applies the GTE predicate on the "stock_tags" field.
+func StockTagsGTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldGTE(FieldStockTags, v))
+}
+
+// StockTagsLT applies the LT predicate on the "stock_tags" field.
+func StockTagsLT(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLT(FieldStockTags, v))
+}
+
+// StockTagsLTE applies the LTE predicate on the "stock_tags" field.
+func StockTagsLTE(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldLTE(FieldStockTags, v))
+}
+
+// StockTagsContains applies the Contains predicate on the "stock_tags" field.
+func StockTagsContains(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContains(FieldStockTags, v))
+}
+
+// StockTagsHasPrefix applies the HasPrefix predicate on the "stock_tags" field.
+func StockTagsHasPrefix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasPrefix(FieldStockTags, v))
+}
+
+// StockTagsHasSuffix applies the HasSuffix predicate on the "stock_tags" field.
+func StockTagsHasSuffix(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldHasSuffix(FieldStockTags, v))
+}
+
+// StockTagsIsNil applies the IsNil predicate on the "stock_tags" field.
+func StockTagsIsNil() predicate.Stock {
+	return predicate.Stock(sql.FieldIsNull(FieldStockTags))
+}
+
+// StockTagsNotNil applies the NotNil predicate on the "stock_tags" field.
+func StockTagsNotNil() predicate.Stock {
+	return predicate.Stock(sql.FieldNotNull(FieldStockTags))
+}
+
+// StockTagsEqualFold applies the EqualFold predicate on the "stock_tags" field.
+func StockTagsEqualFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldEqualFold(FieldStockTags, v))
+}
+
+// StockTagsContainsFold applies the ContainsFold predicate on the "stock_tags" field.
+func StockTagsContainsFold(v string) predicate.Stock {
+	return predicate.Stock(sql.FieldContainsFold(FieldStockTags, v))
 }
 
 // And groups predicates with the AND operator between them.

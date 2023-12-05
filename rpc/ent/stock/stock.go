@@ -26,6 +26,16 @@ const (
 	FieldStockCode = "stock_code"
 	// FieldIsRecommend holds the string denoting the is_recommend field in the database.
 	FieldIsRecommend = "is_recommend"
+	// FieldStockRise holds the string denoting the stock_rise field in the database.
+	FieldStockRise = "stock_rise"
+	// FieldStockFall holds the string denoting the stock_fall field in the database.
+	FieldStockFall = "stock_fall"
+	// FieldAddTime holds the string denoting the add_time field in the database.
+	FieldAddTime = "add_time"
+	// FieldDetails holds the string denoting the details field in the database.
+	FieldDetails = "details"
+	// FieldStockTags holds the string denoting the stock_tags field in the database.
+	FieldStockTags = "stock_tags"
 	// Table holds the table name of the stock in the database.
 	Table = "stocks"
 )
@@ -39,6 +49,11 @@ var Columns = []string{
 	FieldStockName,
 	FieldStockCode,
 	FieldIsRecommend,
+	FieldStockRise,
+	FieldStockFall,
+	FieldAddTime,
+	FieldDetails,
+	FieldStockTags,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -102,4 +117,29 @@ func ByStockCode(opts ...sql.OrderTermOption) OrderOption {
 // ByIsRecommend orders the results by the is_recommend field.
 func ByIsRecommend(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIsRecommend, opts...).ToFunc()
+}
+
+// ByStockRise orders the results by the stock_rise field.
+func ByStockRise(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldStockRise, opts...).ToFunc()
+}
+
+// ByStockFall orders the results by the stock_fall field.
+func ByStockFall(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldStockFall, opts...).ToFunc()
+}
+
+// ByAddTime orders the results by the add_time field.
+func ByAddTime(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAddTime, opts...).ToFunc()
+}
+
+// ByDetails orders the results by the details field.
+func ByDetails(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDetails, opts...).ToFunc()
+}
+
+// ByStockTags orders the results by the stock_tags field.
+func ByStockTags(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldStockTags, opts...).ToFunc()
 }

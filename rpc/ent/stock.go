@@ -30,7 +30,17 @@ type Stock struct {
 	// Stock code
 	StockCode string `json:"stock_code,omitempty"`
 	// Stock code
-	IsRecommend  bool `json:"is_recommend,omitempty"`
+	IsRecommend bool `json:"is_recommend,omitempty"`
+	// Stock rise value
+	StockRise string `json:"stock_rise,omitempty"`
+	// Stock fall value
+	StockFall string `json:"stock_fall,omitempty"`
+	// Stock addition time as a string
+	AddTime string `json:"add_time,omitempty"`
+	// Detailed information about the stock
+	Details string `json:"details,omitempty"`
+	// Tags associated with the stock
+	StockTags    string `json:"stock_tags,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -43,7 +53,7 @@ func (*Stock) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case stock.FieldStatus:
 			values[i] = new(sql.NullInt64)
-		case stock.FieldStockName, stock.FieldStockCode:
+		case stock.FieldStockName, stock.FieldStockCode, stock.FieldStockRise, stock.FieldStockFall, stock.FieldAddTime, stock.FieldDetails, stock.FieldStockTags:
 			values[i] = new(sql.NullString)
 		case stock.FieldCreatedAt, stock.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -106,6 +116,36 @@ func (s *Stock) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				s.IsRecommend = value.Bool
 			}
+		case stock.FieldStockRise:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field stock_rise", values[i])
+			} else if value.Valid {
+				s.StockRise = value.String
+			}
+		case stock.FieldStockFall:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field stock_fall", values[i])
+			} else if value.Valid {
+				s.StockFall = value.String
+			}
+		case stock.FieldAddTime:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field add_time", values[i])
+			} else if value.Valid {
+				s.AddTime = value.String
+			}
+		case stock.FieldDetails:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field details", values[i])
+			} else if value.Valid {
+				s.Details = value.String
+			}
+		case stock.FieldStockTags:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field stock_tags", values[i])
+			} else if value.Valid {
+				s.StockTags = value.String
+			}
 		default:
 			s.selectValues.Set(columns[i], values[i])
 		}
@@ -159,6 +199,21 @@ func (s *Stock) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("is_recommend=")
 	builder.WriteString(fmt.Sprintf("%v", s.IsRecommend))
+	builder.WriteString(", ")
+	builder.WriteString("stock_rise=")
+	builder.WriteString(s.StockRise)
+	builder.WriteString(", ")
+	builder.WriteString("stock_fall=")
+	builder.WriteString(s.StockFall)
+	builder.WriteString(", ")
+	builder.WriteString("add_time=")
+	builder.WriteString(s.AddTime)
+	builder.WriteString(", ")
+	builder.WriteString("details=")
+	builder.WriteString(s.Details)
+	builder.WriteString(", ")
+	builder.WriteString("stock_tags=")
+	builder.WriteString(s.StockTags)
 	builder.WriteByte(')')
 	return builder.String()
 }

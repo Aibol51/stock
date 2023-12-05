@@ -6387,11 +6387,21 @@
       "description": "The response data of stock information | Stock信息",
       "type": "object",
       "properties": {
+        "addTime": {
+          "description": "Stock addition time | 股票添加时间",
+          "type": "string",
+          "x-go-name": "AddTime"
+        },
         "createdAt": {
           "description": "Create date | 创建日期",
           "type": "integer",
           "format": "int64",
           "x-go-name": "CreatedAt"
+        },
+        "details": {
+          "description": "Stock details | 股票详细信息",
+          "type": "string",
+          "x-go-name": "Details"
         },
         "id": {
           "description": "ID",
@@ -6414,10 +6424,25 @@
           "type": "string",
           "x-go-name": "StockCode"
         },
+        "stockFall": {
+          "description": "Stock fall value (as a string) | 股票下跌值（字符串形式）",
+          "type": "string",
+          "x-go-name": "StockFall"
+        },
         "stockName": {
           "description": "Stock name",
           "type": "string",
           "x-go-name": "StockName"
+        },
+        "stockRise": {
+          "description": "Stock rise value (as a string) | 股票上涨值（字符串形式）",
+          "type": "string",
+          "x-go-name": "StockRise"
+        },
+        "stockTags": {
+          "description": "Stock tags | 股票标签",
+          "type": "string",
+          "x-go-name": "StockTags"
         },
         "updatedAt": {
           "description": "Update date | 更新日期",

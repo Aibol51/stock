@@ -16,6 +16,21 @@ type (
 
         // Stock code
         IsRecommend  *bool `json:"isRecommend,optional"`
+
+        // Stock rise value (as a string) | 股票上涨值（字符串形式）
+        StockRise  *string `json:"stockRise,optional"`
+
+        // Stock fall value (as a string) | 股票下跌值（字符串形式）
+        StockFall  *string `json:"stockFall,optional"`
+
+        // Stock addition time | 股票添加时间
+        AddTime *string `json:"addTime,optional"`
+
+        // Stock details | 股票详细信息
+        Details *string `json:"details,optional"`
+        
+        // Stock tags | 股票标签
+        StockTags *string `json:"stockTags,optional"`
     }
 
     // The response data of stock list | Stock列表数据

@@ -87,6 +87,106 @@ func (su *StockUpdate) SetNillableIsRecommend(b *bool) *StockUpdate {
 	return su
 }
 
+// SetStockRise sets the "stock_rise" field.
+func (su *StockUpdate) SetStockRise(s string) *StockUpdate {
+	su.mutation.SetStockRise(s)
+	return su
+}
+
+// SetNillableStockRise sets the "stock_rise" field if the given value is not nil.
+func (su *StockUpdate) SetNillableStockRise(s *string) *StockUpdate {
+	if s != nil {
+		su.SetStockRise(*s)
+	}
+	return su
+}
+
+// ClearStockRise clears the value of the "stock_rise" field.
+func (su *StockUpdate) ClearStockRise() *StockUpdate {
+	su.mutation.ClearStockRise()
+	return su
+}
+
+// SetStockFall sets the "stock_fall" field.
+func (su *StockUpdate) SetStockFall(s string) *StockUpdate {
+	su.mutation.SetStockFall(s)
+	return su
+}
+
+// SetNillableStockFall sets the "stock_fall" field if the given value is not nil.
+func (su *StockUpdate) SetNillableStockFall(s *string) *StockUpdate {
+	if s != nil {
+		su.SetStockFall(*s)
+	}
+	return su
+}
+
+// ClearStockFall clears the value of the "stock_fall" field.
+func (su *StockUpdate) ClearStockFall() *StockUpdate {
+	su.mutation.ClearStockFall()
+	return su
+}
+
+// SetAddTime sets the "add_time" field.
+func (su *StockUpdate) SetAddTime(s string) *StockUpdate {
+	su.mutation.SetAddTime(s)
+	return su
+}
+
+// SetNillableAddTime sets the "add_time" field if the given value is not nil.
+func (su *StockUpdate) SetNillableAddTime(s *string) *StockUpdate {
+	if s != nil {
+		su.SetAddTime(*s)
+	}
+	return su
+}
+
+// ClearAddTime clears the value of the "add_time" field.
+func (su *StockUpdate) ClearAddTime() *StockUpdate {
+	su.mutation.ClearAddTime()
+	return su
+}
+
+// SetDetails sets the "details" field.
+func (su *StockUpdate) SetDetails(s string) *StockUpdate {
+	su.mutation.SetDetails(s)
+	return su
+}
+
+// SetNillableDetails sets the "details" field if the given value is not nil.
+func (su *StockUpdate) SetNillableDetails(s *string) *StockUpdate {
+	if s != nil {
+		su.SetDetails(*s)
+	}
+	return su
+}
+
+// ClearDetails clears the value of the "details" field.
+func (su *StockUpdate) ClearDetails() *StockUpdate {
+	su.mutation.ClearDetails()
+	return su
+}
+
+// SetStockTags sets the "stock_tags" field.
+func (su *StockUpdate) SetStockTags(s string) *StockUpdate {
+	su.mutation.SetStockTags(s)
+	return su
+}
+
+// SetNillableStockTags sets the "stock_tags" field if the given value is not nil.
+func (su *StockUpdate) SetNillableStockTags(s *string) *StockUpdate {
+	if s != nil {
+		su.SetStockTags(*s)
+	}
+	return su
+}
+
+// ClearStockTags clears the value of the "stock_tags" field.
+func (su *StockUpdate) ClearStockTags() *StockUpdate {
+	su.mutation.ClearStockTags()
+	return su
+}
+
 // Mutation returns the StockMutation object of the builder.
 func (su *StockUpdate) Mutation() *StockMutation {
 	return su.mutation
@@ -157,6 +257,36 @@ func (su *StockUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.IsRecommend(); ok {
 		_spec.SetField(stock.FieldIsRecommend, field.TypeBool, value)
+	}
+	if value, ok := su.mutation.StockRise(); ok {
+		_spec.SetField(stock.FieldStockRise, field.TypeString, value)
+	}
+	if su.mutation.StockRiseCleared() {
+		_spec.ClearField(stock.FieldStockRise, field.TypeString)
+	}
+	if value, ok := su.mutation.StockFall(); ok {
+		_spec.SetField(stock.FieldStockFall, field.TypeString, value)
+	}
+	if su.mutation.StockFallCleared() {
+		_spec.ClearField(stock.FieldStockFall, field.TypeString)
+	}
+	if value, ok := su.mutation.AddTime(); ok {
+		_spec.SetField(stock.FieldAddTime, field.TypeString, value)
+	}
+	if su.mutation.AddTimeCleared() {
+		_spec.ClearField(stock.FieldAddTime, field.TypeString)
+	}
+	if value, ok := su.mutation.Details(); ok {
+		_spec.SetField(stock.FieldDetails, field.TypeString, value)
+	}
+	if su.mutation.DetailsCleared() {
+		_spec.ClearField(stock.FieldDetails, field.TypeString)
+	}
+	if value, ok := su.mutation.StockTags(); ok {
+		_spec.SetField(stock.FieldStockTags, field.TypeString, value)
+	}
+	if su.mutation.StockTagsCleared() {
+		_spec.ClearField(stock.FieldStockTags, field.TypeString)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -234,6 +364,106 @@ func (suo *StockUpdateOne) SetNillableIsRecommend(b *bool) *StockUpdateOne {
 	if b != nil {
 		suo.SetIsRecommend(*b)
 	}
+	return suo
+}
+
+// SetStockRise sets the "stock_rise" field.
+func (suo *StockUpdateOne) SetStockRise(s string) *StockUpdateOne {
+	suo.mutation.SetStockRise(s)
+	return suo
+}
+
+// SetNillableStockRise sets the "stock_rise" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableStockRise(s *string) *StockUpdateOne {
+	if s != nil {
+		suo.SetStockRise(*s)
+	}
+	return suo
+}
+
+// ClearStockRise clears the value of the "stock_rise" field.
+func (suo *StockUpdateOne) ClearStockRise() *StockUpdateOne {
+	suo.mutation.ClearStockRise()
+	return suo
+}
+
+// SetStockFall sets the "stock_fall" field.
+func (suo *StockUpdateOne) SetStockFall(s string) *StockUpdateOne {
+	suo.mutation.SetStockFall(s)
+	return suo
+}
+
+// SetNillableStockFall sets the "stock_fall" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableStockFall(s *string) *StockUpdateOne {
+	if s != nil {
+		suo.SetStockFall(*s)
+	}
+	return suo
+}
+
+// ClearStockFall clears the value of the "stock_fall" field.
+func (suo *StockUpdateOne) ClearStockFall() *StockUpdateOne {
+	suo.mutation.ClearStockFall()
+	return suo
+}
+
+// SetAddTime sets the "add_time" field.
+func (suo *StockUpdateOne) SetAddTime(s string) *StockUpdateOne {
+	suo.mutation.SetAddTime(s)
+	return suo
+}
+
+// SetNillableAddTime sets the "add_time" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableAddTime(s *string) *StockUpdateOne {
+	if s != nil {
+		suo.SetAddTime(*s)
+	}
+	return suo
+}
+
+// ClearAddTime clears the value of the "add_time" field.
+func (suo *StockUpdateOne) ClearAddTime() *StockUpdateOne {
+	suo.mutation.ClearAddTime()
+	return suo
+}
+
+// SetDetails sets the "details" field.
+func (suo *StockUpdateOne) SetDetails(s string) *StockUpdateOne {
+	suo.mutation.SetDetails(s)
+	return suo
+}
+
+// SetNillableDetails sets the "details" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableDetails(s *string) *StockUpdateOne {
+	if s != nil {
+		suo.SetDetails(*s)
+	}
+	return suo
+}
+
+// ClearDetails clears the value of the "details" field.
+func (suo *StockUpdateOne) ClearDetails() *StockUpdateOne {
+	suo.mutation.ClearDetails()
+	return suo
+}
+
+// SetStockTags sets the "stock_tags" field.
+func (suo *StockUpdateOne) SetStockTags(s string) *StockUpdateOne {
+	suo.mutation.SetStockTags(s)
+	return suo
+}
+
+// SetNillableStockTags sets the "stock_tags" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableStockTags(s *string) *StockUpdateOne {
+	if s != nil {
+		suo.SetStockTags(*s)
+	}
+	return suo
+}
+
+// ClearStockTags clears the value of the "stock_tags" field.
+func (suo *StockUpdateOne) ClearStockTags() *StockUpdateOne {
+	suo.mutation.ClearStockTags()
 	return suo
 }
 
@@ -337,6 +567,36 @@ func (suo *StockUpdateOne) sqlSave(ctx context.Context) (_node *Stock, err error
 	}
 	if value, ok := suo.mutation.IsRecommend(); ok {
 		_spec.SetField(stock.FieldIsRecommend, field.TypeBool, value)
+	}
+	if value, ok := suo.mutation.StockRise(); ok {
+		_spec.SetField(stock.FieldStockRise, field.TypeString, value)
+	}
+	if suo.mutation.StockRiseCleared() {
+		_spec.ClearField(stock.FieldStockRise, field.TypeString)
+	}
+	if value, ok := suo.mutation.StockFall(); ok {
+		_spec.SetField(stock.FieldStockFall, field.TypeString, value)
+	}
+	if suo.mutation.StockFallCleared() {
+		_spec.ClearField(stock.FieldStockFall, field.TypeString)
+	}
+	if value, ok := suo.mutation.AddTime(); ok {
+		_spec.SetField(stock.FieldAddTime, field.TypeString, value)
+	}
+	if suo.mutation.AddTimeCleared() {
+		_spec.ClearField(stock.FieldAddTime, field.TypeString)
+	}
+	if value, ok := suo.mutation.Details(); ok {
+		_spec.SetField(stock.FieldDetails, field.TypeString, value)
+	}
+	if suo.mutation.DetailsCleared() {
+		_spec.ClearField(stock.FieldDetails, field.TypeString)
+	}
+	if value, ok := suo.mutation.StockTags(); ok {
+		_spec.SetField(stock.FieldStockTags, field.TypeString, value)
+	}
+	if suo.mutation.StockTagsCleared() {
+		_spec.ClearField(stock.FieldStockTags, field.TypeString)
 	}
 	_node = &Stock{config: suo.config}
 	_spec.Assign = _node.assignValues

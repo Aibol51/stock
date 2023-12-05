@@ -36,6 +36,22 @@ func (l *UpdateStockLogic) UpdateStock(in *core.StockInfo) (*core.BaseResp, erro
 	if in.Status != nil {
 		query.SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
 	}
+	// 处理新增的上涨和下跌字段
+	if in.StockRise != nil {
+		query.SetNotNilStockRise(in.StockRise)
+	}
+	if in.StockFall != nil {
+		query.SetNotNilStockFall(in.StockFall)
+	}
+	if in.AddTime != nil {
+		query.SetNotNilAddTime(in.AddTime)
+	}
+	if in.Details != nil {
+		query.SetNotNilDetails(in.Details)
+	}
+	if in.StockTags != nil {
+		query.SetNotNilStockTags(in.StockTags)
+	}
 
 	err := query.Exec(l.ctx)
 

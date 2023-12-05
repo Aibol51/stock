@@ -36,6 +36,22 @@ func (l *CreateStockLogic) CreateStock(in *core.StockInfo) (*core.BaseUUIDResp, 
 	if in.Status != nil {
 		query.SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
 	}
+	// Handle the new stock rise and fall fields
+	if in.StockRise != nil {
+		query.SetNotNilStockRise(in.StockRise)
+	}
+	if in.StockFall != nil {
+		query.SetNotNilStockFall(in.StockFall)
+	}
+	if in.AddTime != nil {
+		query.SetNotNilAddTime(in.AddTime)
+	}
+	if in.Details != nil {
+		query.SetNotNilDetails(in.Details)
+	}
+	if in.StockTags != nil {
+		query.SetNotNilStockTags(in.StockTags)
+	}
 
 	result, err := query.Save(l.ctx)
 

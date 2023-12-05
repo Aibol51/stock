@@ -89,6 +89,76 @@ func (sc *StockCreate) SetNillableIsRecommend(b *bool) *StockCreate {
 	return sc
 }
 
+// SetStockRise sets the "stock_rise" field.
+func (sc *StockCreate) SetStockRise(s string) *StockCreate {
+	sc.mutation.SetStockRise(s)
+	return sc
+}
+
+// SetNillableStockRise sets the "stock_rise" field if the given value is not nil.
+func (sc *StockCreate) SetNillableStockRise(s *string) *StockCreate {
+	if s != nil {
+		sc.SetStockRise(*s)
+	}
+	return sc
+}
+
+// SetStockFall sets the "stock_fall" field.
+func (sc *StockCreate) SetStockFall(s string) *StockCreate {
+	sc.mutation.SetStockFall(s)
+	return sc
+}
+
+// SetNillableStockFall sets the "stock_fall" field if the given value is not nil.
+func (sc *StockCreate) SetNillableStockFall(s *string) *StockCreate {
+	if s != nil {
+		sc.SetStockFall(*s)
+	}
+	return sc
+}
+
+// SetAddTime sets the "add_time" field.
+func (sc *StockCreate) SetAddTime(s string) *StockCreate {
+	sc.mutation.SetAddTime(s)
+	return sc
+}
+
+// SetNillableAddTime sets the "add_time" field if the given value is not nil.
+func (sc *StockCreate) SetNillableAddTime(s *string) *StockCreate {
+	if s != nil {
+		sc.SetAddTime(*s)
+	}
+	return sc
+}
+
+// SetDetails sets the "details" field.
+func (sc *StockCreate) SetDetails(s string) *StockCreate {
+	sc.mutation.SetDetails(s)
+	return sc
+}
+
+// SetNillableDetails sets the "details" field if the given value is not nil.
+func (sc *StockCreate) SetNillableDetails(s *string) *StockCreate {
+	if s != nil {
+		sc.SetDetails(*s)
+	}
+	return sc
+}
+
+// SetStockTags sets the "stock_tags" field.
+func (sc *StockCreate) SetStockTags(s string) *StockCreate {
+	sc.mutation.SetStockTags(s)
+	return sc
+}
+
+// SetNillableStockTags sets the "stock_tags" field if the given value is not nil.
+func (sc *StockCreate) SetNillableStockTags(s *string) *StockCreate {
+	if s != nil {
+		sc.SetStockTags(*s)
+	}
+	return sc
+}
+
 // SetID sets the "id" field.
 func (sc *StockCreate) SetID(u uuid.UUID) *StockCreate {
 	sc.mutation.SetID(u)
@@ -235,6 +305,26 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	if value, ok := sc.mutation.IsRecommend(); ok {
 		_spec.SetField(stock.FieldIsRecommend, field.TypeBool, value)
 		_node.IsRecommend = value
+	}
+	if value, ok := sc.mutation.StockRise(); ok {
+		_spec.SetField(stock.FieldStockRise, field.TypeString, value)
+		_node.StockRise = value
+	}
+	if value, ok := sc.mutation.StockFall(); ok {
+		_spec.SetField(stock.FieldStockFall, field.TypeString, value)
+		_node.StockFall = value
+	}
+	if value, ok := sc.mutation.AddTime(); ok {
+		_spec.SetField(stock.FieldAddTime, field.TypeString, value)
+		_node.AddTime = value
+	}
+	if value, ok := sc.mutation.Details(); ok {
+		_spec.SetField(stock.FieldDetails, field.TypeString, value)
+		_node.Details = value
+	}
+	if value, ok := sc.mutation.StockTags(); ok {
+		_spec.SetField(stock.FieldStockTags, field.TypeString, value)
+		_node.StockTags = value
 	}
 	return _node, _spec
 }

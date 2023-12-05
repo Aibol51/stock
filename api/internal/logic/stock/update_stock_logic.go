@@ -32,6 +32,11 @@ func (l *UpdateStockLogic) UpdateStock(req *types.StockInfo) (resp *types.BaseMs
 			StockName:   req.StockName,
 			StockCode:   req.StockCode,
 			IsRecommend: req.IsRecommend,
+			StockRise:   req.StockRise,
+			StockFall:   req.StockFall,
+			AddTime:     req.AddTime,
+			Details:     req.Details,
+			StockTags:   req.StockTags,
 		})
 	if err != nil {
 		return nil, err
