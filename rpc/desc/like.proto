@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+// Like message
+message LikeInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  optional string account_id = 5;
+  optional string post_id = 6;
+  optional string post_title = 7;
+}
+
+message LikeListResp {
+  uint64 total = 1;
+  repeated LikeInfo data = 2;
+}
+
+message LikeListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+message LikeByAccountIdReq {
+  string like_id = 1;
+  string account_id = 2;
+}
+
+service Core {
+
+  // Like management
+  // group: Like
+  rpc createLike (LikeInfo) returns (BaseUUIDResp);
+  // group: Like
+  rpc updateLike (LikeInfo) returns (BaseResp);
+  // group: Like
+  rpc getLikeList (LikeListReq) returns (LikeListResp);
+  // group: Like
+  rpc getLikeById (UUIDReq) returns (LikeInfo);
+  // group: Like
+  rpc deleteLike (UUIDsReq) returns (BaseResp);
+  // group: Like
+  rpc getLikeByAccountId (LikeByAccountIdReq) returns (LikeInfo);
+
+}

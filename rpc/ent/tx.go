@@ -16,18 +16,26 @@ type Tx struct {
 	config
 	// API is the client for interacting with the API builders.
 	API *APIClient
+	// Account is the client for interacting with the Account builders.
+	Account *AccountClient
+	// Comment is the client for interacting with the Comment builders.
+	Comment *CommentClient
 	// Department is the client for interacting with the Department builders.
 	Department *DepartmentClient
 	// Dictionary is the client for interacting with the Dictionary builders.
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
+	// Like is the client for interacting with the Like builders.
+	Like *LikeClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// Post is the client for interacting with the Post builders.
+	Post *PostClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
 	// Stock is the client for interacting with the Stock builders.
@@ -36,6 +44,8 @@ type Tx struct {
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// View is the client for interacting with the View builders.
+	View *ViewClient
 
 	// lazily loaded.
 	client     *Client
@@ -168,16 +178,21 @@ func (tx *Tx) Client() *Client {
 
 func (tx *Tx) init() {
 	tx.API = NewAPIClient(tx.config)
+	tx.Account = NewAccountClient(tx.config)
+	tx.Comment = NewCommentClient(tx.config)
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
+	tx.Like = NewLikeClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
+	tx.Post = NewPostClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
 	tx.Stock = NewStockClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)
+	tx.View = NewViewClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.

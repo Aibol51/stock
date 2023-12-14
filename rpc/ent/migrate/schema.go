@@ -33,6 +33,48 @@ var (
 			},
 		},
 	}
+	// AccountsColumns holds the columns for the "accounts" table.
+	AccountsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "account_name", Type: field.TypeString, Unique: true, Comment: "登录名"},
+		{Name: "password", Type: field.TypeString, Comment: "密码"},
+		{Name: "mobile", Type: field.TypeUint32, Comment: "手机号"},
+		{Name: "email", Type: field.TypeString, Comment: "邮箱"},
+		{Name: "avatar", Type: field.TypeString, Nullable: true, Comment: "Avatar | 头像路径", Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "gender", Type: field.TypeEnum, Comment: "性别", Enums: []string{"UNKOWN", "MALE", "FEMALE"}, Default: "UNKOWN"},
+	}
+	// AccountsTable holds the schema information for the "accounts" table.
+	AccountsTable = &schema.Table{
+		Name:       "accounts",
+		Columns:    AccountsColumns,
+		PrimaryKey: []*schema.Column{AccountsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "account_account_name",
+				Unique:  true,
+				Columns: []*schema.Column{AccountsColumns[5]},
+			},
+		},
+	}
+	// CommentsColumns holds the columns for the "comments" table.
+	CommentsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "content", Type: field.TypeString},
+	}
+	// CommentsTable holds the schema information for the "comments" table.
+	CommentsTable = &schema.Table{
+		Name:       "comments",
+		Columns:    CommentsColumns,
+		PrimaryKey: []*schema.Column{CommentsColumns[0]},
+	}
 	// SysDepartmentsColumns holds the columns for the "sys_departments" table.
 	SysDepartmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -100,6 +142,28 @@ var (
 				Symbol:     "sys_dictionary_details_sys_dictionaries_dictionary_details",
 				Columns:    []*schema.Column{SysDictionaryDetailsColumns[8]},
 				RefColumns: []*schema.Column{SysDictionariesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
+	// LikesColumns holds the columns for the "likes" table.
+	LikesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "account_likes", Type: field.TypeUUID, Nullable: true},
+	}
+	// LikesTable holds the schema information for the "likes" table.
+	LikesTable = &schema.Table{
+		Name:       "likes",
+		Columns:    LikesColumns,
+		PrimaryKey: []*schema.Column{LikesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "likes_accounts_likes",
+				Columns:    []*schema.Column{LikesColumns[4]},
+				RefColumns: []*schema.Column{AccountsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -199,6 +263,43 @@ var (
 				Name:    "position_code",
 				Unique:  true,
 				Columns: []*schema.Column{SysPositionsColumns[6]},
+			},
+		},
+	}
+	// PostsColumns holds the columns for the "posts" table.
+	PostsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "title", Type: field.TypeString, Unique: true},
+		{Name: "content", Type: field.TypeString},
+		{Name: "author", Type: field.TypeString},
+		{Name: "category", Type: field.TypeString},
+		{Name: "tags", Type: field.TypeString},
+		{Name: "summary", Type: field.TypeString},
+		{Name: "cover", Type: field.TypeString},
+		{Name: "account_posts", Type: field.TypeUUID, Nullable: true},
+	}
+	// PostsTable holds the schema information for the "posts" table.
+	PostsTable = &schema.Table{
+		Name:       "posts",
+		Columns:    PostsColumns,
+		PrimaryKey: []*schema.Column{PostsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "posts_accounts_posts",
+				Columns:    []*schema.Column{PostsColumns[12]},
+				RefColumns: []*schema.Column{AccountsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+		Indexes: []*schema.Index{
+			{
+				Name:    "post_title",
+				Unique:  true,
+				Columns: []*schema.Column{PostsColumns[5]},
 			},
 		},
 	}
@@ -315,6 +416,128 @@ var (
 			},
 		},
 	}
+	// ViewsColumns holds the columns for the "views" table.
+	ViewsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "account_views", Type: field.TypeUUID, Nullable: true},
+	}
+	// ViewsTable holds the schema information for the "views" table.
+	ViewsTable = &schema.Table{
+		Name:       "views",
+		Columns:    ViewsColumns,
+		PrimaryKey: []*schema.Column{ViewsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "views_accounts_views",
+				Columns:    []*schema.Column{ViewsColumns[4]},
+				RefColumns: []*schema.Column{AccountsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
+	// AccountCommentsColumns holds the columns for the "account_comments" table.
+	AccountCommentsColumns = []*schema.Column{
+		{Name: "account_id", Type: field.TypeUUID},
+		{Name: "comment_id", Type: field.TypeUUID},
+	}
+	// AccountCommentsTable holds the schema information for the "account_comments" table.
+	AccountCommentsTable = &schema.Table{
+		Name:       "account_comments",
+		Columns:    AccountCommentsColumns,
+		PrimaryKey: []*schema.Column{AccountCommentsColumns[0], AccountCommentsColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "account_comments_account_id",
+				Columns:    []*schema.Column{AccountCommentsColumns[0]},
+				RefColumns: []*schema.Column{AccountsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "account_comments_comment_id",
+				Columns:    []*schema.Column{AccountCommentsColumns[1]},
+				RefColumns: []*schema.Column{CommentsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
+	// PostCommentsColumns holds the columns for the "post_comments" table.
+	PostCommentsColumns = []*schema.Column{
+		{Name: "post_id", Type: field.TypeUUID},
+		{Name: "comment_id", Type: field.TypeUUID},
+	}
+	// PostCommentsTable holds the schema information for the "post_comments" table.
+	PostCommentsTable = &schema.Table{
+		Name:       "post_comments",
+		Columns:    PostCommentsColumns,
+		PrimaryKey: []*schema.Column{PostCommentsColumns[0], PostCommentsColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "post_comments_post_id",
+				Columns:    []*schema.Column{PostCommentsColumns[0]},
+				RefColumns: []*schema.Column{PostsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "post_comments_comment_id",
+				Columns:    []*schema.Column{PostCommentsColumns[1]},
+				RefColumns: []*schema.Column{CommentsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
+	// PostLikesColumns holds the columns for the "post_likes" table.
+	PostLikesColumns = []*schema.Column{
+		{Name: "post_id", Type: field.TypeUUID},
+		{Name: "like_id", Type: field.TypeUUID},
+	}
+	// PostLikesTable holds the schema information for the "post_likes" table.
+	PostLikesTable = &schema.Table{
+		Name:       "post_likes",
+		Columns:    PostLikesColumns,
+		PrimaryKey: []*schema.Column{PostLikesColumns[0], PostLikesColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "post_likes_post_id",
+				Columns:    []*schema.Column{PostLikesColumns[0]},
+				RefColumns: []*schema.Column{PostsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "post_likes_like_id",
+				Columns:    []*schema.Column{PostLikesColumns[1]},
+				RefColumns: []*schema.Column{LikesColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
+	// PostViewsColumns holds the columns for the "post_views" table.
+	PostViewsColumns = []*schema.Column{
+		{Name: "post_id", Type: field.TypeUUID},
+		{Name: "view_id", Type: field.TypeUUID},
+	}
+	// PostViewsTable holds the schema information for the "post_views" table.
+	PostViewsTable = &schema.Table{
+		Name:       "post_views",
+		Columns:    PostViewsColumns,
+		PrimaryKey: []*schema.Column{PostViewsColumns[0], PostViewsColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "post_views_post_id",
+				Columns:    []*schema.Column{PostViewsColumns[0]},
+				RefColumns: []*schema.Column{PostsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "post_views_view_id",
+				Columns:    []*schema.Column{PostViewsColumns[1]},
+				RefColumns: []*schema.Column{ViewsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// RoleMenusColumns holds the columns for the "role_menus" table.
 	RoleMenusColumns = []*schema.Column{
 		{Name: "role_id", Type: field.TypeUint64},
@@ -393,16 +616,25 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
+		AccountsTable,
+		CommentsTable,
 		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
+		LikesTable,
 		SysMenusTable,
 		SysOauthProvidersTable,
 		SysPositionsTable,
+		PostsTable,
 		SysRolesTable,
 		StocksTable,
 		SysTokensTable,
 		SysUsersTable,
+		ViewsTable,
+		AccountCommentsTable,
+		PostCommentsTable,
+		PostLikesTable,
+		PostViewsTable,
 		RoleMenusTable,
 		UserPositionsTable,
 		UserRolesTable,
@@ -424,6 +656,7 @@ func init() {
 	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionary_details",
 	}
+	LikesTable.ForeignKeys[0].RefTable = AccountsTable
 	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
 	SysMenusTable.Annotation = &entsql.Annotation{
 		Table: "sys_menus",
@@ -434,6 +667,7 @@ func init() {
 	SysPositionsTable.Annotation = &entsql.Annotation{
 		Table: "sys_positions",
 	}
+	PostsTable.ForeignKeys[0].RefTable = AccountsTable
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
 	}
@@ -444,6 +678,15 @@ func init() {
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
 	}
+	ViewsTable.ForeignKeys[0].RefTable = AccountsTable
+	AccountCommentsTable.ForeignKeys[0].RefTable = AccountsTable
+	AccountCommentsTable.ForeignKeys[1].RefTable = CommentsTable
+	PostCommentsTable.ForeignKeys[0].RefTable = PostsTable
+	PostCommentsTable.ForeignKeys[1].RefTable = CommentsTable
+	PostLikesTable.ForeignKeys[0].RefTable = PostsTable
+	PostLikesTable.ForeignKeys[1].RefTable = LikesTable
+	PostViewsTable.ForeignKeys[0].RefTable = PostsTable
+	PostViewsTable.ForeignKeys[1].RefTable = ViewsTable
 	RoleMenusTable.ForeignKeys[0].RefTable = SysRolesTable
 	RoleMenusTable.ForeignKeys[1].RefTable = SysMenusTable
 	UserPositionsTable.ForeignKeys[0].RefTable = SysUsersTable

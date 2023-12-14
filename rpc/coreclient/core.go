@@ -13,6 +13,9 @@ import (
 )
 
 type (
+	AccountInfo              = core.AccountInfo
+	AccountListReq           = core.AccountListReq
+	AccountListResp          = core.AccountListResp
 	ApiInfo                  = core.ApiInfo
 	ApiListReq               = core.ApiListReq
 	ApiListResp              = core.ApiListResp
@@ -21,6 +24,9 @@ type (
 	BaseResp                 = core.BaseResp
 	BaseUUIDResp             = core.BaseUUIDResp
 	CallbackReq              = core.CallbackReq
+	CommentInfo              = core.CommentInfo
+	CommentListReq           = core.CommentListReq
+	CommentListResp          = core.CommentListResp
 	DepartmentInfo           = core.DepartmentInfo
 	DepartmentListReq        = core.DepartmentListReq
 	DepartmentListResp       = core.DepartmentListResp
@@ -33,6 +39,9 @@ type (
 	Empty                    = core.Empty
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
+	LikeInfo                 = core.LikeInfo
+	LikeListReq              = core.LikeListReq
+	LikeListResp             = core.LikeListResp
 	MenuInfo                 = core.MenuInfo
 	MenuInfoList             = core.MenuInfoList
 	MenuRoleInfo             = core.MenuRoleInfo
@@ -47,6 +56,9 @@ type (
 	PositionInfo             = core.PositionInfo
 	PositionListReq          = core.PositionListReq
 	PositionListResp         = core.PositionListResp
+	PostInfo                 = core.PostInfo
+	PostListReq              = core.PostListReq
+	PostListResp             = core.PostListResp
 	RoleInfo                 = core.RoleInfo
 	RoleListReq              = core.RoleListReq
 	RoleListResp             = core.RoleListResp
@@ -64,8 +76,17 @@ type (
 	UserListReq              = core.UserListReq
 	UserListResp             = core.UserListResp
 	UsernameReq              = core.UsernameReq
+	ViewInfo                 = core.ViewInfo
+	ViewListReq              = core.ViewListReq
+	ViewListResp             = core.ViewListResp
 
 	Core interface {
+		// Account management
+		CreateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetAccountList(ctx context.Context, in *AccountListReq, opts ...grpc.CallOption) (*AccountListResp, error)
+		GetAccountById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AccountInfo, error)
+		DeleteAccount(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// API management
 		CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -75,6 +96,12 @@ type (
 		GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 		CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+		// Comment management
+		CreateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetCommentList(ctx context.Context, in *CommentListReq, opts ...grpc.CallOption) (*CommentListResp, error)
+		GetCommentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*CommentInfo, error)
+		DeleteComment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Department management
 		CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -94,6 +121,12 @@ type (
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+		// Like management
+		CreateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetLikeList(ctx context.Context, in *LikeListReq, opts ...grpc.CallOption) (*LikeListResp, error)
+		GetLikeById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*LikeInfo, error)
+		DeleteLike(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -113,6 +146,12 @@ type (
 		GetPositionList(ctx context.Context, in *PositionListReq, opts ...grpc.CallOption) (*PositionListResp, error)
 		GetPositionById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*PositionInfo, error)
 		DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Post management
+		CreatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error)
+		GetPostById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*PostInfo, error)
+		DeletePost(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Role management
 		CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -139,6 +178,12 @@ type (
 		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
 		GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
 		DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// View management
+		CreateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetViewList(ctx context.Context, in *ViewListReq, opts ...grpc.CallOption) (*ViewListResp, error)
+		GetViewById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*ViewInfo, error)
+		DeleteView(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
 	defaultCore struct {
@@ -150,6 +195,32 @@ func NewCore(cli zrpc.Client) Core {
 	return &defaultCore{
 		cli: cli,
 	}
+}
+
+// Account management
+func (m *defaultCore) CreateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateAccount(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateAccount(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetAccountList(ctx context.Context, in *AccountListReq, opts ...grpc.CallOption) (*AccountListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetAccountList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetAccountById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AccountInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetAccountById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteAccount(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteAccount(ctx, in, opts...)
 }
 
 // API management
@@ -191,6 +262,32 @@ func (m *defaultCore) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleM
 func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.InitDatabase(ctx, in, opts...)
+}
+
+// Comment management
+func (m *defaultCore) CreateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateComment(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateComment(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetCommentList(ctx context.Context, in *CommentListReq, opts ...grpc.CallOption) (*CommentListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetCommentList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetCommentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*CommentInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetCommentById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteComment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteComment(ctx, in, opts...)
 }
 
 // Department management
@@ -274,6 +371,32 @@ func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, op
 func (m *defaultCore) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetDictionaryDetailByDictionaryName(ctx, in, opts...)
+}
+
+// Like management
+func (m *defaultCore) CreateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateLike(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateLike(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetLikeList(ctx context.Context, in *LikeListReq, opts ...grpc.CallOption) (*LikeListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetLikeList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetLikeById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*LikeInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetLikeById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteLike(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteLike(ctx, in, opts...)
 }
 
 func (m *defaultCore) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
@@ -361,6 +484,32 @@ func (m *defaultCore) GetPositionById(ctx context.Context, in *IDReq, opts ...gr
 func (m *defaultCore) DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeletePosition(ctx, in, opts...)
+}
+
+// Post management
+func (m *defaultCore) CreatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreatePost(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdatePost(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetPostList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetPostById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*PostInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetPostById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeletePost(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeletePost(ctx, in, opts...)
 }
 
 // Role management
@@ -475,4 +624,30 @@ func (m *defaultCore) GetUserByUsername(ctx context.Context, in *UsernameReq, op
 func (m *defaultCore) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteUser(ctx, in, opts...)
+}
+
+// View management
+func (m *defaultCore) CreateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateView(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateView(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetViewList(ctx context.Context, in *ViewListReq, opts ...grpc.CallOption) (*ViewListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetViewList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetViewById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*ViewInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetViewById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteView(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteView(ctx, in, opts...)
 }

@@ -6,6 +6,11 @@ package server
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/Account"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/Comment"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/Like"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/Post"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/View"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
@@ -32,6 +37,32 @@ func NewCoreServer(svcCtx *svc.ServiceContext) *CoreServer {
 	return &CoreServer{
 		svcCtx: svcCtx,
 	}
+}
+
+// Account management
+func (s *CoreServer) CreateAccount(ctx context.Context, in *core.AccountInfo) (*core.BaseUUIDResp, error) {
+	l := Account.NewCreateAccountLogic(ctx, s.svcCtx)
+	return l.CreateAccount(in)
+}
+
+func (s *CoreServer) UpdateAccount(ctx context.Context, in *core.AccountInfo) (*core.BaseResp, error) {
+	l := Account.NewUpdateAccountLogic(ctx, s.svcCtx)
+	return l.UpdateAccount(in)
+}
+
+func (s *CoreServer) GetAccountList(ctx context.Context, in *core.AccountListReq) (*core.AccountListResp, error) {
+	l := Account.NewGetAccountListLogic(ctx, s.svcCtx)
+	return l.GetAccountList(in)
+}
+
+func (s *CoreServer) GetAccountById(ctx context.Context, in *core.UUIDReq) (*core.AccountInfo, error) {
+	l := Account.NewGetAccountByIdLogic(ctx, s.svcCtx)
+	return l.GetAccountById(in)
+}
+
+func (s *CoreServer) DeleteAccount(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := Account.NewDeleteAccountLogic(ctx, s.svcCtx)
+	return l.DeleteAccount(in)
 }
 
 // API management
@@ -73,6 +104,32 @@ func (s *CoreServer) CreateOrUpdateMenuAuthority(ctx context.Context, in *core.R
 func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
 	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
 	return l.InitDatabase(in)
+}
+
+// Comment management
+func (s *CoreServer) CreateComment(ctx context.Context, in *core.CommentInfo) (*core.BaseUUIDResp, error) {
+	l := Comment.NewCreateCommentLogic(ctx, s.svcCtx)
+	return l.CreateComment(in)
+}
+
+func (s *CoreServer) UpdateComment(ctx context.Context, in *core.CommentInfo) (*core.BaseResp, error) {
+	l := Comment.NewUpdateCommentLogic(ctx, s.svcCtx)
+	return l.UpdateComment(in)
+}
+
+func (s *CoreServer) GetCommentList(ctx context.Context, in *core.CommentListReq) (*core.CommentListResp, error) {
+	l := Comment.NewGetCommentListLogic(ctx, s.svcCtx)
+	return l.GetCommentList(in)
+}
+
+func (s *CoreServer) GetCommentById(ctx context.Context, in *core.UUIDReq) (*core.CommentInfo, error) {
+	l := Comment.NewGetCommentByIdLogic(ctx, s.svcCtx)
+	return l.GetCommentById(in)
+}
+
+func (s *CoreServer) DeleteComment(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := Comment.NewDeleteCommentLogic(ctx, s.svcCtx)
+	return l.DeleteComment(in)
 }
 
 // Department management
@@ -156,6 +213,32 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq
 func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in *core.BaseMsg) (*core.DictionaryDetailListResp, error) {
 	l := dictionarydetail.NewGetDictionaryDetailByDictionaryNameLogic(ctx, s.svcCtx)
 	return l.GetDictionaryDetailByDictionaryName(in)
+}
+
+// Like management
+func (s *CoreServer) CreateLike(ctx context.Context, in *core.LikeInfo) (*core.BaseUUIDResp, error) {
+	l := Like.NewCreateLikeLogic(ctx, s.svcCtx)
+	return l.CreateLike(in)
+}
+
+func (s *CoreServer) UpdateLike(ctx context.Context, in *core.LikeInfo) (*core.BaseResp, error) {
+	l := Like.NewUpdateLikeLogic(ctx, s.svcCtx)
+	return l.UpdateLike(in)
+}
+
+func (s *CoreServer) GetLikeList(ctx context.Context, in *core.LikeListReq) (*core.LikeListResp, error) {
+	l := Like.NewGetLikeListLogic(ctx, s.svcCtx)
+	return l.GetLikeList(in)
+}
+
+func (s *CoreServer) GetLikeById(ctx context.Context, in *core.UUIDReq) (*core.LikeInfo, error) {
+	l := Like.NewGetLikeByIdLogic(ctx, s.svcCtx)
+	return l.GetLikeById(in)
+}
+
+func (s *CoreServer) DeleteLike(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := Like.NewDeleteLikeLogic(ctx, s.svcCtx)
+	return l.DeleteLike(in)
 }
 
 func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {
@@ -243,6 +326,32 @@ func (s *CoreServer) GetPositionById(ctx context.Context, in *core.IDReq) (*core
 func (s *CoreServer) DeletePosition(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := position.NewDeletePositionLogic(ctx, s.svcCtx)
 	return l.DeletePosition(in)
+}
+
+// Post management
+func (s *CoreServer) CreatePost(ctx context.Context, in *core.PostInfo) (*core.BaseUUIDResp, error) {
+	l := Post.NewCreatePostLogic(ctx, s.svcCtx)
+	return l.CreatePost(in)
+}
+
+func (s *CoreServer) UpdatePost(ctx context.Context, in *core.PostInfo) (*core.BaseResp, error) {
+	l := Post.NewUpdatePostLogic(ctx, s.svcCtx)
+	return l.UpdatePost(in)
+}
+
+func (s *CoreServer) GetPostList(ctx context.Context, in *core.PostListReq) (*core.PostListResp, error) {
+	l := Post.NewGetPostListLogic(ctx, s.svcCtx)
+	return l.GetPostList(in)
+}
+
+func (s *CoreServer) GetPostById(ctx context.Context, in *core.UUIDReq) (*core.PostInfo, error) {
+	l := Post.NewGetPostByIdLogic(ctx, s.svcCtx)
+	return l.GetPostById(in)
+}
+
+func (s *CoreServer) DeletePost(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := Post.NewDeletePostLogic(ctx, s.svcCtx)
+	return l.DeletePost(in)
 }
 
 // Role management
@@ -357,4 +466,30 @@ func (s *CoreServer) GetUserByUsername(ctx context.Context, in *core.UsernameReq
 func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := user.NewDeleteUserLogic(ctx, s.svcCtx)
 	return l.DeleteUser(in)
+}
+
+// View management
+func (s *CoreServer) CreateView(ctx context.Context, in *core.ViewInfo) (*core.BaseUUIDResp, error) {
+	l := View.NewCreateViewLogic(ctx, s.svcCtx)
+	return l.CreateView(in)
+}
+
+func (s *CoreServer) UpdateView(ctx context.Context, in *core.ViewInfo) (*core.BaseResp, error) {
+	l := View.NewUpdateViewLogic(ctx, s.svcCtx)
+	return l.UpdateView(in)
+}
+
+func (s *CoreServer) GetViewList(ctx context.Context, in *core.ViewListReq) (*core.ViewListResp, error) {
+	l := View.NewGetViewListLogic(ctx, s.svcCtx)
+	return l.GetViewList(in)
+}
+
+func (s *CoreServer) GetViewById(ctx context.Context, in *core.UUIDReq) (*core.ViewInfo, error) {
+	l := View.NewGetViewByIdLogic(ctx, s.svcCtx)
+	return l.GetViewById(in)
+}
+
+func (s *CoreServer) DeleteView(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := View.NewDeleteViewLogic(ctx, s.svcCtx)
+	return l.DeleteView(in)
 }

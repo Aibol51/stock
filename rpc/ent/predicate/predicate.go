@@ -9,6 +9,12 @@ import (
 // API is the predicate function for api builders.
 type API func(*sql.Selector)
 
+// Account is the predicate function for account builders.
+type Account func(*sql.Selector)
+
+// Comment is the predicate function for comment builders.
+type Comment func(*sql.Selector)
+
 // Department is the predicate function for department builders.
 type Department func(*sql.Selector)
 
@@ -18,6 +24,9 @@ type Dictionary func(*sql.Selector)
 // DictionaryDetail is the predicate function for dictionarydetail builders.
 type DictionaryDetail func(*sql.Selector)
 
+// Like is the predicate function for like builders.
+type Like func(*sql.Selector)
+
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
 
@@ -26,6 +35,9 @@ type OauthProvider func(*sql.Selector)
 
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)
+
+// Post is the predicate function for post builders.
+type Post func(*sql.Selector)
 
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)
@@ -38,3 +50,6 @@ type Token func(*sql.Selector)
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
+
+// View is the predicate function for view builders.
+type View func(*sql.Selector)

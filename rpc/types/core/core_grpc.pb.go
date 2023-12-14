@@ -19,6 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	Core_CreateAccount_FullMethodName                       = "/core.Core/createAccount"
+	Core_UpdateAccount_FullMethodName                       = "/core.Core/updateAccount"
+	Core_GetAccountList_FullMethodName                      = "/core.Core/getAccountList"
+	Core_GetAccountById_FullMethodName                      = "/core.Core/getAccountById"
+	Core_DeleteAccount_FullMethodName                       = "/core.Core/deleteAccount"
 	Core_CreateApi_FullMethodName                           = "/core.Core/createApi"
 	Core_UpdateApi_FullMethodName                           = "/core.Core/updateApi"
 	Core_GetApiList_FullMethodName                          = "/core.Core/getApiList"
@@ -27,6 +32,11 @@ const (
 	Core_GetMenuAuthority_FullMethodName                    = "/core.Core/getMenuAuthority"
 	Core_CreateOrUpdateMenuAuthority_FullMethodName         = "/core.Core/createOrUpdateMenuAuthority"
 	Core_InitDatabase_FullMethodName                        = "/core.Core/initDatabase"
+	Core_CreateComment_FullMethodName                       = "/core.Core/createComment"
+	Core_UpdateComment_FullMethodName                       = "/core.Core/updateComment"
+	Core_GetCommentList_FullMethodName                      = "/core.Core/getCommentList"
+	Core_GetCommentById_FullMethodName                      = "/core.Core/getCommentById"
+	Core_DeleteComment_FullMethodName                       = "/core.Core/deleteComment"
 	Core_CreateDepartment_FullMethodName                    = "/core.Core/createDepartment"
 	Core_UpdateDepartment_FullMethodName                    = "/core.Core/updateDepartment"
 	Core_GetDepartmentList_FullMethodName                   = "/core.Core/getDepartmentList"
@@ -43,6 +53,11 @@ const (
 	Core_GetDictionaryDetailById_FullMethodName             = "/core.Core/getDictionaryDetailById"
 	Core_DeleteDictionaryDetail_FullMethodName              = "/core.Core/deleteDictionaryDetail"
 	Core_GetDictionaryDetailByDictionaryName_FullMethodName = "/core.Core/getDictionaryDetailByDictionaryName"
+	Core_CreateLike_FullMethodName                          = "/core.Core/createLike"
+	Core_UpdateLike_FullMethodName                          = "/core.Core/updateLike"
+	Core_GetLikeList_FullMethodName                         = "/core.Core/getLikeList"
+	Core_GetLikeById_FullMethodName                         = "/core.Core/getLikeById"
+	Core_DeleteLike_FullMethodName                          = "/core.Core/deleteLike"
 	Core_CreateMenu_FullMethodName                          = "/core.Core/createMenu"
 	Core_UpdateMenu_FullMethodName                          = "/core.Core/updateMenu"
 	Core_DeleteMenu_FullMethodName                          = "/core.Core/deleteMenu"
@@ -60,6 +75,11 @@ const (
 	Core_GetPositionList_FullMethodName                     = "/core.Core/getPositionList"
 	Core_GetPositionById_FullMethodName                     = "/core.Core/getPositionById"
 	Core_DeletePosition_FullMethodName                      = "/core.Core/deletePosition"
+	Core_CreatePost_FullMethodName                          = "/core.Core/createPost"
+	Core_UpdatePost_FullMethodName                          = "/core.Core/updatePost"
+	Core_GetPostList_FullMethodName                         = "/core.Core/getPostList"
+	Core_GetPostById_FullMethodName                         = "/core.Core/getPostById"
+	Core_DeletePost_FullMethodName                          = "/core.Core/deletePost"
 	Core_CreateRole_FullMethodName                          = "/core.Core/createRole"
 	Core_UpdateRole_FullMethodName                          = "/core.Core/updateRole"
 	Core_GetRoleList_FullMethodName                         = "/core.Core/getRoleList"
@@ -82,12 +102,28 @@ const (
 	Core_GetUserById_FullMethodName                         = "/core.Core/getUserById"
 	Core_GetUserByUsername_FullMethodName                   = "/core.Core/getUserByUsername"
 	Core_DeleteUser_FullMethodName                          = "/core.Core/deleteUser"
+	Core_CreateView_FullMethodName                          = "/core.Core/createView"
+	Core_UpdateView_FullMethodName                          = "/core.Core/updateView"
+	Core_GetViewList_FullMethodName                         = "/core.Core/getViewList"
+	Core_GetViewById_FullMethodName                         = "/core.Core/getViewById"
+	Core_DeleteView_FullMethodName                          = "/core.Core/deleteView"
 )
 
 // CoreClient is the client API for Core service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
+	// Account management
+	// group: Account
+	CreateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: Account
+	UpdateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: Account
+	GetAccountList(ctx context.Context, in *AccountListReq, opts ...grpc.CallOption) (*AccountListResp, error)
+	// group: Account
+	GetAccountById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AccountInfo, error)
+	// group: Account
+	DeleteAccount(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// API management
 	// group: api
 	CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -105,6 +141,17 @@ type CoreClient interface {
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// Comment management
+	// group: Comment
+	CreateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: Comment
+	UpdateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: Comment
+	GetCommentList(ctx context.Context, in *CommentListReq, opts ...grpc.CallOption) (*CommentListResp, error)
+	// group: Comment
+	GetCommentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*CommentInfo, error)
+	// group: Comment
+	DeleteComment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Department management
 	// group: department
 	CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -140,6 +187,17 @@ type CoreClient interface {
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+	// Like management
+	// group: Like
+	CreateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: Like
+	UpdateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: Like
+	GetLikeList(ctx context.Context, in *LikeListReq, opts ...grpc.CallOption) (*LikeListResp, error)
+	// group: Like
+	GetLikeById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*LikeInfo, error)
+	// group: Like
+	DeleteLike(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
 	CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 	// group: menu
@@ -176,6 +234,17 @@ type CoreClient interface {
 	GetPositionById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*PositionInfo, error)
 	// group: position
 	DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// Post management
+	// group: Post
+	CreatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: Post
+	UpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: Post
+	GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error)
+	// group: Post
+	GetPostById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*PostInfo, error)
+	// group: Post
+	DeletePost(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Role management
 	// group: role
 	CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -224,6 +293,17 @@ type CoreClient interface {
 	GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
 	// group: user
 	DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// View management
+	// group: View
+	CreateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+	// group: View
+	UpdateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: View
+	GetViewList(ctx context.Context, in *ViewListReq, opts ...grpc.CallOption) (*ViewListResp, error)
+	// group: View
+	GetViewById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*ViewInfo, error)
+	// group: View
+	DeleteView(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
 type coreClient struct {
@@ -232,6 +312,51 @@ type coreClient struct {
 
 func NewCoreClient(cc grpc.ClientConnInterface) CoreClient {
 	return &coreClient{cc}
+}
+
+func (c *coreClient) CreateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateAccount(ctx context.Context, in *AccountInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetAccountList(ctx context.Context, in *AccountListReq, opts ...grpc.CallOption) (*AccountListResp, error) {
+	out := new(AccountListResp)
+	err := c.cc.Invoke(ctx, Core_GetAccountList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetAccountById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*AccountInfo, error) {
+	out := new(AccountInfo)
+	err := c.cc.Invoke(ctx, Core_GetAccountById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteAccount(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *coreClient) CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
@@ -300,6 +425,51 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Core_InitDatabase_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateComment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateComment(ctx context.Context, in *CommentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateComment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetCommentList(ctx context.Context, in *CommentListReq, opts ...grpc.CallOption) (*CommentListResp, error) {
+	out := new(CommentListResp)
+	err := c.cc.Invoke(ctx, Core_GetCommentList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetCommentById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*CommentInfo, error) {
+	out := new(CommentInfo)
+	err := c.cc.Invoke(ctx, Core_GetCommentById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteComment(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteComment_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -444,6 +614,51 @@ func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opt
 func (c *coreClient) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
 	out := new(DictionaryDetailListResp)
 	err := c.cc.Invoke(ctx, Core_GetDictionaryDetailByDictionaryName_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateLike_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateLike(ctx context.Context, in *LikeInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateLike_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetLikeList(ctx context.Context, in *LikeListReq, opts ...grpc.CallOption) (*LikeListResp, error) {
+	out := new(LikeListResp)
+	err := c.cc.Invoke(ctx, Core_GetLikeList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetLikeById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*LikeInfo, error) {
+	out := new(LikeInfo)
+	err := c.cc.Invoke(ctx, Core_GetLikeById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteLike(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteLike_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -597,6 +812,51 @@ func (c *coreClient) GetPositionById(ctx context.Context, in *IDReq, opts ...grp
 func (c *coreClient) DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Core_DeletePosition_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreatePost_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdatePost_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error) {
+	out := new(PostListResp)
+	err := c.cc.Invoke(ctx, Core_GetPostList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetPostById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*PostInfo, error) {
+	out := new(PostInfo)
+	err := c.cc.Invoke(ctx, Core_GetPostById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeletePost(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeletePost_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -801,10 +1061,66 @@ func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.
 	return out, nil
 }
 
+func (c *coreClient) CreateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	out := new(BaseUUIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateView_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateView(ctx context.Context, in *ViewInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateView_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetViewList(ctx context.Context, in *ViewListReq, opts ...grpc.CallOption) (*ViewListResp, error) {
+	out := new(ViewListResp)
+	err := c.cc.Invoke(ctx, Core_GetViewList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetViewById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*ViewInfo, error) {
+	out := new(ViewInfo)
+	err := c.cc.Invoke(ctx, Core_GetViewById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteView(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteView_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
 type CoreServer interface {
+	// Account management
+	// group: Account
+	CreateAccount(context.Context, *AccountInfo) (*BaseUUIDResp, error)
+	// group: Account
+	UpdateAccount(context.Context, *AccountInfo) (*BaseResp, error)
+	// group: Account
+	GetAccountList(context.Context, *AccountListReq) (*AccountListResp, error)
+	// group: Account
+	GetAccountById(context.Context, *UUIDReq) (*AccountInfo, error)
+	// group: Account
+	DeleteAccount(context.Context, *UUIDsReq) (*BaseResp, error)
 	// API management
 	// group: api
 	CreateApi(context.Context, *ApiInfo) (*BaseIDResp, error)
@@ -822,6 +1138,17 @@ type CoreServer interface {
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// Comment management
+	// group: Comment
+	CreateComment(context.Context, *CommentInfo) (*BaseUUIDResp, error)
+	// group: Comment
+	UpdateComment(context.Context, *CommentInfo) (*BaseResp, error)
+	// group: Comment
+	GetCommentList(context.Context, *CommentListReq) (*CommentListResp, error)
+	// group: Comment
+	GetCommentById(context.Context, *UUIDReq) (*CommentInfo, error)
+	// group: Comment
+	DeleteComment(context.Context, *UUIDsReq) (*BaseResp, error)
 	// Department management
 	// group: department
 	CreateDepartment(context.Context, *DepartmentInfo) (*BaseIDResp, error)
@@ -857,6 +1184,17 @@ type CoreServer interface {
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
 	// group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error)
+	// Like management
+	// group: Like
+	CreateLike(context.Context, *LikeInfo) (*BaseUUIDResp, error)
+	// group: Like
+	UpdateLike(context.Context, *LikeInfo) (*BaseResp, error)
+	// group: Like
+	GetLikeList(context.Context, *LikeListReq) (*LikeListResp, error)
+	// group: Like
+	GetLikeById(context.Context, *UUIDReq) (*LikeInfo, error)
+	// group: Like
+	DeleteLike(context.Context, *UUIDsReq) (*BaseResp, error)
 	// group: menu
 	CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error)
 	// group: menu
@@ -893,6 +1231,17 @@ type CoreServer interface {
 	GetPositionById(context.Context, *IDReq) (*PositionInfo, error)
 	// group: position
 	DeletePosition(context.Context, *IDsReq) (*BaseResp, error)
+	// Post management
+	// group: Post
+	CreatePost(context.Context, *PostInfo) (*BaseUUIDResp, error)
+	// group: Post
+	UpdatePost(context.Context, *PostInfo) (*BaseResp, error)
+	// group: Post
+	GetPostList(context.Context, *PostListReq) (*PostListResp, error)
+	// group: Post
+	GetPostById(context.Context, *UUIDReq) (*PostInfo, error)
+	// group: Post
+	DeletePost(context.Context, *UUIDsReq) (*BaseResp, error)
 	// Role management
 	// group: role
 	CreateRole(context.Context, *RoleInfo) (*BaseIDResp, error)
@@ -941,6 +1290,17 @@ type CoreServer interface {
 	GetUserByUsername(context.Context, *UsernameReq) (*UserInfo, error)
 	// group: user
 	DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
+	// View management
+	// group: View
+	CreateView(context.Context, *ViewInfo) (*BaseUUIDResp, error)
+	// group: View
+	UpdateView(context.Context, *ViewInfo) (*BaseResp, error)
+	// group: View
+	GetViewList(context.Context, *ViewListReq) (*ViewListResp, error)
+	// group: View
+	GetViewById(context.Context, *UUIDReq) (*ViewInfo, error)
+	// group: View
+	DeleteView(context.Context, *UUIDsReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -948,6 +1308,21 @@ type CoreServer interface {
 type UnimplementedCoreServer struct {
 }
 
+func (UnimplementedCoreServer) CreateAccount(context.Context, *AccountInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
+}
+func (UnimplementedCoreServer) UpdateAccount(context.Context, *AccountInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccount not implemented")
+}
+func (UnimplementedCoreServer) GetAccountList(context.Context, *AccountListReq) (*AccountListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountList not implemented")
+}
+func (UnimplementedCoreServer) GetAccountById(context.Context, *UUIDReq) (*AccountInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountById not implemented")
+}
+func (UnimplementedCoreServer) DeleteAccount(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccount not implemented")
+}
 func (UnimplementedCoreServer) CreateApi(context.Context, *ApiInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateApi not implemented")
 }
@@ -971,6 +1346,21 @@ func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *Rol
 }
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedCoreServer) CreateComment(context.Context, *CommentInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
+}
+func (UnimplementedCoreServer) UpdateComment(context.Context, *CommentInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateComment not implemented")
+}
+func (UnimplementedCoreServer) GetCommentList(context.Context, *CommentListReq) (*CommentListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCommentList not implemented")
+}
+func (UnimplementedCoreServer) GetCommentById(context.Context, *UUIDReq) (*CommentInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCommentById not implemented")
+}
+func (UnimplementedCoreServer) DeleteComment(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
 }
 func (UnimplementedCoreServer) CreateDepartment(context.Context, *DepartmentInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDepartment not implemented")
@@ -1019,6 +1409,21 @@ func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDsReq) 
 }
 func (UnimplementedCoreServer) GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryDetailByDictionaryName not implemented")
+}
+func (UnimplementedCoreServer) CreateLike(context.Context, *LikeInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLike not implemented")
+}
+func (UnimplementedCoreServer) UpdateLike(context.Context, *LikeInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLike not implemented")
+}
+func (UnimplementedCoreServer) GetLikeList(context.Context, *LikeListReq) (*LikeListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLikeList not implemented")
+}
+func (UnimplementedCoreServer) GetLikeById(context.Context, *UUIDReq) (*LikeInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLikeById not implemented")
+}
+func (UnimplementedCoreServer) DeleteLike(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLike not implemented")
 }
 func (UnimplementedCoreServer) CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
@@ -1070,6 +1475,21 @@ func (UnimplementedCoreServer) GetPositionById(context.Context, *IDReq) (*Positi
 }
 func (UnimplementedCoreServer) DeletePosition(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePosition not implemented")
+}
+func (UnimplementedCoreServer) CreatePost(context.Context, *PostInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePost not implemented")
+}
+func (UnimplementedCoreServer) UpdatePost(context.Context, *PostInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePost not implemented")
+}
+func (UnimplementedCoreServer) GetPostList(context.Context, *PostListReq) (*PostListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPostList not implemented")
+}
+func (UnimplementedCoreServer) GetPostById(context.Context, *UUIDReq) (*PostInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPostById not implemented")
+}
+func (UnimplementedCoreServer) DeletePost(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePost not implemented")
 }
 func (UnimplementedCoreServer) CreateRole(context.Context, *RoleInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
@@ -1137,6 +1557,21 @@ func (UnimplementedCoreServer) GetUserByUsername(context.Context, *UsernameReq) 
 func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
+func (UnimplementedCoreServer) CreateView(context.Context, *ViewInfo) (*BaseUUIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateView not implemented")
+}
+func (UnimplementedCoreServer) UpdateView(context.Context, *ViewInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateView not implemented")
+}
+func (UnimplementedCoreServer) GetViewList(context.Context, *ViewListReq) (*ViewListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetViewList not implemented")
+}
+func (UnimplementedCoreServer) GetViewById(context.Context, *UUIDReq) (*ViewInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetViewById not implemented")
+}
+func (UnimplementedCoreServer) DeleteView(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteView not implemented")
+}
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
 // UnsafeCoreServer may be embedded to opt out of forward compatibility for this service.
@@ -1148,6 +1583,96 @@ type UnsafeCoreServer interface {
 
 func RegisterCoreServer(s grpc.ServiceRegistrar, srv CoreServer) {
 	s.RegisterService(&Core_ServiceDesc, srv)
+}
+
+func _Core_CreateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateAccount(ctx, req.(*AccountInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateAccount(ctx, req.(*AccountInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetAccountList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetAccountList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetAccountList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetAccountList(ctx, req.(*AccountListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetAccountById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetAccountById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetAccountById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetAccountById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteAccount(ctx, req.(*UUIDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Core_CreateApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1290,6 +1815,96 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CommentInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateComment(ctx, req.(*CommentInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CommentInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateComment(ctx, req.(*CommentInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetCommentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CommentListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetCommentList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetCommentList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetCommentList(ctx, req.(*CommentListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetCommentById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetCommentById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetCommentById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetCommentById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteComment(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1578,6 +2193,96 @@ func _Core_GetDictionaryDetailByDictionaryName_Handler(srv interface{}, ctx cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetDictionaryDetailByDictionaryName(ctx, req.(*BaseMsg))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateLike_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LikeInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateLike(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateLike_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateLike(ctx, req.(*LikeInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateLike_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LikeInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateLike(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateLike_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateLike(ctx, req.(*LikeInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetLikeList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LikeListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetLikeList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetLikeList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetLikeList(ctx, req.(*LikeListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetLikeById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetLikeById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetLikeById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetLikeById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteLike_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteLike(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteLike_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteLike(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1884,6 +2589,96 @@ func _Core_DeletePosition_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeletePosition(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreatePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreatePost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreatePost(ctx, req.(*PostInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdatePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdatePost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdatePost(ctx, req.(*PostInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetPostList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetPostList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetPostList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetPostList(ctx, req.(*PostListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetPostById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetPostById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetPostById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetPostById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeletePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeletePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeletePost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeletePost(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2284,6 +3079,96 @@ func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateView_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ViewInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateView(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateView_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateView(ctx, req.(*ViewInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateView_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ViewInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateView(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateView_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateView(ctx, req.(*ViewInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetViewList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ViewListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetViewList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetViewList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetViewList(ctx, req.(*ViewListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetViewById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetViewById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetViewById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetViewById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteView_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteView(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteView_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteView(ctx, req.(*UUIDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -2291,6 +3176,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "core.Core",
 	HandlerType: (*CoreServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "createAccount",
+			Handler:    _Core_CreateAccount_Handler,
+		},
+		{
+			MethodName: "updateAccount",
+			Handler:    _Core_UpdateAccount_Handler,
+		},
+		{
+			MethodName: "getAccountList",
+			Handler:    _Core_GetAccountList_Handler,
+		},
+		{
+			MethodName: "getAccountById",
+			Handler:    _Core_GetAccountById_Handler,
+		},
+		{
+			MethodName: "deleteAccount",
+			Handler:    _Core_DeleteAccount_Handler,
+		},
 		{
 			MethodName: "createApi",
 			Handler:    _Core_CreateApi_Handler,
@@ -2322,6 +3227,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
+			MethodName: "createComment",
+			Handler:    _Core_CreateComment_Handler,
+		},
+		{
+			MethodName: "updateComment",
+			Handler:    _Core_UpdateComment_Handler,
+		},
+		{
+			MethodName: "getCommentList",
+			Handler:    _Core_GetCommentList_Handler,
+		},
+		{
+			MethodName: "getCommentById",
+			Handler:    _Core_GetCommentById_Handler,
+		},
+		{
+			MethodName: "deleteComment",
+			Handler:    _Core_DeleteComment_Handler,
 		},
 		{
 			MethodName: "createDepartment",
@@ -2386,6 +3311,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getDictionaryDetailByDictionaryName",
 			Handler:    _Core_GetDictionaryDetailByDictionaryName_Handler,
+		},
+		{
+			MethodName: "createLike",
+			Handler:    _Core_CreateLike_Handler,
+		},
+		{
+			MethodName: "updateLike",
+			Handler:    _Core_UpdateLike_Handler,
+		},
+		{
+			MethodName: "getLikeList",
+			Handler:    _Core_GetLikeList_Handler,
+		},
+		{
+			MethodName: "getLikeById",
+			Handler:    _Core_GetLikeById_Handler,
+		},
+		{
+			MethodName: "deleteLike",
+			Handler:    _Core_DeleteLike_Handler,
 		},
 		{
 			MethodName: "createMenu",
@@ -2454,6 +3399,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deletePosition",
 			Handler:    _Core_DeletePosition_Handler,
+		},
+		{
+			MethodName: "createPost",
+			Handler:    _Core_CreatePost_Handler,
+		},
+		{
+			MethodName: "updatePost",
+			Handler:    _Core_UpdatePost_Handler,
+		},
+		{
+			MethodName: "getPostList",
+			Handler:    _Core_GetPostList_Handler,
+		},
+		{
+			MethodName: "getPostById",
+			Handler:    _Core_GetPostById_Handler,
+		},
+		{
+			MethodName: "deletePost",
+			Handler:    _Core_DeletePost_Handler,
 		},
 		{
 			MethodName: "createRole",
@@ -2542,6 +3507,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteUser",
 			Handler:    _Core_DeleteUser_Handler,
+		},
+		{
+			MethodName: "createView",
+			Handler:    _Core_CreateView_Handler,
+		},
+		{
+			MethodName: "updateView",
+			Handler:    _Core_UpdateView_Handler,
+		},
+		{
+			MethodName: "getViewList",
+			Handler:    _Core_GetViewList_Handler,
+		},
+		{
+			MethodName: "getViewById",
+			Handler:    _Core_GetViewById_Handler,
+		},
+		{
+			MethodName: "deleteView",
+			Handler:    _Core_DeleteView_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -6,6 +6,7 @@ import (
 	"time"
 
 	uuid "github.com/gofrs/uuid/v5"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/account"
 )
 
 // set field if value's pointer is not nil.
@@ -150,6 +151,318 @@ func (a *APICreate) SetNotNilIsRequired(value *bool) *APICreate {
 		return a.SetIsRequired(*value)
 	}
 	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilUpdatedAt(value *time.Time) *AccountUpdate {
+	if value != nil {
+		return a.SetUpdatedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilUpdatedAt(value *time.Time) *AccountUpdateOne {
+	if value != nil {
+		return a.SetUpdatedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilUpdatedAt(value *time.Time) *AccountCreate {
+	if value != nil {
+		return a.SetUpdatedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilStatus(value *uint8) *AccountUpdate {
+	if value != nil {
+		return a.SetStatus(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilStatus(value *uint8) *AccountUpdateOne {
+	if value != nil {
+		return a.SetStatus(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilStatus(value *uint8) *AccountCreate {
+	if value != nil {
+		return a.SetStatus(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilDeletedAt(value *time.Time) *AccountUpdate {
+	if value != nil {
+		return a.SetDeletedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilDeletedAt(value *time.Time) *AccountUpdateOne {
+	if value != nil {
+		return a.SetDeletedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilDeletedAt(value *time.Time) *AccountCreate {
+	if value != nil {
+		return a.SetDeletedAt(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilAccountName(value *string) *AccountUpdate {
+	if value != nil {
+		return a.SetAccountName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilAccountName(value *string) *AccountUpdateOne {
+	if value != nil {
+		return a.SetAccountName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilAccountName(value *string) *AccountCreate {
+	if value != nil {
+		return a.SetAccountName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilPassword(value *string) *AccountUpdate {
+	if value != nil {
+		return a.SetPassword(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilPassword(value *string) *AccountUpdateOne {
+	if value != nil {
+		return a.SetPassword(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilPassword(value *string) *AccountCreate {
+	if value != nil {
+		return a.SetPassword(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilMobile(value *uint32) *AccountUpdate {
+	if value != nil {
+		return a.SetMobile(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilMobile(value *uint32) *AccountUpdateOne {
+	if value != nil {
+		return a.SetMobile(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilMobile(value *uint32) *AccountCreate {
+	if value != nil {
+		return a.SetMobile(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilEmail(value *string) *AccountUpdate {
+	if value != nil {
+		return a.SetEmail(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilEmail(value *string) *AccountUpdateOne {
+	if value != nil {
+		return a.SetEmail(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilEmail(value *string) *AccountCreate {
+	if value != nil {
+		return a.SetEmail(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilAvatar(value *string) *AccountUpdate {
+	if value != nil {
+		return a.SetAvatar(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilAvatar(value *string) *AccountUpdateOne {
+	if value != nil {
+		return a.SetAvatar(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilAvatar(value *string) *AccountCreate {
+	if value != nil {
+		return a.SetAvatar(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdate) SetNotNilGender(value *account.Gender) *AccountUpdate {
+	if value != nil {
+		return a.SetGender(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountUpdateOne) SetNotNilGender(value *account.Gender) *AccountUpdateOne {
+	if value != nil {
+		return a.SetGender(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *AccountCreate) SetNotNilGender(value *account.Gender) *AccountCreate {
+	if value != nil {
+		return a.SetGender(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdate) SetNotNilUpdatedAt(value *time.Time) *CommentUpdate {
+	if value != nil {
+		return c.SetUpdatedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CommentUpdateOne {
+	if value != nil {
+		return c.SetUpdatedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentCreate) SetNotNilUpdatedAt(value *time.Time) *CommentCreate {
+	if value != nil {
+		return c.SetUpdatedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdate) SetNotNilStatus(value *uint8) *CommentUpdate {
+	if value != nil {
+		return c.SetStatus(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdateOne) SetNotNilStatus(value *uint8) *CommentUpdateOne {
+	if value != nil {
+		return c.SetStatus(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentCreate) SetNotNilStatus(value *uint8) *CommentCreate {
+	if value != nil {
+		return c.SetStatus(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdate) SetNotNilDeletedAt(value *time.Time) *CommentUpdate {
+	if value != nil {
+		return c.SetDeletedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdateOne) SetNotNilDeletedAt(value *time.Time) *CommentUpdateOne {
+	if value != nil {
+		return c.SetDeletedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentCreate) SetNotNilDeletedAt(value *time.Time) *CommentCreate {
+	if value != nil {
+		return c.SetDeletedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdate) SetNotNilContent(value *string) *CommentUpdate {
+	if value != nil {
+		return c.SetContent(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentUpdateOne) SetNotNilContent(value *string) *CommentUpdateOne {
+	if value != nil {
+		return c.SetContent(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *CommentCreate) SetNotNilContent(value *string) *CommentCreate {
+	if value != nil {
+		return c.SetContent(*value)
+	}
+	return c
 }
 
 // set field if value's pointer is not nil.
@@ -678,6 +991,54 @@ func (dd *DictionaryDetailCreate) SetNotNilDictionaryID(value *uint64) *Dictiona
 		return dd.SetDictionaryID(*value)
 	}
 	return dd
+}
+
+// set field if value's pointer is not nil.
+func (l *LikeUpdate) SetNotNilUpdatedAt(value *time.Time) *LikeUpdate {
+	if value != nil {
+		return l.SetUpdatedAt(*value)
+	}
+	return l
+}
+
+// set field if value's pointer is not nil.
+func (l *LikeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *LikeUpdateOne {
+	if value != nil {
+		return l.SetUpdatedAt(*value)
+	}
+	return l
+}
+
+// set field if value's pointer is not nil.
+func (l *LikeCreate) SetNotNilUpdatedAt(value *time.Time) *LikeCreate {
+	if value != nil {
+		return l.SetUpdatedAt(*value)
+	}
+	return l
+}
+
+// set field if value's pointer is not nil.
+func (l *LikeUpdate) SetNotNilStatus(value *uint8) *LikeUpdate {
+	if value != nil {
+		return l.SetStatus(*value)
+	}
+	return l
+}
+
+// set field if value's pointer is not nil.
+func (l *LikeUpdateOne) SetNotNilStatus(value *uint8) *LikeUpdateOne {
+	if value != nil {
+		return l.SetStatus(*value)
+	}
+	return l
+}
+
+// set field if value's pointer is not nil.
+func (l *LikeCreate) SetNotNilStatus(value *uint8) *LikeCreate {
+	if value != nil {
+		return l.SetStatus(*value)
+	}
+	return l
 }
 
 // set field if value's pointer is not nil.
@@ -1593,6 +1954,246 @@ func (po *PositionCreate) SetNotNilRemark(value *string) *PositionCreate {
 }
 
 // set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilUpdatedAt(value *time.Time) *PostUpdate {
+	if value != nil {
+		return po.SetUpdatedAt(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PostUpdateOne {
+	if value != nil {
+		return po.SetUpdatedAt(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilUpdatedAt(value *time.Time) *PostCreate {
+	if value != nil {
+		return po.SetUpdatedAt(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilStatus(value *uint8) *PostUpdate {
+	if value != nil {
+		return po.SetStatus(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilStatus(value *uint8) *PostUpdateOne {
+	if value != nil {
+		return po.SetStatus(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilStatus(value *uint8) *PostCreate {
+	if value != nil {
+		return po.SetStatus(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilDeletedAt(value *time.Time) *PostUpdate {
+	if value != nil {
+		return po.SetDeletedAt(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilDeletedAt(value *time.Time) *PostUpdateOne {
+	if value != nil {
+		return po.SetDeletedAt(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilDeletedAt(value *time.Time) *PostCreate {
+	if value != nil {
+		return po.SetDeletedAt(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilTitle(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetTitle(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilTitle(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetTitle(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilTitle(value *string) *PostCreate {
+	if value != nil {
+		return po.SetTitle(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilContent(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetContent(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilContent(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetContent(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilContent(value *string) *PostCreate {
+	if value != nil {
+		return po.SetContent(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilAuthor(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetAuthor(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilAuthor(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetAuthor(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilAuthor(value *string) *PostCreate {
+	if value != nil {
+		return po.SetAuthor(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilCategory(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetCategory(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilCategory(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetCategory(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilCategory(value *string) *PostCreate {
+	if value != nil {
+		return po.SetCategory(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilTags(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetTags(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilTags(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetTags(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilTags(value *string) *PostCreate {
+	if value != nil {
+		return po.SetTags(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilSummary(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetSummary(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilSummary(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetSummary(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilSummary(value *string) *PostCreate {
+	if value != nil {
+		return po.SetSummary(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdate) SetNotNilCover(value *string) *PostUpdate {
+	if value != nil {
+		return po.SetCover(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostUpdateOne) SetNotNilCover(value *string) *PostUpdateOne {
+	if value != nil {
+		return po.SetCover(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
+func (po *PostCreate) SetNotNilCover(value *string) *PostCreate {
+	if value != nil {
+		return po.SetCover(*value)
+	}
+	return po
+}
+
+// set field if value's pointer is not nil.
 func (r *RoleUpdate) SetNotNilUpdatedAt(value *time.Time) *RoleUpdate {
 	if value != nil {
 		return r.SetUpdatedAt(*value)
@@ -2430,4 +3031,52 @@ func (u *UserCreate) SetNotNilDepartmentID(value *uint64) *UserCreate {
 		return u.SetDepartmentID(*value)
 	}
 	return u
+}
+
+// set field if value's pointer is not nil.
+func (v *ViewUpdate) SetNotNilUpdatedAt(value *time.Time) *ViewUpdate {
+	if value != nil {
+		return v.SetUpdatedAt(*value)
+	}
+	return v
+}
+
+// set field if value's pointer is not nil.
+func (v *ViewUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ViewUpdateOne {
+	if value != nil {
+		return v.SetUpdatedAt(*value)
+	}
+	return v
+}
+
+// set field if value's pointer is not nil.
+func (v *ViewCreate) SetNotNilUpdatedAt(value *time.Time) *ViewCreate {
+	if value != nil {
+		return v.SetUpdatedAt(*value)
+	}
+	return v
+}
+
+// set field if value's pointer is not nil.
+func (v *ViewUpdate) SetNotNilStatus(value *uint8) *ViewUpdate {
+	if value != nil {
+		return v.SetStatus(*value)
+	}
+	return v
+}
+
+// set field if value's pointer is not nil.
+func (v *ViewUpdateOne) SetNotNilStatus(value *uint8) *ViewUpdateOne {
+	if value != nil {
+		return v.SetStatus(*value)
+	}
+	return v
+}
+
+// set field if value's pointer is not nil.
+func (v *ViewCreate) SetNotNilStatus(value *uint8) *ViewCreate {
+	if value != nil {
+		return v.SetStatus(*value)
+	}
+	return v
 }

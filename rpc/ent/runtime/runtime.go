@@ -6,18 +6,23 @@ import (
 	"time"
 
 	uuid "github.com/gofrs/uuid/v5"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/account"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/comment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/like"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/post"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/schema"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/view"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -47,6 +52,68 @@ func init() {
 	apiDescIsRequired := apiFields[4].Descriptor()
 	// api.DefaultIsRequired holds the default value on creation for the is_required field.
 	api.DefaultIsRequired = apiDescIsRequired.Default.(bool)
+	accountMixin := schema.Account{}.Mixin()
+	accountMixinHooks2 := accountMixin[2].Hooks()
+	account.Hooks[0] = accountMixinHooks2[0]
+	accountMixinInters2 := accountMixin[2].Interceptors()
+	account.Interceptors[0] = accountMixinInters2[0]
+	accountMixinFields0 := accountMixin[0].Fields()
+	_ = accountMixinFields0
+	accountMixinFields1 := accountMixin[1].Fields()
+	_ = accountMixinFields1
+	accountFields := schema.Account{}.Fields()
+	_ = accountFields
+	// accountDescCreatedAt is the schema descriptor for created_at field.
+	accountDescCreatedAt := accountMixinFields0[1].Descriptor()
+	// account.DefaultCreatedAt holds the default value on creation for the created_at field.
+	account.DefaultCreatedAt = accountDescCreatedAt.Default.(func() time.Time)
+	// accountDescUpdatedAt is the schema descriptor for updated_at field.
+	accountDescUpdatedAt := accountMixinFields0[2].Descriptor()
+	// account.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	account.DefaultUpdatedAt = accountDescUpdatedAt.Default.(func() time.Time)
+	// account.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	account.UpdateDefaultUpdatedAt = accountDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// accountDescStatus is the schema descriptor for status field.
+	accountDescStatus := accountMixinFields1[0].Descriptor()
+	// account.DefaultStatus holds the default value on creation for the status field.
+	account.DefaultStatus = accountDescStatus.Default.(uint8)
+	// accountDescAvatar is the schema descriptor for avatar field.
+	accountDescAvatar := accountFields[4].Descriptor()
+	// account.DefaultAvatar holds the default value on creation for the avatar field.
+	account.DefaultAvatar = accountDescAvatar.Default.(string)
+	// accountDescID is the schema descriptor for id field.
+	accountDescID := accountMixinFields0[0].Descriptor()
+	// account.DefaultID holds the default value on creation for the id field.
+	account.DefaultID = accountDescID.Default.(func() uuid.UUID)
+	commentMixin := schema.Comment{}.Mixin()
+	commentMixinHooks2 := commentMixin[2].Hooks()
+	comment.Hooks[0] = commentMixinHooks2[0]
+	commentMixinInters2 := commentMixin[2].Interceptors()
+	comment.Interceptors[0] = commentMixinInters2[0]
+	commentMixinFields0 := commentMixin[0].Fields()
+	_ = commentMixinFields0
+	commentMixinFields1 := commentMixin[1].Fields()
+	_ = commentMixinFields1
+	commentFields := schema.Comment{}.Fields()
+	_ = commentFields
+	// commentDescCreatedAt is the schema descriptor for created_at field.
+	commentDescCreatedAt := commentMixinFields0[1].Descriptor()
+	// comment.DefaultCreatedAt holds the default value on creation for the created_at field.
+	comment.DefaultCreatedAt = commentDescCreatedAt.Default.(func() time.Time)
+	// commentDescUpdatedAt is the schema descriptor for updated_at field.
+	commentDescUpdatedAt := commentMixinFields0[2].Descriptor()
+	// comment.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	comment.DefaultUpdatedAt = commentDescUpdatedAt.Default.(func() time.Time)
+	// comment.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	comment.UpdateDefaultUpdatedAt = commentDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// commentDescStatus is the schema descriptor for status field.
+	commentDescStatus := commentMixinFields1[0].Descriptor()
+	// comment.DefaultStatus holds the default value on creation for the status field.
+	comment.DefaultStatus = commentDescStatus.Default.(uint8)
+	// commentDescID is the schema descriptor for id field.
+	commentDescID := commentMixinFields0[0].Descriptor()
+	// comment.DefaultID holds the default value on creation for the id field.
+	comment.DefaultID = commentDescID.Default.(func() uuid.UUID)
 	departmentMixin := schema.Department{}.Mixin()
 	departmentMixinFields0 := departmentMixin[0].Fields()
 	_ = departmentMixinFields0
@@ -126,6 +193,31 @@ func init() {
 	dictionarydetailDescSort := dictionarydetailMixinFields2[0].Descriptor()
 	// dictionarydetail.DefaultSort holds the default value on creation for the sort field.
 	dictionarydetail.DefaultSort = dictionarydetailDescSort.Default.(uint32)
+	likeMixin := schema.Like{}.Mixin()
+	likeMixinFields0 := likeMixin[0].Fields()
+	_ = likeMixinFields0
+	likeMixinFields1 := likeMixin[1].Fields()
+	_ = likeMixinFields1
+	likeFields := schema.Like{}.Fields()
+	_ = likeFields
+	// likeDescCreatedAt is the schema descriptor for created_at field.
+	likeDescCreatedAt := likeMixinFields0[1].Descriptor()
+	// like.DefaultCreatedAt holds the default value on creation for the created_at field.
+	like.DefaultCreatedAt = likeDescCreatedAt.Default.(func() time.Time)
+	// likeDescUpdatedAt is the schema descriptor for updated_at field.
+	likeDescUpdatedAt := likeMixinFields0[2].Descriptor()
+	// like.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	like.DefaultUpdatedAt = likeDescUpdatedAt.Default.(func() time.Time)
+	// like.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	like.UpdateDefaultUpdatedAt = likeDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// likeDescStatus is the schema descriptor for status field.
+	likeDescStatus := likeMixinFields1[0].Descriptor()
+	// like.DefaultStatus holds the default value on creation for the status field.
+	like.DefaultStatus = likeDescStatus.Default.(uint8)
+	// likeDescID is the schema descriptor for id field.
+	likeDescID := likeMixinFields0[0].Descriptor()
+	// like.DefaultID holds the default value on creation for the id field.
+	like.DefaultID = likeDescID.Default.(func() uuid.UUID)
 	menuMixin := schema.Menu{}.Mixin()
 	menuMixinFields0 := menuMixin[0].Fields()
 	_ = menuMixinFields0
@@ -249,6 +341,35 @@ func init() {
 	positionDescSort := positionMixinFields2[0].Descriptor()
 	// position.DefaultSort holds the default value on creation for the sort field.
 	position.DefaultSort = positionDescSort.Default.(uint32)
+	postMixin := schema.Post{}.Mixin()
+	postMixinHooks2 := postMixin[2].Hooks()
+	post.Hooks[0] = postMixinHooks2[0]
+	postMixinInters2 := postMixin[2].Interceptors()
+	post.Interceptors[0] = postMixinInters2[0]
+	postMixinFields0 := postMixin[0].Fields()
+	_ = postMixinFields0
+	postMixinFields1 := postMixin[1].Fields()
+	_ = postMixinFields1
+	postFields := schema.Post{}.Fields()
+	_ = postFields
+	// postDescCreatedAt is the schema descriptor for created_at field.
+	postDescCreatedAt := postMixinFields0[1].Descriptor()
+	// post.DefaultCreatedAt holds the default value on creation for the created_at field.
+	post.DefaultCreatedAt = postDescCreatedAt.Default.(func() time.Time)
+	// postDescUpdatedAt is the schema descriptor for updated_at field.
+	postDescUpdatedAt := postMixinFields0[2].Descriptor()
+	// post.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	post.DefaultUpdatedAt = postDescUpdatedAt.Default.(func() time.Time)
+	// post.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	post.UpdateDefaultUpdatedAt = postDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// postDescStatus is the schema descriptor for status field.
+	postDescStatus := postMixinFields1[0].Descriptor()
+	// post.DefaultStatus holds the default value on creation for the status field.
+	post.DefaultStatus = postDescStatus.Default.(uint8)
+	// postDescID is the schema descriptor for id field.
+	postDescID := postMixinFields0[0].Descriptor()
+	// post.DefaultID holds the default value on creation for the id field.
+	post.DefaultID = postDescID.Default.(func() uuid.UUID)
 	roleMixin := schema.Role{}.Mixin()
 	roleMixinFields0 := roleMixin[0].Fields()
 	_ = roleMixinFields0
@@ -377,6 +498,31 @@ func init() {
 	userDescID := userMixinFields0[0].Descriptor()
 	// user.DefaultID holds the default value on creation for the id field.
 	user.DefaultID = userDescID.Default.(func() uuid.UUID)
+	viewMixin := schema.View{}.Mixin()
+	viewMixinFields0 := viewMixin[0].Fields()
+	_ = viewMixinFields0
+	viewMixinFields1 := viewMixin[1].Fields()
+	_ = viewMixinFields1
+	viewFields := schema.View{}.Fields()
+	_ = viewFields
+	// viewDescCreatedAt is the schema descriptor for created_at field.
+	viewDescCreatedAt := viewMixinFields0[1].Descriptor()
+	// view.DefaultCreatedAt holds the default value on creation for the created_at field.
+	view.DefaultCreatedAt = viewDescCreatedAt.Default.(func() time.Time)
+	// viewDescUpdatedAt is the schema descriptor for updated_at field.
+	viewDescUpdatedAt := viewMixinFields0[2].Descriptor()
+	// view.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	view.DefaultUpdatedAt = viewDescUpdatedAt.Default.(func() time.Time)
+	// view.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	view.UpdateDefaultUpdatedAt = viewDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// viewDescStatus is the schema descriptor for status field.
+	viewDescStatus := viewMixinFields1[0].Descriptor()
+	// view.DefaultStatus holds the default value on creation for the status field.
+	view.DefaultStatus = viewDescStatus.Default.(uint8)
+	// viewDescID is the schema descriptor for id field.
+	viewDescID := viewMixinFields0[0].Descriptor()
+	// view.DefaultID holds the default value on creation for the id field.
+	view.DefaultID = viewDescID.Default.(func() uuid.UUID)
 }
 
 const (

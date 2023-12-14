@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+// View message
+
+message ViewInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+}
+
+message ViewListResp {
+  uint64 total = 1;
+  repeated ViewInfo data = 2;
+}
+
+message ViewListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+
+service Core {
+
+  // View management
+  // group: View
+  rpc createView (ViewInfo) returns (BaseUUIDResp);
+  // group: View
+  rpc updateView (ViewInfo) returns (BaseResp);
+  // group: View
+  rpc getViewList (ViewListReq) returns (ViewListResp);
+  // group: View
+  rpc getViewById (UUIDReq) returns (ViewInfo);
+  // group: View
+  rpc deleteView (UUIDsReq) returns (BaseResp);
+
+
+}

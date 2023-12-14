@@ -3,6 +3,49 @@ syntax = "proto3";
 package core;
 option go_package="./core";
 
+message UUIDsReq {
+  repeated string ids = 1;
+}
+
+message BaseResp {
+  string msg = 1;
+}
+
+message DictionaryDetailListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional uint64 dictionary_id = 3;
+  optional string key = 4;
+}
+
+message MenuRoleInfo {
+  uint64 id = 1;
+  uint64 menu_id = 2;
+  uint64 role_id = 3;
+}
+
+message OauthProviderListResp {
+  uint64 total = 1;
+  repeated OauthProviderInfo data = 2;
+}
+
+message OauthRedirectResp {
+  string url = 1;
+}
+
+message RoleListResp {
+  uint64 total = 1;
+  repeated RoleInfo data = 2;
+}
+
+message AccountListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string account_name = 3;
+  optional string password = 4;
+  optional string email = 5;
+}
+
 message StockInfo {
   optional string id = 1;
   optional int64 created_at = 2;
@@ -27,20 +70,122 @@ message StockInfo {
   optional string stock_tags = 12;
 }
 
-message TokenListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  optional string username = 3;
-  optional string nickname = 4;
-  optional string email = 5;
-  optional string uuid = 6;
+message Meta {
+  optional string title = 1;
+  optional string icon = 2;
+  optional bool hide_menu = 3;
+  optional bool hide_breadcrumb = 4;
+  optional bool ignore_keep_alive = 5;
+  optional bool hide_tab = 6;
+  optional string frame_src = 7;
+  optional bool carry_param = 8;
+  optional bool hide_children_in_menu = 9;
+  optional bool affix = 10;
+  optional uint32 dynamic_level = 11;
+  optional string real_path = 12;
 }
 
-message DepartmentListReq {
+message MenuInfoList {
+  uint64 total = 1;
+  repeated MenuInfo data = 2;
+}
+
+message PostInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  标题
+  optional string title = 5;
+  //  内容
+  optional string content = 6;
+  //  作者
+  optional string author = 7;
+  //  分类
+  optional string category = 8;
+  //  标签
+  optional string tags = 9;
+  //  摘要
+  optional string summary = 10;
+  //  封面
+  optional string cover = 11;
+}
+
+message PostListResp {
+  uint64 total = 1;
+  repeated PostInfo data = 2;
+}
+
+message CommentInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  评论内容
+  optional string content = 5;
+}
+
+message DepartmentListResp {
+  uint64 total = 1;
+  repeated DepartmentInfo data = 2;
+}
+
+message PositionListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   optional string name = 3;
-  optional string leader = 4;
+  optional string code = 4;
+  optional string remark = 5;
+}
+
+message BaseMsg {
+  string msg = 1;
+}
+
+message DictionaryListResp {
+  uint64 total = 1;
+  repeated DictionaryInfo data = 2;
+}
+
+message PositionInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional uint32 status = 4;
+  optional uint32 sort = 5;
+  optional string name = 6;
+  optional string code = 7;
+  optional string remark = 8;
+}
+
+message PositionListResp {
+  uint64 total = 1;
+  repeated PositionInfo data = 2;
+}
+
+message CallbackReq {
+  string state = 1;
+  string code = 2;
+}
+
+//  base message
+message Empty {}
+
+message OauthProviderInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional string name = 4;
+  optional string client_id = 5;
+  optional string client_secret = 6;
+  optional string redirect_url = 7;
+  optional string scopes = 8;
+  optional string auth_url = 9;
+  optional string token_url = 10;
+  optional uint64 auth_style = 11;
+  optional string info_url = 12;
 }
 
 message RoleInfo {
@@ -55,34 +200,26 @@ message RoleInfo {
   optional uint32 sort = 9;
 }
 
-message UserInfo {
-  optional string id = 1;
+message ApiInfo {
+  optional uint64 id = 1;
   optional int64 created_at = 2;
   optional int64 updated_at = 3;
-  optional uint32 status = 4;
-  optional string username = 5;
-  optional string password = 6;
-  optional string nickname = 7;
-  optional string description = 8;
-  optional string home_path = 9;
-  repeated uint64 role_ids = 10;
-  optional string mobile = 11;
-  optional string email = 12;
-  optional string avatar = 13;
-  optional uint64 department_id = 14;
-  repeated uint64 position_ids = 15;
-  repeated string role_codes = 16;
-  repeated string role_name = 17;
+  optional string path = 4;
+  optional string description = 5;
+  optional string api_group = 6;
+  optional string method = 7;
+  optional bool is_required = 8;
 }
 
-message BaseIDResp {
-  uint64 id = 1;
-  string msg = 2;
+message CommentListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string content = 3;
 }
 
-message DepartmentListResp {
-  uint64 total = 1;
-  repeated DepartmentInfo data = 2;
+message LikeListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
 }
 
 message MenuInfo {
@@ -101,126 +238,23 @@ message MenuInfo {
   optional uint32 menu_type = 13;
 }
 
-message OauthProviderInfo {
-  optional uint64 id = 1;
-  optional int64 created_at = 2;
-  optional int64 updated_at = 3;
-  optional string name = 4;
-  optional string client_id = 5;
-  optional string client_secret = 6;
-  optional string redirect_url = 7;
-  optional string scopes = 8;
-  optional string auth_url = 9;
-  optional string token_url = 10;
-  optional uint64 auth_style = 11;
-  optional string info_url = 12;
-}
-
-message UUIDsReq {
-  repeated string ids = 1;
-}
-
-message BaseMsg {
-  string msg = 1;
-}
-
-message DictionaryListReq {
+message OauthProviderListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   optional string name = 3;
 }
 
-//  base message
-message Empty {}
-
-message IDReq {
-  uint64 id = 1;
-}
-
-message OauthRedirectResp {
-  string url = 1;
-}
-
-message PositionListResp {
-  uint64 total = 1;
-  repeated PositionInfo data = 2;
-}
-
-message UserListReq {
+message PostListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  optional string username = 3;
-  optional string nickname = 4;
-  optional string email = 5;
-  optional string mobile = 6;
-  repeated uint64 role_ids = 7;
-  optional uint64 department_id = 8;
-  repeated uint64 position_ids = 9;
+  optional string title = 3;
+  optional string content = 4;
+  optional string author = 5;
 }
 
-message IDsReq {
-  repeated uint64 ids = 1;
-}
-
-message MenuRoleInfo {
-  uint64 id = 1;
-  uint64 menu_id = 2;
-  uint64 role_id = 3;
-}
-
-message OauthProviderListResp {
-  uint64 total = 1;
-  repeated OauthProviderInfo data = 2;
-}
-
-//  return the role's authorization menu's ids
-message RoleMenuAuthorityResp {
-  repeated uint64 menu_id = 1;
-}
-
-message RoleListResp {
-  uint64 total = 1;
-  repeated RoleInfo data = 2;
-}
-
-message TokenInfo {
-  optional string id = 1;
-  optional int64 created_at = 2;
-  optional int64 updated_at = 3;
-  optional uint32 status = 4;
-  optional string uuid = 5;
-  optional string token = 6;
-  optional string source = 7;
-  optional int64 expired_at = 8;
-}
-
-message ApiInfo {
-  optional uint64 id = 1;
-  optional int64 created_at = 2;
-  optional int64 updated_at = 3;
-  optional string path = 4;
-  optional string description = 5;
-  optional string api_group = 6;
-  optional string method = 7;
-  optional bool is_required = 8;
-}
-
-message MenuRoleListResp {
-  uint64 total = 1;
-  repeated MenuRoleInfo data = 2;
-}
-
-message PositionListReq {
+message PageInfoReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  optional string name = 3;
-  optional string code = 4;
-  optional string remark = 5;
-}
-
-message UserListResp {
-  uint64 total = 1;
-  repeated UserInfo data = 2;
 }
 
 message DictionaryInfo {
@@ -233,21 +267,11 @@ message DictionaryInfo {
   optional string desc = 7;
 }
 
-message OauthLoginReq {
-  string state = 1;
-  string provider = 2;
-}
-
-message DictionaryDetailInfo {
-  optional uint64 id = 1;
-  optional int64 created_at = 2;
-  optional int64 updated_at = 3;
-  optional uint32 status = 4;
-  optional string title = 5;
-  optional string key = 6;
-  optional string value = 7;
-  optional uint64 dictionary_id = 8;
-  optional uint32 sort = 9;
+message DepartmentListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name = 3;
+  optional string leader = 4;
 }
 
 message StockListReq {
@@ -257,35 +281,37 @@ message StockListReq {
   optional string stock_code = 4;
 }
 
-message Meta {
-  optional string title = 1;
-  optional string icon = 2;
-  optional bool hide_menu = 3;
-  optional bool hide_breadcrumb = 4;
-  optional bool ignore_keep_alive = 5;
-  optional bool hide_tab = 6;
-  optional string frame_src = 7;
-  optional bool carry_param = 8;
-  optional bool hide_children_in_menu = 9;
-  optional bool affix = 10;
-  optional uint32 dynamic_level = 11;
-  optional string real_path = 12;
+message ViewInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
 }
 
-message UsernameReq {
-  string username = 1;
+message AccountInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  登录名
+  optional string account_name = 5;
+  //  密码
+  optional string password = 6;
+  //  手机号
+  optional uint32 mobile = 7;
+  //  邮箱
+  optional string email = 8;
+  //  Avatar | 头像路径
+  optional string avatar = 9;
+  //  性别
+  optional string gender = 10;
 }
 
 message BaseUUIDResp {
   string id = 1;
   string msg = 2;
-}
-
-message DictionaryDetailListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  optional uint64 dictionary_id = 3;
-  optional string key = 4;
 }
 
 message DepartmentInfo {
@@ -308,62 +334,28 @@ message DictionaryDetailListResp {
   repeated DictionaryDetailInfo data = 2;
 }
 
-message ApiListResp {
-  uint64 total = 1;
-  repeated ApiInfo data = 2;
-}
-
-message UUIDReq {
-  string id = 1;
-}
-
-message PageInfoReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-}
-
-message DictionaryListResp {
-  uint64 total = 1;
-  repeated DictionaryInfo data = 2;
-}
-
-message PositionInfo {
-  optional uint64 id = 1;
+message TokenInfo {
+  optional string id = 1;
   optional int64 created_at = 2;
   optional int64 updated_at = 3;
   optional uint32 status = 4;
-  optional uint32 sort = 5;
-  optional string name = 6;
-  optional string code = 7;
-  optional string remark = 8;
+  optional string uuid = 5;
+  optional string token = 6;
+  optional string source = 7;
+  optional int64 expired_at = 8;
 }
 
-message RoleListReq {
+message TokenListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  optional string name = 3;
-  optional string code = 4;
-  optional string default_router = 5;
+  optional string username = 3;
+  optional string nickname = 4;
+  optional string email = 5;
+  optional string uuid = 6;
 }
 
-message CallbackReq {
-  string state = 1;
-  string code = 2;
-}
-
-message BaseResp {
-  string msg = 1;
-}
-
-message MenuInfoList {
-  uint64 total = 1;
-  repeated MenuInfo data = 2;
-}
-
-message OauthProviderListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  optional string name = 3;
+message UsernameReq {
+  string username = 1;
 }
 
 message ApiListReq {
@@ -376,9 +368,138 @@ message ApiListReq {
   optional string is_default = 7;
 }
 
+message StockListResp {
+  uint64 total = 1;
+  repeated StockInfo data = 2;
+}
+
 message TokenListResp {
   uint64 total = 1;
   repeated TokenInfo data = 2;
+}
+
+message IDsReq {
+  repeated uint64 ids = 1;
+}
+
+message ApiListResp {
+  uint64 total = 1;
+  repeated ApiInfo data = 2;
+}
+
+//  return the role's authorization menu's ids
+message RoleMenuAuthorityResp {
+  repeated uint64 menu_id = 1;
+}
+
+message BaseIDResp {
+  uint64 id = 1;
+  string msg = 2;
+}
+
+message DictionaryDetailInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional uint32 status = 4;
+  optional string title = 5;
+  optional string key = 6;
+  optional string value = 7;
+  optional uint64 dictionary_id = 8;
+  optional uint32 sort = 9;
+}
+
+message RoleListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name = 3;
+  optional string code = 4;
+  optional string default_router = 5;
+}
+
+message AccountListResp {
+  uint64 total = 1;
+  repeated AccountInfo data = 2;
+}
+
+message DictionaryListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name = 3;
+}
+
+//  Like message
+message LikeInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+}
+
+message MenuRoleListResp {
+  uint64 total = 1;
+  repeated MenuRoleInfo data = 2;
+}
+
+message OauthLoginReq {
+  string state = 1;
+  string provider = 2;
+}
+
+message UserListResp {
+  uint64 total = 1;
+  repeated UserInfo data = 2;
+}
+
+message ViewListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+message UUIDReq {
+  string id = 1;
+}
+
+message CommentListResp {
+  uint64 total = 1;
+  repeated CommentInfo data = 2;
+}
+
+message UserInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional uint32 status = 4;
+  optional string username = 5;
+  optional string password = 6;
+  optional string nickname = 7;
+  optional string description = 8;
+  optional string home_path = 9;
+  repeated uint64 role_ids = 10;
+  optional string mobile = 11;
+  optional string email = 12;
+  optional string avatar = 13;
+  optional uint64 department_id = 14;
+  repeated uint64 position_ids = 15;
+  repeated string role_codes = 16;
+  repeated string role_name = 17;
+}
+
+message IDReq {
+  uint64 id = 1;
+}
+
+message UserListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string username = 3;
+  optional string nickname = 4;
+  optional string email = 5;
+  optional string mobile = 6;
+  repeated uint64 role_ids = 7;
+  optional uint64 department_id = 8;
+  repeated uint64 position_ids = 9;
 }
 
 //  authorization message
@@ -387,12 +508,28 @@ message RoleMenuAuthorityReq {
   repeated uint64 menu_id = 2;
 }
 
-message StockListResp {
+message ViewListResp {
   uint64 total = 1;
-  repeated StockInfo data = 2;
+  repeated ViewInfo data = 2;
+}
+
+message LikeListResp {
+  uint64 total = 1;
+  repeated LikeInfo data = 2;
 }
 
 service Core {
+  //  Account management
+  //  group: Account
+  rpc createAccount(AccountInfo) returns (BaseUUIDResp);
+  //  group: Account
+  rpc updateAccount(AccountInfo) returns (BaseResp);
+  //  group: Account
+  rpc getAccountList(AccountListReq) returns (AccountListResp);
+  //  group: Account
+  rpc getAccountById(UUIDReq) returns (AccountInfo);
+  //  group: Account
+  rpc deleteAccount(UUIDsReq) returns (BaseResp);
   //  API management
   //  group: api
   rpc createApi(ApiInfo) returns (BaseIDResp);
@@ -410,6 +547,17 @@ service Core {
   rpc createOrUpdateMenuAuthority(RoleMenuAuthorityReq) returns (BaseResp);
   //  group: base
   rpc initDatabase(Empty) returns (BaseResp);
+  //  Comment management
+  //  group: Comment
+  rpc createComment(CommentInfo) returns (BaseUUIDResp);
+  //  group: Comment
+  rpc updateComment(CommentInfo) returns (BaseResp);
+  //  group: Comment
+  rpc getCommentList(CommentListReq) returns (CommentListResp);
+  //  group: Comment
+  rpc getCommentById(UUIDReq) returns (CommentInfo);
+  //  group: Comment
+  rpc deleteComment(UUIDsReq) returns (BaseResp);
   //  Department management
   //  group: department
   rpc createDepartment(DepartmentInfo) returns (BaseIDResp);
@@ -445,6 +593,17 @@ service Core {
   rpc deleteDictionaryDetail(IDsReq) returns (BaseResp);
   //  group: dictionarydetail
   rpc getDictionaryDetailByDictionaryName(BaseMsg) returns (DictionaryDetailListResp);
+  //  Like management
+  //  group: Like
+  rpc createLike(LikeInfo) returns (BaseUUIDResp);
+  //  group: Like
+  rpc updateLike(LikeInfo) returns (BaseResp);
+  //  group: Like
+  rpc getLikeList(LikeListReq) returns (LikeListResp);
+  //  group: Like
+  rpc getLikeById(UUIDReq) returns (LikeInfo);
+  //  group: Like
+  rpc deleteLike(UUIDsReq) returns (BaseResp);
   //  group: menu
   rpc createMenu(MenuInfo) returns (BaseIDResp);
   //  group: menu
@@ -481,6 +640,17 @@ service Core {
   rpc getPositionById(IDReq) returns (PositionInfo);
   //  group: position
   rpc deletePosition(IDsReq) returns (BaseResp);
+  //  Post management
+  //  group: Post
+  rpc createPost(PostInfo) returns (BaseUUIDResp);
+  //  group: Post
+  rpc updatePost(PostInfo) returns (BaseResp);
+  //  group: Post
+  rpc getPostList(PostListReq) returns (PostListResp);
+  //  group: Post
+  rpc getPostById(UUIDReq) returns (PostInfo);
+  //  group: Post
+  rpc deletePost(UUIDsReq) returns (BaseResp);
   //  Role management
   //  group: role
   rpc createRole(RoleInfo) returns (BaseIDResp);
@@ -529,5 +699,16 @@ service Core {
   rpc getUserByUsername(UsernameReq) returns (UserInfo);
   //  group: user
   rpc deleteUser(UUIDsReq) returns (BaseResp);
+  //  View management
+  //  group: View
+  rpc createView(ViewInfo) returns (BaseUUIDResp);
+  //  group: View
+  rpc updateView(ViewInfo) returns (BaseResp);
+  //  group: View
+  rpc getViewList(ViewListReq) returns (ViewListResp);
+  //  group: View
+  rpc getViewById(UUIDReq) returns (ViewInfo);
+  //  group: View
+  rpc deleteView(UUIDsReq) returns (BaseResp);
 }
 

@@ -12,17 +12,22 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/account"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/comment"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/like"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/post"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/view"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -84,16 +89,21 @@ func checkColumn(table, column string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
 			api.Table:              api.ValidColumn,
+			account.Table:          account.ValidColumn,
+			comment.Table:          comment.ValidColumn,
 			department.Table:       department.ValidColumn,
 			dictionary.Table:       dictionary.ValidColumn,
 			dictionarydetail.Table: dictionarydetail.ValidColumn,
+			like.Table:             like.ValidColumn,
 			menu.Table:             menu.ValidColumn,
 			oauthprovider.Table:    oauthprovider.ValidColumn,
 			position.Table:         position.ValidColumn,
+			post.Table:             post.ValidColumn,
 			role.Table:             role.ValidColumn,
 			stock.Table:            stock.ValidColumn,
 			token.Table:            token.ValidColumn,
 			user.Table:             user.ValidColumn,
+			view.Table:             view.ValidColumn,
 		})
 	})
 	return columnCheck(table, column)
