@@ -17,11 +17,13 @@ import (
 	messagesender "github.com/suyuan32/simple-admin-core/api/internal/handler/messagesender"
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
+	publicstockuser "github.com/suyuan32/simple-admin-core/api/internal/handler/publicstockuser"
 	publicuser "github.com/suyuan32/simple-admin-core/api/internal/handler/publicuser"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	smslog "github.com/suyuan32/simple-admin-core/api/internal/handler/smslog"
 	smsprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/smsprovider"
 	stock "github.com/suyuan32/simple-admin-core/api/internal/handler/stock"
+	stockuser "github.com/suyuan32/simple-admin-core/api/internal/handler/stockuser"
 	task "github.com/suyuan32/simple-admin-core/api/internal/handler/task"
 	tasklog "github.com/suyuan32/simple-admin-core/api/internal/handler/tasklog"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
@@ -804,6 +806,116 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/stock",
 				Handler: stock.GetStockByIdHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/login",
+				Handler: publicstockuser.LoginHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/login_Mobile",
+				Handler: publicstockuser.LoginByMobileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/login_by_email",
+				Handler: publicstockuser.LoginByEmailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/login_by_sms",
+				Handler: publicstockuser.LoginBySmsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/register",
+				Handler: publicstockuser.RegisterHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/register_by_email",
+				Handler: publicstockuser.RegisterByEmailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/register_by_sms",
+				Handler: publicstockuser.RegisterBySmsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/reset_password_by_email",
+				Handler: publicstockuser.ResetPasswordByEmailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/reset_password_by_sms",
+				Handler: publicstockuser.ResetPasswordBySmsHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/create",
+				Handler: stockuser.CreateUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/update",
+				Handler: stockuser.UpdateUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/delete",
+				Handler: stockuser.DeleteUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/list",
+				Handler: stockuser.GetUserListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser",
+				Handler: stockuser.GetUserByIdHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/change_password",
+				Handler: stockuser.ChangePasswordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/stockuser/info",
+				Handler: stockuser.GetStockUserInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/stockuser/perm",
+				Handler: stockuser.GetUserPermCodeHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/stockuser/profile",
+				Handler: stockuser.GetUserProfileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/stockuser/profile",
+				Handler: stockuser.UpdateUserProfileHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/stockuser/logout",
+				Handler: stockuser.LogoutHandler(serverCtx),
 			},
 		},
 	)

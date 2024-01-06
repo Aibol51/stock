@@ -17,6 +17,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -295,6 +296,42 @@ func (s *CoreServer) GetStockById(ctx context.Context, in *core.UUIDReq) (*core.
 func (s *CoreServer) DeleteStock(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := stock.NewDeleteStockLogic(ctx, s.svcCtx)
 	return l.DeleteStock(in)
+}
+
+// StockUser management
+func (s *CoreServer) CreateStockUser(ctx context.Context, in *core.StockUserInfo) (*core.BaseUUIDResp, error) {
+	l := stockuser.NewCreateStockUserLogic(ctx, s.svcCtx)
+	return l.CreateStockUser(in)
+}
+
+func (s *CoreServer) UpdateStockUser(ctx context.Context, in *core.StockUserInfo) (*core.BaseResp, error) {
+	l := stockuser.NewUpdateStockUserLogic(ctx, s.svcCtx)
+	return l.UpdateStockUser(in)
+}
+
+func (s *CoreServer) GetStockUserList(ctx context.Context, in *core.StockUserListReq) (*core.StockUserListResp, error) {
+	l := stockuser.NewGetStockUserListLogic(ctx, s.svcCtx)
+	return l.GetStockUserList(in)
+}
+
+func (s *CoreServer) GetStockUserById(ctx context.Context, in *core.UUIDReq) (*core.StockUserInfo, error) {
+	l := stockuser.NewGetStockUserByIdLogic(ctx, s.svcCtx)
+	return l.GetStockUserById(in)
+}
+
+func (s *CoreServer) GetStockUserByUsername(ctx context.Context, in *core.StockUsernameReq) (*core.StockUserInfo, error) {
+	l := stockuser.NewGetStockUserByUsernameLogic(ctx, s.svcCtx)
+	return l.GetStockUserByUsername(in)
+}
+
+func (s *CoreServer) GetStockUserByMobile(ctx context.Context, in *core.StockUserMobileReq) (*core.StockUserInfo, error) {
+	l := stockuser.NewGetStockUserByMobileLogic(ctx, s.svcCtx)
+	return l.GetStockUserByMobile(in)
+}
+
+func (s *CoreServer) DeleteStockUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := stockuser.NewDeleteStockUserLogic(ctx, s.svcCtx)
+	return l.DeleteStockUser(in)
 }
 
 // Token management

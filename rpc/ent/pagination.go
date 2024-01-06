@@ -15,6 +15,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -768,6 +769,85 @@ func (s *StockQuery) Page(
 
 	s = s.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := s.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type StockUserPager struct {
+	Order  stockuser.OrderOption
+	Filter func(*StockUserQuery) (*StockUserQuery, error)
+}
+
+// StockUserPaginateOption enables pagination customization.
+type StockUserPaginateOption func(*StockUserPager)
+
+// DefaultStockUserOrder is the default ordering of StockUser.
+var DefaultStockUserOrder = Desc(stockuser.FieldID)
+
+func newStockUserPager(opts []StockUserPaginateOption) (*StockUserPager, error) {
+	pager := &StockUserPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultStockUserOrder
+	}
+	return pager, nil
+}
+
+func (p *StockUserPager) ApplyFilter(query *StockUserQuery) (*StockUserQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// StockUserPageList is StockUser PageList result.
+type StockUserPageList struct {
+	List        []*StockUser `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (su *StockUserQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...StockUserPaginateOption,
+) (*StockUserPageList, error) {
+
+	pager, err := newStockUserPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if su, err = pager.ApplyFilter(su); err != nil {
+		return nil, err
+	}
+
+	ret := &StockUserPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := su.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		su = su.Order(pager.Order)
+	} else {
+		su = su.Order(DefaultStockUserOrder)
+	}
+
+	su = su.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := su.All(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -32,6 +32,8 @@ type Tx struct {
 	Role *RoleClient
 	// Stock is the client for interacting with the Stock builders.
 	Stock *StockClient
+	// StockUser is the client for interacting with the StockUser builders.
+	StockUser *StockUserClient
 	// Token is the client for interacting with the Token builders.
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
@@ -176,6 +178,7 @@ func (tx *Tx) init() {
 	tx.Position = NewPositionClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
 	tx.Stock = NewStockClient(tx.config)
+	tx.StockUser = NewStockUserClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 }

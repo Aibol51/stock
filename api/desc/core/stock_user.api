@@ -1,0 +1,374 @@
+import "../base.api"
+
+type (
+    // The response data of user information | 用户信息
+    StockUserInfo {
+        BaseUUIDInfo
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+
+        // Username | 用户名
+        Username *string `json:"username,optional" validate:"omitempty,max=50"`
+
+        // Nickname | 昵称
+        Nickname *string `json:"nickname,optional" validate:"omitempty,max=40"`
+
+        // Password | 密码
+        Password *string `json:"password,optional" validate:"omitempty,min=6"`
+
+        // Description | 描述
+        Description *string `json:"description,optional" validate:"omitempty,max=100"`
+
+        // HomePath | 首页
+        HomePath *string `json:"homePath,optional" validate:"omitempty,max=70"`
+
+        // Mobile | 手机号
+        Mobile *string `json:"mobile,optional" validate:"omitempty,max=18"`
+
+        // Email | 邮箱
+        Email *string `json:"email,optional" validate:"omitempty,max=80"`
+
+        // Avatar | 头像地址
+        Avatar *string `json:"avatar,optional" validate:"omitempty"`
+
+        // LastLoginInfo | 最后登录信息
+        LastLoginInfo *string `json:"lastLoginInfo,optional" validate:"omitempty,max=100"`
+
+    }
+
+    // The response data of user list | 用户列表数据
+    StockUserListResp {
+        BaseDataInfo
+
+        // User list data | User列表数据
+        Data StockUserListInfo `json:"data"`
+    }
+
+    // User list data | 用户列表数据
+    StockUserListInfo {
+        BaseListInfo
+
+        // The API list data | User列表数据
+        Data  []StockUserInfo  `json:"data"`
+    }
+
+    // Get user list request params | 用户列表请求参数
+    StockUserListReq {
+        PageInfo
+
+        // User Name | 用户名
+        Username *string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
+
+        // User's nickname | 用户的昵称
+        Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
+
+        // User's mobile phone number | 用户的手机号码
+        Mobile *string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+
+        // The user's email address | 用户的邮箱
+        Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
+
+    }
+
+    // User information response | 用户信息返回体
+    StockUserInfoResp {
+        BaseDataInfo
+
+        // User information | User数据
+        Data StockUserInfo `json:"data"`
+    }
+
+    // register request | 注册参数
+    StockUserRegisterReq {
+        // User Name | 用户名
+        Username  string `json:"username" validate:"required,alphanum,max=20"`
+
+        // Password | 密码
+        Password  string `json:"password" validate:"required,max=30,min=6"`
+
+        // Captcha ID which store in redis | 验证码编号, 存在redis中
+        CaptchaId string `json:"captchaId" validate:"required,len=20"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha   string `json:"captcha" validate:"required,len=5"`
+
+        // The user's email address | 用户的邮箱
+        Email     string `json:"email" validate:"required,email,max=100"`
+    }
+
+    // Register by email request | 邮箱注册参数
+    StockUserRegisterByEmailReq {
+        // User Name | 用户名
+        Username  string `json:"username" validate:"required,alphanum,max=20"`
+
+        // Password | 密码
+        Password  string `json:"password" validate:"required,max=30,min=6"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha   string `json:"captcha" validate:"required,len=5"`
+
+        // The user's email address | 用户的邮箱
+        Email     string `json:"email" validate:"required,email,max=100"`
+    }
+
+    // Register by SMS request | 短信注册参数
+    StockUserRegisterBySmsReq {
+        // User Name | 用户名
+        Username  string `json:"username" validate:"required,alphanum,max=20"`
+
+        // Password | 密码
+        Password  string `json:"password" validate:"required,max=30,min=6"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha   string `json:"captcha" validate:"required,len=5"`
+
+        // The user's mobile phone number | 用户的手机号码
+        PhoneNumber   string  `json:"phoneNumber"  validate:"required,numeric,max=20"`
+    }
+
+    // change user's password request | 修改密码请求参数
+    StockUserChangePasswordReq {
+        // User's old password | 用户旧密码
+        OldPassword string `json:"oldPassword" validate:"required,max=30"`
+
+        // User's new password | 用户新密码
+        NewPassword string `json:"newPassword" validate:"required,max=30"`
+    }
+
+    // The log in information | 登陆返回的数据信息
+    StockUserLoginInfo {
+        // User's UUID | 用户的UUID
+        UserId       string          `json:"userId"`
+
+        // Token for authorization | 验证身份的token
+        Token        string          `json:"token"`
+
+        // Expire timestamp | 过期时间戳
+        Expire       uint64          `json:"expire"`
+    }
+
+
+    // The response data of user's basic information | 用户基本信息返回数据
+    StockUserBaseIDInfoResp {
+        BaseDataInfo
+
+        // The  data of user's basic information | 用户基本信息
+        Data StockUserBaseIDInfo `json:"data"`
+    }
+
+    // The  data of user's basic information | 用户基本信息
+    StockUserBaseIDInfo {
+        // User's UUID | 用户的UUID
+        UUID *string `json:"userId"`
+
+        // User's name | 用户名
+        Username *string `json:"username"`
+
+        // User's nickname | 用户的昵称
+        Nickname *string `json:"nickname"`
+
+        // The user's avatar path | 用户的头像路径
+        Avatar *string `json:"avatar"`
+
+        // The home page that the user enters after logging in | 用户登陆后进入的首页
+        HomePath *string `json:"homePath"`
+
+        // The description of user | 用户的描述信息
+        Description *string `json:"desc"`
+    }
+
+    // The permission code for front end permission control | 权限码： 用于前端权限控制
+    StockUserPermCodeResp {
+        BaseDataInfo
+
+        // Permission code data | 权限码数据
+        Data []string `json:"data"`
+    }
+
+
+    // Login request | 登录参数
+    StockUserLoginReq {
+        // User Name | 用户名
+        Username   string `json:"username" validate:"required,alphanum,max=20"`
+
+        // Password | 密码
+        Password   string `json:"password" validate:"required,max=30,min=6"`
+
+        // Captcha ID which store in redis | 验证码编号, 存在redis中
+        CaptchaId  string `json:"captchaId"  validate:"required,len=20"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha    string `json:"captcha" validate:"required,len=5"`
+    }
+
+    // Login by mobile phone request | 手机号登录参数
+    StockUserLoginByMobileReq {
+        // User's mobile phone number | 用户的手机号码
+        PhoneNumber   string  `json:"phoneNumber"  validate:"required,numeric,max=20"`
+
+        // Password | 密码
+        Password      string  `json:"password" validate:"required,max=30,min=6"`
+
+        // Captcha ID which store in redis | 验证码编号, 存在redis中
+        CaptchaId     string  `json:"captchaId"  validate:"required,len=20"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha       string  `json:"captcha" validate:"required,len=5"`
+    }
+
+    // Log in by email request | 邮箱登录参数
+    StockUserLoginByEmailReq {
+        // The user's email address | 用户的邮箱
+        Email     string `json:"email" validate:"required,email,max=100"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha    string `json:"captcha,optional" validate:"omitempty,len=5"`
+    }
+
+    // Log in by SMS request | 短信登录参数
+    StockUserLoginBySmsReq {
+        // The user's mobile phone number | 用户的手机号码
+        PhoneNumber   string  `json:"phoneNumber"  validate:"required,numeric,max=20"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha    string `json:"captcha,optional" validate:"omitempty,len=5"`
+    }
+
+    // The log in response data | 登录返回数据
+    StockUserLoginResp {
+        BaseDataInfo
+
+        // The log in information | 登陆返回的数据信息
+        Data StockUserLoginInfo `json:"data"`
+    }
+
+    // The profile information | 个人信息
+    StockUserProfileInfo {
+        // user's nickname | 用户的昵称
+        Nickname *string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+
+        // The user's avatar path | 用户的头像路径
+        Avatar *string `json:"avatar" validate:"omitempty"`
+
+        // User's mobile phone number | 用户的手机号码
+        Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
+
+        // The user's email address | 用户的邮箱
+        Email *string `json:"email" validate:"omitempty,email,max=100"`
+    }
+
+    // The profile response data | 个人信息返回数据
+    StockUserProfileResp {
+        BaseDataInfo
+
+        // The profile information | 个人信息
+        Data StockUserProfileInfo `json:"data"`
+    }
+
+    // Reset password by email request | 通过邮箱重置密码请求
+    StockUserResetPasswordByEmailReq {
+        Email     string  `json:"email" validate:"email"`
+        Captcha   string  `json:"captcha"`
+        Password  string  `json:"password"`
+    }
+
+    // Reset password by SMS request | 通过短信重置密码请求
+    StockUserResetPasswordBySmsReq {
+        PhoneNumber     string  `json:"phoneNumber"`
+        Captcha         string  `json:"captcha"`
+        Password        string  `json:"password"`
+    }
+)
+
+@server(
+    group: publicstockuser
+)
+
+service Core {
+    // Log in | 登录
+    @handler login
+    post /stockuser/login (StockUserLoginReq) returns (StockUserLoginResp)
+
+    // Log in by mobile phone | 手机号登录
+    @handler loginByMobile
+    post /stockuser/login_Mobile (StockUserLoginByMobileReq) returns (StockUserLoginResp)
+
+    // Log in by email | 邮箱登录
+    @handler loginByEmail
+    post /stockuser/login_by_email (StockUserLoginByEmailReq) returns (StockUserLoginResp)
+
+    // Log in by SMS | 短信登录
+    @handler loginBySms
+    post /stockuser/login_by_sms (StockUserLoginBySmsReq) returns (StockUserLoginResp)
+
+    // Register | 注册
+    @handler register
+    post /stockuser/register (StockUserRegisterReq) returns (BaseMsgResp)
+
+    // Register by Email | 邮箱注册
+    @handler registerByEmail
+    post /stockuser/register_by_email (StockUserRegisterByEmailReq) returns (BaseMsgResp)
+
+    // Register by SMS | 短信注册
+    @handler registerBySms
+    post /stockuser/register_by_sms (StockUserRegisterBySmsReq) returns (BaseMsgResp)
+
+    // Reset password by Email | 通过邮箱重置密码
+    @handler resetPasswordByEmail
+    post /stockuser/reset_password_by_email (StockUserResetPasswordByEmailReq) returns (BaseMsgResp)
+
+    // Reset password by Sms | 通过短信重置密码
+    @handler resetPasswordBySms
+    post /stockuser/reset_password_by_sms (StockUserResetPasswordBySmsReq) returns (BaseMsgResp)
+}
+
+@server(
+    group: stockuser
+)
+
+service Core {
+    // Create stockuser information | 创建用户
+    @handler createUser
+    post /stockuser/create (StockUserInfo) returns (BaseMsgResp)
+
+    // Update stockuser information | 更新用户
+    @handler updateUser
+    post /stockuser/update (StockUserInfo) returns (BaseMsgResp)
+
+    // Delete stockuser information | 删除用户信息
+    @handler deleteUser
+    post /stockuser/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get stockuser list | 获取用户列表
+    @handler getUserList
+    post /stockuser/list (StockUserListReq) returns (StockUserListResp)
+
+    // Get User by ID | 通过ID获取用户
+    @handler getUserById
+    post /stockuser (UUIDReq) returns (StockUserInfoResp)
+
+    // Change Password | 修改密码
+    @handler changePassword
+    post /stockuser/change_password (StockUserChangePasswordReq) returns (BaseMsgResp)
+
+    // Get stockuser basic information | 获取用户基本信息
+    @handler getStockUserInfo
+    get /stockuser/info returns (StockUserBaseIDInfoResp)
+
+    // Get stockuser's permission code | 获取用户权限码
+    @handler getUserPermCode
+    get /stockuser/perm returns (StockUserPermCodeResp)
+
+    // Get stockuser's profile | 获取用户个人信息
+    @handler getUserProfile
+    get /stockuser/profile returns (StockUserProfileResp)
+
+    // Update stockuser's profile | 更新用户个人信息
+    @handler updateUserProfile
+    post /stockuser/profile (StockUserProfileInfo) returns (BaseMsgResp)
+
+    // Log out | 退出登陆
+    @handler logout
+    get /stockuser/logout returns (BaseMsgResp)
+}

@@ -55,6 +55,11 @@ type (
 	StockInfo                = core.StockInfo
 	StockListReq             = core.StockListReq
 	StockListResp            = core.StockListResp
+	StockUserInfo            = core.StockUserInfo
+	StockUserListReq         = core.StockUserListReq
+	StockUserListResp        = core.StockUserListResp
+	StockUserMobileReq       = core.StockUserMobileReq
+	StockUsernameReq         = core.StockUsernameReq
 	TokenInfo                = core.TokenInfo
 	TokenListReq             = core.TokenListReq
 	TokenListResp            = core.TokenListResp
@@ -125,6 +130,14 @@ type (
 		GetStockList(ctx context.Context, in *StockListReq, opts ...grpc.CallOption) (*StockListResp, error)
 		GetStockById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockInfo, error)
 		DeleteStock(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// StockUser management
+		CreateStockUser(ctx context.Context, in *StockUserInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateStockUser(ctx context.Context, in *StockUserInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetStockUserList(ctx context.Context, in *StockUserListReq, opts ...grpc.CallOption) (*StockUserListResp, error)
+		GetStockUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockUserInfo, error)
+		GetStockUserByUsername(ctx context.Context, in *StockUsernameReq, opts ...grpc.CallOption) (*StockUserInfo, error)
+		GetStockUserByMobile(ctx context.Context, in *StockUserMobileReq, opts ...grpc.CallOption) (*StockUserInfo, error)
+		DeleteStockUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Token management
 		CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
 		DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -413,6 +426,42 @@ func (m *defaultCore) GetStockById(ctx context.Context, in *UUIDReq, opts ...grp
 func (m *defaultCore) DeleteStock(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteStock(ctx, in, opts...)
+}
+
+// StockUser management
+func (m *defaultCore) CreateStockUser(ctx context.Context, in *StockUserInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateStockUser(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateStockUser(ctx context.Context, in *StockUserInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateStockUser(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockUserList(ctx context.Context, in *StockUserListReq, opts ...grpc.CallOption) (*StockUserListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockUserList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockUserInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockUserById(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockUserByUsername(ctx context.Context, in *StockUsernameReq, opts ...grpc.CallOption) (*StockUserInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockUserByUsername(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockUserByMobile(ctx context.Context, in *StockUserMobileReq, opts ...grpc.CallOption) (*StockUserInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockUserByMobile(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteStockUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteStockUser(ctx, in, opts...)
 }
 
 // Token management

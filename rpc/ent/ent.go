@@ -21,6 +21,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -92,6 +93,7 @@ func checkColumn(table, column string) error {
 			position.Table:         position.ValidColumn,
 			role.Table:             role.ValidColumn,
 			stock.Table:            stock.ValidColumn,
+			stockuser.Table:        stockuser.ValidColumn,
 			token.Table:            token.ValidColumn,
 			user.Table:             user.ValidColumn,
 		})

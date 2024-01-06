@@ -1633,3 +1633,333 @@ type StockInfoResp struct {
 	// Stock information | Stock数据
 	Data StockInfo `json:"data"`
 }
+
+// The response data of user information | 用户信息
+// swagger:model StockUserInfo
+type StockUserInfo struct {
+	BaseUUIDInfo
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+	// Username | 用户名
+	// max length : 50
+	Username *string `json:"username,optional" validate:"omitempty,max=50"`
+	// Nickname | 昵称
+	// max length : 40
+	Nickname *string `json:"nickname,optional" validate:"omitempty,max=40"`
+	// Password | 密码
+	// min length : 6
+	Password *string `json:"password,optional" validate:"omitempty,min=6"`
+	// Description | 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
+	// HomePath | 首页
+	// max length : 70
+	HomePath *string `json:"homePath,optional" validate:"omitempty,max=70"`
+	// Mobile | 手机号
+	// max length : 18
+	Mobile *string `json:"mobile,optional" validate:"omitempty,max=18"`
+	// Email | 邮箱
+	// max length : 80
+	Email *string `json:"email,optional" validate:"omitempty,max=80"`
+	// Avatar | 头像地址
+	Avatar *string `json:"avatar,optional" validate:"omitempty"`
+	// LastLoginInfo | 最后登录信息
+	// max length : 100
+	LastLoginInfo *string `json:"lastLoginInfo,optional" validate:"omitempty,max=100"`
+}
+
+// The response data of user list | 用户列表数据
+// swagger:model StockUserListResp
+type StockUserListResp struct {
+	BaseDataInfo
+	// User list data | User列表数据
+	Data StockUserListInfo `json:"data"`
+}
+
+// User list data | 用户列表数据
+// swagger:model StockUserListInfo
+type StockUserListInfo struct {
+	BaseListInfo
+	// The API list data | User列表数据
+	Data []StockUserInfo `json:"data"`
+}
+
+// Get user list request params | 用户列表请求参数
+// swagger:model StockUserListReq
+type StockUserListReq struct {
+	PageInfo
+	// User Name | 用户名
+	// max length : 20
+	Username *string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
+	// User's nickname | 用户的昵称
+	// max length : 10
+	Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
+	// User's mobile phone number | 用户的手机号码
+	// max length : 18
+	Mobile *string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+	// The user's email address | 用户的邮箱
+	// max length : 100
+	Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
+}
+
+// User information response | 用户信息返回体
+// swagger:model StockUserInfoResp
+type StockUserInfoResp struct {
+	BaseDataInfo
+	// User information | User数据
+	Data StockUserInfo `json:"data"`
+}
+
+// register request | 注册参数
+// swagger:model StockUserRegisterReq
+type StockUserRegisterReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
+	// required : true
+	// max length : 20
+	// min length : 20
+	CaptchaId string `json:"captchaId" validate:"required,len=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+}
+
+// Register by email request | 邮箱注册参数
+// swagger:model StockUserRegisterByEmailReq
+type StockUserRegisterByEmailReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+}
+
+// Register by SMS request | 短信注册参数
+// swagger:model StockUserRegisterBySmsReq
+type StockUserRegisterBySmsReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+}
+
+// change user's password request | 修改密码请求参数
+// swagger:model StockUserChangePasswordReq
+type StockUserChangePasswordReq struct {
+	// User's old password | 用户旧密码
+	// required : true
+	// max length : 30
+	OldPassword string `json:"oldPassword" validate:"required,max=30"`
+	// User's new password | 用户新密码
+	// required : true
+	// max length : 30
+	NewPassword string `json:"newPassword" validate:"required,max=30"`
+}
+
+// The log in information | 登陆返回的数据信息
+// swagger:model StockUserLoginInfo
+type StockUserLoginInfo struct {
+	// User's UUID | 用户的UUID
+	UserId string `json:"userId"`
+	// Token for authorization | 验证身份的token
+	Token string `json:"token"`
+	// Expire timestamp | 过期时间戳
+	Expire uint64 `json:"expire"`
+}
+
+// The response data of user's basic information | 用户基本信息返回数据
+// swagger:model StockUserBaseIDInfoResp
+type StockUserBaseIDInfoResp struct {
+	BaseDataInfo
+	// The  data of user's basic information | 用户基本信息
+	Data StockUserBaseIDInfo `json:"data"`
+}
+
+// The  data of user's basic information | 用户基本信息
+// swagger:model StockUserBaseIDInfo
+type StockUserBaseIDInfo struct {
+	// User's UUID | 用户的UUID
+	UUID *string `json:"userId"`
+	// User's name | 用户名
+	Username *string `json:"username"`
+	// User's nickname | 用户的昵称
+	Nickname *string `json:"nickname"`
+	// The user's avatar path | 用户的头像路径
+	Avatar *string `json:"avatar"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath *string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description *string `json:"desc"`
+}
+
+// The permission code for front end permission control | 权限码： 用于前端权限控制
+// swagger:model StockUserPermCodeResp
+type StockUserPermCodeResp struct {
+	BaseDataInfo
+	// Permission code data | 权限码数据
+	Data []string `json:"data"`
+}
+
+// Login request | 登录参数
+// swagger:model StockUserLoginReq
+type StockUserLoginReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
+	// required : true
+	// max length : 20
+	// min length : 20
+	CaptchaId string `json:"captchaId"  validate:"required,len=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+}
+
+// Login by mobile phone request | 手机号登录参数
+// swagger:model StockUserLoginByMobileReq
+type StockUserLoginByMobileReq struct {
+	// User's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
+	// required : true
+	// max length : 20
+	// min length : 20
+	CaptchaId string `json:"captchaId"  validate:"required,len=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+}
+
+// Log in by email request | 邮箱登录参数
+// swagger:model StockUserLoginByEmailReq
+type StockUserLoginByEmailReq struct {
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+	// The Captcha which users input | 用户输入的验证码
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
+}
+
+// Log in by SMS request | 短信登录参数
+// swagger:model StockUserLoginBySmsReq
+type StockUserLoginBySmsReq struct {
+	// The user's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
+}
+
+// The log in response data | 登录返回数据
+// swagger:model StockUserLoginResp
+type StockUserLoginResp struct {
+	BaseDataInfo
+	// The log in information | 登陆返回的数据信息
+	Data StockUserLoginInfo `json:"data"`
+}
+
+// The profile information | 个人信息
+// swagger:model StockUserProfileInfo
+type StockUserProfileInfo struct {
+	// user's nickname | 用户的昵称
+	// max length : 10
+	Nickname *string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+	// The user's avatar path | 用户的头像路径
+	Avatar *string `json:"avatar" validate:"omitempty"`
+	// User's mobile phone number | 用户的手机号码
+	// max length : 18
+	Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
+	// The user's email address | 用户的邮箱
+	// max length : 100
+	Email *string `json:"email" validate:"omitempty,email,max=100"`
+}
+
+// The profile response data | 个人信息返回数据
+// swagger:model StockUserProfileResp
+type StockUserProfileResp struct {
+	BaseDataInfo
+	// The profile information | 个人信息
+	Data StockUserProfileInfo `json:"data"`
+}
+
+// Reset password by email request | 通过邮箱重置密码请求
+// swagger:model StockUserResetPasswordByEmailReq
+type StockUserResetPasswordByEmailReq struct {
+	Email    string `json:"email" validate:"email"`
+	Captcha  string `json:"captcha"`
+	Password string `json:"password"`
+}
+
+// Reset password by SMS request | 通过短信重置密码请求
+// swagger:model StockUserResetPasswordBySmsReq
+type StockUserResetPasswordBySmsReq struct {
+	PhoneNumber string `json:"phoneNumber"`
+	Captcha     string `json:"captcha"`
+	Password    string `json:"password"`
+}

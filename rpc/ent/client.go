@@ -25,6 +25,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
@@ -54,6 +55,8 @@ type Client struct {
 	Role *RoleClient
 	// Stock is the client for interacting with the Stock builders.
 	Stock *StockClient
+	// StockUser is the client for interacting with the StockUser builders.
+	StockUser *StockUserClient
 	// Token is the client for interacting with the Token builders.
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
@@ -80,6 +83,7 @@ func (c *Client) init() {
 	c.Position = NewPositionClient(c.config)
 	c.Role = NewRoleClient(c.config)
 	c.Stock = NewStockClient(c.config)
+	c.StockUser = NewStockUserClient(c.config)
 	c.Token = NewTokenClient(c.config)
 	c.User = NewUserClient(c.config)
 }
@@ -176,6 +180,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
 		Stock:            NewStockClient(cfg),
+		StockUser:        NewStockUserClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
 	}, nil
@@ -206,6 +211,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
 		Stock:            NewStockClient(cfg),
+		StockUser:        NewStockUserClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
 	}, nil
@@ -238,7 +244,7 @@ func (c *Client) Close() error {
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
 		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.OauthProvider,
-		c.Position, c.Role, c.Stock, c.Token, c.User,
+		c.Position, c.Role, c.Stock, c.StockUser, c.Token, c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -249,7 +255,7 @@ func (c *Client) Use(hooks ...Hook) {
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
 		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.OauthProvider,
-		c.Position, c.Role, c.Stock, c.Token, c.User,
+		c.Position, c.Role, c.Stock, c.StockUser, c.Token, c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -276,6 +282,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Role.mutate(ctx, m)
 	case *StockMutation:
 		return c.Stock.mutate(ctx, m)
+	case *StockUserMutation:
+		return c.StockUser.mutate(ctx, m)
 	case *TokenMutation:
 		return c.Token.mutate(ctx, m)
 	case *UserMutation:
@@ -1658,6 +1666,141 @@ func (c *StockClient) mutate(ctx context.Context, m *StockMutation) (Value, erro
 	}
 }
 
+// StockUserClient is a client for the StockUser schema.
+type StockUserClient struct {
+	config
+}
+
+// NewStockUserClient returns a client for the StockUser from the given config.
+func NewStockUserClient(c config) *StockUserClient {
+	return &StockUserClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `stockuser.Hooks(f(g(h())))`.
+func (c *StockUserClient) Use(hooks ...Hook) {
+	c.hooks.StockUser = append(c.hooks.StockUser, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `stockuser.Intercept(f(g(h())))`.
+func (c *StockUserClient) Intercept(interceptors ...Interceptor) {
+	c.inters.StockUser = append(c.inters.StockUser, interceptors...)
+}
+
+// Create returns a builder for creating a StockUser entity.
+func (c *StockUserClient) Create() *StockUserCreate {
+	mutation := newStockUserMutation(c.config, OpCreate)
+	return &StockUserCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of StockUser entities.
+func (c *StockUserClient) CreateBulk(builders ...*StockUserCreate) *StockUserCreateBulk {
+	return &StockUserCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *StockUserClient) MapCreateBulk(slice any, setFunc func(*StockUserCreate, int)) *StockUserCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &StockUserCreateBulk{err: fmt.Errorf("calling to StockUserClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*StockUserCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &StockUserCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for StockUser.
+func (c *StockUserClient) Update() *StockUserUpdate {
+	mutation := newStockUserMutation(c.config, OpUpdate)
+	return &StockUserUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *StockUserClient) UpdateOne(su *StockUser) *StockUserUpdateOne {
+	mutation := newStockUserMutation(c.config, OpUpdateOne, withStockUser(su))
+	return &StockUserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *StockUserClient) UpdateOneID(id uuid.UUID) *StockUserUpdateOne {
+	mutation := newStockUserMutation(c.config, OpUpdateOne, withStockUserID(id))
+	return &StockUserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for StockUser.
+func (c *StockUserClient) Delete() *StockUserDelete {
+	mutation := newStockUserMutation(c.config, OpDelete)
+	return &StockUserDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *StockUserClient) DeleteOne(su *StockUser) *StockUserDeleteOne {
+	return c.DeleteOneID(su.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *StockUserClient) DeleteOneID(id uuid.UUID) *StockUserDeleteOne {
+	builder := c.Delete().Where(stockuser.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &StockUserDeleteOne{builder}
+}
+
+// Query returns a query builder for StockUser.
+func (c *StockUserClient) Query() *StockUserQuery {
+	return &StockUserQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeStockUser},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a StockUser entity by its id.
+func (c *StockUserClient) Get(ctx context.Context, id uuid.UUID) (*StockUser, error) {
+	return c.Query().Where(stockuser.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *StockUserClient) GetX(ctx context.Context, id uuid.UUID) *StockUser {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *StockUserClient) Hooks() []Hook {
+	hooks := c.hooks.StockUser
+	return append(hooks[:len(hooks):len(hooks)], stockuser.Hooks[:]...)
+}
+
+// Interceptors returns the client interceptors.
+func (c *StockUserClient) Interceptors() []Interceptor {
+	inters := c.inters.StockUser
+	return append(inters[:len(inters):len(inters)], stockuser.Interceptors[:]...)
+}
+
+func (c *StockUserClient) mutate(ctx context.Context, m *StockUserMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&StockUserCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&StockUserUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&StockUserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&StockUserDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown StockUser mutation op: %q", m.Op())
+	}
+}
+
 // TokenClient is a client for the Token schema.
 type TokenClient struct {
 	config
@@ -1978,11 +2121,11 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 type (
 	hooks struct {
 		API, Department, Dictionary, DictionaryDetail, Menu, OauthProvider, Position,
-		Role, Stock, Token, User []ent.Hook
+		Role, Stock, StockUser, Token, User []ent.Hook
 	}
 	inters struct {
 		API, Department, Dictionary, DictionaryDetail, Menu, OauthProvider, Position,
-		Role, Stock, Token, User []ent.Interceptor
+		Role, Stock, StockUser, Token, User []ent.Interceptor
 	}
 )
 

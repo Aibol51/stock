@@ -2190,6 +2190,524 @@
         }
       }
     },
+    "/stockuser": {
+      "post": {
+        "description": "Get User by ID | 通过ID获取用户",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Get User by ID | 通过ID获取用户",
+        "operationId": "GetUserById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockUserInfoResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/change_password": {
+      "post": {
+        "description": "Change Password | 修改密码",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Change Password | 修改密码",
+        "operationId": "ChangePassword",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserChangePasswordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/create": {
+      "post": {
+        "description": "Create stockuser information | 创建用户",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Create stockuser information | 创建用户",
+        "operationId": "CreateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/delete": {
+      "post": {
+        "description": "Delete stockuser information | 删除用户信息",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Delete stockuser information | 删除用户信息",
+        "operationId": "DeleteUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/info": {
+      "get": {
+        "description": "Get stockuser basic information | 获取用户基本信息",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Get stockuser basic information | 获取用户基本信息",
+        "operationId": "GetStockUserInfo",
+        "responses": {
+          "200": {
+            "description": "StockUserBaseIDInfoResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserBaseIDInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/list": {
+      "post": {
+        "description": "Get stockuser list | 获取用户列表",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Get stockuser list | 获取用户列表",
+        "operationId": "GetUserList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockUserListResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserListResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/login": {
+      "post": {
+        "description": "Log in | 登录",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Log in | 登录",
+        "operationId": "Login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserLoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockUserLoginResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserLoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/login_Mobile": {
+      "post": {
+        "description": "Log in by mobile phone | 手机号登录",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Log in by mobile phone | 手机号登录",
+        "operationId": "LoginByMobile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserLoginByMobileReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockUserLoginResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserLoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/login_by_email": {
+      "post": {
+        "description": "Log in by email | 邮箱登录",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Log in by email | 邮箱登录",
+        "operationId": "LoginByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserLoginByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockUserLoginResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserLoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/login_by_sms": {
+      "post": {
+        "description": "Log in by SMS | 短信登录",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Log in by SMS | 短信登录",
+        "operationId": "LoginBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserLoginBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "StockUserLoginResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserLoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/logout": {
+      "get": {
+        "description": "Log out | 退出登陆",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Log out | 退出登陆",
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/perm": {
+      "get": {
+        "description": "Get stockuser's permission code | 获取用户权限码",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Get stockuser's permission code | 获取用户权限码",
+        "operationId": "GetUserPermCode",
+        "responses": {
+          "200": {
+            "description": "StockUserPermCodeResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserPermCodeResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/profile": {
+      "get": {
+        "description": "Get stockuser's profile | 获取用户个人信息",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Get stockuser's profile | 获取用户个人信息",
+        "operationId": "GetUserProfile",
+        "responses": {
+          "200": {
+            "description": "StockUserProfileResp",
+            "schema": {
+              "$ref": "#/definitions/StockUserProfileResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Update stockuser's profile | 更新用户个人信息",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Update stockuser's profile | 更新用户个人信息",
+        "operationId": "UpdateUserProfile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserProfileInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/register": {
+      "post": {
+        "description": "Register | 注册",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Register | 注册",
+        "operationId": "Register",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserRegisterReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/register_by_email": {
+      "post": {
+        "description": "Register by Email | 邮箱注册",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Register by Email | 邮箱注册",
+        "operationId": "RegisterByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserRegisterByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/register_by_sms": {
+      "post": {
+        "description": "Register by SMS | 短信注册",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Register by SMS | 短信注册",
+        "operationId": "RegisterBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserRegisterBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/reset_password_by_email": {
+      "post": {
+        "description": "Reset password by Email | 通过邮箱重置密码",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Reset password by Email | 通过邮箱重置密码",
+        "operationId": "ResetPasswordByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserResetPasswordByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/reset_password_by_sms": {
+      "post": {
+        "description": "Reset password by Sms | 通过短信重置密码",
+        "tags": [
+          "publicstockuser"
+        ],
+        "summary": "Reset password by Sms | 通过短信重置密码",
+        "operationId": "ResetPasswordBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserResetPasswordBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/stockuser/update": {
+      "post": {
+        "description": "Update stockuser information | 更新用户",
+        "tags": [
+          "stockuser"
+        ],
+        "summary": "Update stockuser information | 更新用户",
+        "operationId": "UpdateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/StockUserInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/task": {
       "post": {
         "description": "Get task by ID | 通过ID获取Task",
@@ -6548,6 +7066,708 @@
           "description": "Message | 提示信息",
           "type": "string",
           "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserBaseIDInfo": {
+      "description": "The  data of user's basic information | 用户基本信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "The user's avatar path | 用户的头像路径",
+          "type": "string",
+          "x-go-name": "Avatar"
+        },
+        "desc": {
+          "description": "The description of user | 用户的描述信息",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "homePath": {
+          "description": "The home page that the user enters after logging in | 用户登陆后进入的首页",
+          "type": "string",
+          "x-go-name": "HomePath"
+        },
+        "nickname": {
+          "description": "User's nickname | 用户的昵称",
+          "type": "string",
+          "x-go-name": "Nickname"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UUID"
+        },
+        "username": {
+          "description": "User's name | 用户名",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserBaseIDInfoResp": {
+      "description": "The response data of user's basic information | 用户基本信息返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockUserBaseIDInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserChangePasswordReq": {
+      "description": "change user's password request | 修改密码请求参数",
+      "type": "object",
+      "required": [
+        "oldPassword",
+        "newPassword"
+      ],
+      "properties": {
+        "newPassword": {
+          "description": "User's new password | 用户新密码",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "NewPassword"
+        },
+        "oldPassword": {
+          "description": "User's old password | 用户旧密码",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "OldPassword"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserInfo": {
+      "description": "The response data of user information | 用户信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "Avatar | 头像地址",
+          "type": "string",
+          "x-go-name": "Avatar"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "description": {
+          "description": "Description | 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "email": {
+          "description": "Email | 邮箱",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Email"
+        },
+        "homePath": {
+          "description": "HomePath | 首页",
+          "type": "string",
+          "maxLength": 70,
+          "x-go-name": "HomePath"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "lastLoginInfo": {
+          "description": "LastLoginInfo | 最后登录信息",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "LastLoginInfo"
+        },
+        "mobile": {
+          "description": "Mobile | 手机号",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "Nickname | 昵称",
+          "type": "string",
+          "maxLength": 40,
+          "x-go-name": "Nickname"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        },
+        "username": {
+          "description": "Username | 用户名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserInfoResp": {
+      "description": "User information response | 用户信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockUserInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserListInfo": {
+      "description": "User list data | 用户列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | User列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockUserInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserListReq": {
+      "description": "Get user list request params | 用户列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "User's nickname | 用户的昵称",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Nickname"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserListResp": {
+      "description": "The response data of user list | 用户列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockUserListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserLoginByEmailReq": {
+      "description": "Log in by email request | 邮箱登录参数",
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserLoginByMobileReq": {
+      "description": "Login by mobile phone request | 手机号登录参数",
+      "type": "object",
+      "required": [
+        "phoneNumber",
+        "password",
+        "captchaId",
+        "captcha"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserLoginBySmsReq": {
+      "description": "Log in by SMS request | 短信登录参数",
+      "type": "object",
+      "required": [
+        "phoneNumber"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "phoneNumber": {
+          "description": "The user's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserLoginInfo": {
+      "description": "The log in information | 登陆返回的数据信息",
+      "type": "object",
+      "properties": {
+        "expire": {
+          "description": "Expire timestamp | 过期时间戳",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Expire"
+        },
+        "token": {
+          "description": "Token for authorization | 验证身份的token",
+          "type": "string",
+          "x-go-name": "Token"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UserId"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserLoginReq": {
+      "description": "Login request | 登录参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
+        "captcha"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserLoginResp": {
+      "description": "The log in response data | 登录返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockUserLoginInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserPermCodeResp": {
+      "description": "The permission code for front end permission control | 权限码： 用于前端权限控制",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Permission code data | 权限码数据",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Data"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserProfileInfo": {
+      "description": "The profile information | 个人信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "The user's avatar path | 用户的头像路径",
+          "type": "string",
+          "x-go-name": "Avatar"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "user's nickname | 用户的昵称",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Nickname"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserProfileResp": {
+      "description": "The profile response data | 个人信息返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/StockUserProfileInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserRegisterByEmailReq": {
+      "description": "Register by email request | 邮箱注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captcha",
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserRegisterBySmsReq": {
+      "description": "Register by SMS request | 短信注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captcha",
+        "phoneNumber"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "description": "The user's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserRegisterReq": {
+      "description": "register request | 注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
+        "captcha",
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserResetPasswordByEmailReq": {
+      "description": "Reset password by email request | 通过邮箱重置密码请求",
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "StockUserResetPasswordBySmsReq": {
+      "description": "Reset password by SMS request | 通过短信重置密码请求",
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "x-go-name": "PhoneNumber"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"

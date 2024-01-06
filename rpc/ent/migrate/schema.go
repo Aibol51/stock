@@ -248,6 +248,36 @@ var (
 		Columns:    StocksColumns,
 		PrimaryKey: []*schema.Column{StocksColumns[0]},
 	}
+	// SysStockUsersColumns holds the columns for the "sys_stock_users" table.
+	SysStockUsersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "username", Type: field.TypeString, Unique: true, Nullable: true, Comment: "StockUser's login name | 登录名"},
+		{Name: "password", Type: field.TypeString, Comment: "Password | 密码"},
+		{Name: "nickname", Type: field.TypeString, Unique: true, Comment: "Nickname | 昵称"},
+		{Name: "description", Type: field.TypeString, Nullable: true, Comment: "The description of stock user | 股票用户的描述信息"},
+		{Name: "home_path", Type: field.TypeString, Comment: "The home page that the stock user enters after logging in | 股票用户登陆后进入的首页", Default: "/dashboard"},
+		{Name: "mobile", Type: field.TypeString, Unique: true, Nullable: true, Comment: "Mobile number | 手机号"},
+		{Name: "email", Type: field.TypeString, Nullable: true, Comment: "Email | 邮箱号"},
+		{Name: "avatar", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Avatar | 头像路径", Default: ""},
+		{Name: "last_login_info", Type: field.TypeString, Nullable: true, Comment: "Last login information | 最后登录信息", Default: ""},
+	}
+	// SysStockUsersTable holds the schema information for the "sys_stock_users" table.
+	SysStockUsersTable = &schema.Table{
+		Name:       "sys_stock_users",
+		Columns:    SysStockUsersColumns,
+		PrimaryKey: []*schema.Column{SysStockUsersColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "stockuser_username_email_mobile",
+				Unique:  true,
+				Columns: []*schema.Column{SysStockUsersColumns[5], SysStockUsersColumns[11], SysStockUsersColumns[10]},
+			},
+		},
+	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
@@ -401,6 +431,7 @@ var (
 		SysPositionsTable,
 		SysRolesTable,
 		StocksTable,
+		SysStockUsersTable,
 		SysTokensTable,
 		SysUsersTable,
 		RoleMenusTable,
@@ -436,6 +467,9 @@ func init() {
 	}
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
+	}
+	SysStockUsersTable.Annotation = &entsql.Annotation{
+		Table: "sys_stock_users",
 	}
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",

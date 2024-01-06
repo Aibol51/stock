@@ -16,6 +16,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/schema"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -311,6 +312,47 @@ func init() {
 	stockDescID := stockMixinFields0[0].Descriptor()
 	// stock.DefaultID holds the default value on creation for the id field.
 	stock.DefaultID = stockDescID.Default.(func() uuid.UUID)
+	stockuserMixin := schema.StockUser{}.Mixin()
+	stockuserMixinHooks2 := stockuserMixin[2].Hooks()
+	stockuser.Hooks[0] = stockuserMixinHooks2[0]
+	stockuserMixinInters2 := stockuserMixin[2].Interceptors()
+	stockuser.Interceptors[0] = stockuserMixinInters2[0]
+	stockuserMixinFields0 := stockuserMixin[0].Fields()
+	_ = stockuserMixinFields0
+	stockuserMixinFields1 := stockuserMixin[1].Fields()
+	_ = stockuserMixinFields1
+	stockuserFields := schema.StockUser{}.Fields()
+	_ = stockuserFields
+	// stockuserDescCreatedAt is the schema descriptor for created_at field.
+	stockuserDescCreatedAt := stockuserMixinFields0[1].Descriptor()
+	// stockuser.DefaultCreatedAt holds the default value on creation for the created_at field.
+	stockuser.DefaultCreatedAt = stockuserDescCreatedAt.Default.(func() time.Time)
+	// stockuserDescUpdatedAt is the schema descriptor for updated_at field.
+	stockuserDescUpdatedAt := stockuserMixinFields0[2].Descriptor()
+	// stockuser.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	stockuser.DefaultUpdatedAt = stockuserDescUpdatedAt.Default.(func() time.Time)
+	// stockuser.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	stockuser.UpdateDefaultUpdatedAt = stockuserDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// stockuserDescStatus is the schema descriptor for status field.
+	stockuserDescStatus := stockuserMixinFields1[0].Descriptor()
+	// stockuser.DefaultStatus holds the default value on creation for the status field.
+	stockuser.DefaultStatus = stockuserDescStatus.Default.(uint8)
+	// stockuserDescHomePath is the schema descriptor for home_path field.
+	stockuserDescHomePath := stockuserFields[4].Descriptor()
+	// stockuser.DefaultHomePath holds the default value on creation for the home_path field.
+	stockuser.DefaultHomePath = stockuserDescHomePath.Default.(string)
+	// stockuserDescAvatar is the schema descriptor for avatar field.
+	stockuserDescAvatar := stockuserFields[7].Descriptor()
+	// stockuser.DefaultAvatar holds the default value on creation for the avatar field.
+	stockuser.DefaultAvatar = stockuserDescAvatar.Default.(string)
+	// stockuserDescLastLoginInfo is the schema descriptor for last_login_info field.
+	stockuserDescLastLoginInfo := stockuserFields[8].Descriptor()
+	// stockuser.DefaultLastLoginInfo holds the default value on creation for the last_login_info field.
+	stockuser.DefaultLastLoginInfo = stockuserDescLastLoginInfo.Default.(string)
+	// stockuserDescID is the schema descriptor for id field.
+	stockuserDescID := stockuserMixinFields0[0].Descriptor()
+	// stockuser.DefaultID holds the default value on creation for the id field.
+	stockuser.DefaultID = stockuserDescID.Default.(func() uuid.UUID)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0

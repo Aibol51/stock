@@ -2001,6 +2001,294 @@ func (s *StockCreate) SetNotNilStockTags(value *string) *StockCreate {
 }
 
 // set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilUpdatedAt(value *time.Time) *StockUserUpdate {
+	if value != nil {
+		return su.SetUpdatedAt(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilUpdatedAt(value *time.Time) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetUpdatedAt(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilUpdatedAt(value *time.Time) *StockUserCreate {
+	if value != nil {
+		return su.SetUpdatedAt(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilStatus(value *uint8) *StockUserUpdate {
+	if value != nil {
+		return su.SetStatus(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilStatus(value *uint8) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetStatus(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilStatus(value *uint8) *StockUserCreate {
+	if value != nil {
+		return su.SetStatus(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilDeletedAt(value *time.Time) *StockUserUpdate {
+	if value != nil {
+		return su.SetDeletedAt(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilDeletedAt(value *time.Time) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetDeletedAt(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilDeletedAt(value *time.Time) *StockUserCreate {
+	if value != nil {
+		return su.SetDeletedAt(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilUsername(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetUsername(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilUsername(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetUsername(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilUsername(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetUsername(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilPassword(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetPassword(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilPassword(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetPassword(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilPassword(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetPassword(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilNickname(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetNickname(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilNickname(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetNickname(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilNickname(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetNickname(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilDescription(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetDescription(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilDescription(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetDescription(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilDescription(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetDescription(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilHomePath(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetHomePath(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilHomePath(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetHomePath(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilHomePath(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetHomePath(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilMobile(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetMobile(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilMobile(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetMobile(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilMobile(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetMobile(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilEmail(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetEmail(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilEmail(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetEmail(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilEmail(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetEmail(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilAvatar(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetAvatar(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilAvatar(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetAvatar(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilAvatar(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetAvatar(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdate) SetNotNilLastLoginInfo(value *string) *StockUserUpdate {
+	if value != nil {
+		return su.SetLastLoginInfo(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserUpdateOne) SetNotNilLastLoginInfo(value *string) *StockUserUpdateOne {
+	if value != nil {
+		return su.SetLastLoginInfo(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
+func (su *StockUserCreate) SetNotNilLastLoginInfo(value *string) *StockUserCreate {
+	if value != nil {
+		return su.SetLastLoginInfo(*value)
+	}
+	return su
+}
+
+// set field if value's pointer is not nil.
 func (t *TokenUpdate) SetNotNilUpdatedAt(value *time.Time) *TokenUpdate {
 	if value != nil {
 		return t.SetUpdatedAt(*value)

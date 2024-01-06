@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -321,6 +322,33 @@ func (f TraverseStock) Traverse(ctx context.Context, q ent.Query) error {
 	return fmt.Errorf("unexpected query type %T. expect *ent.StockQuery", q)
 }
 
+// The StockUserFunc type is an adapter to allow the use of ordinary function as a Querier.
+type StockUserFunc func(context.Context, *ent.StockUserQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f StockUserFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.StockUserQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.StockUserQuery", q)
+}
+
+// The TraverseStockUser type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseStockUser func(context.Context, *ent.StockUserQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseStockUser) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseStockUser) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.StockUserQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.StockUserQuery", q)
+}
+
 // The TokenFunc type is an adapter to allow the use of ordinary function as a Querier.
 type TokenFunc func(context.Context, *ent.TokenQuery) (ent.Value, error)
 
@@ -396,6 +424,8 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.RoleQuery, predicate.Role, role.OrderOption]{typ: ent.TypeRole, tq: q}, nil
 	case *ent.StockQuery:
 		return &query[*ent.StockQuery, predicate.Stock, stock.OrderOption]{typ: ent.TypeStock, tq: q}, nil
+	case *ent.StockUserQuery:
+		return &query[*ent.StockUserQuery, predicate.StockUser, stockuser.OrderOption]{typ: ent.TypeStockUser, tq: q}, nil
 	case *ent.TokenQuery:
 		return &query[*ent.TokenQuery, predicate.Token, token.OrderOption]{typ: ent.TypeToken, tq: q}, nil
 	case *ent.UserQuery:

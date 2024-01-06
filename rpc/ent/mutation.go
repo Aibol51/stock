@@ -22,6 +22,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/stock"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockuser"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
@@ -44,6 +45,7 @@ const (
 	TypePosition         = "Position"
 	TypeRole             = "Role"
 	TypeStock            = "Stock"
+	TypeStockUser        = "StockUser"
 	TypeToken            = "Token"
 	TypeUser             = "User"
 )
@@ -9544,6 +9546,1178 @@ func (m *StockMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *StockMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Stock edge %s", name)
+}
+
+// StockUserMutation represents an operation that mutates the StockUser nodes in the graph.
+type StockUserMutation struct {
+	config
+	op              Op
+	typ             string
+	id              *uuid.UUID
+	created_at      *time.Time
+	updated_at      *time.Time
+	status          *uint8
+	addstatus       *int8
+	deleted_at      *time.Time
+	username        *string
+	password        *string
+	nickname        *string
+	description     *string
+	home_path       *string
+	mobile          *string
+	email           *string
+	avatar          *string
+	last_login_info *string
+	clearedFields   map[string]struct{}
+	done            bool
+	oldValue        func(context.Context) (*StockUser, error)
+	predicates      []predicate.StockUser
+}
+
+var _ ent.Mutation = (*StockUserMutation)(nil)
+
+// stockuserOption allows management of the mutation configuration using functional options.
+type stockuserOption func(*StockUserMutation)
+
+// newStockUserMutation creates new mutation for the StockUser entity.
+func newStockUserMutation(c config, op Op, opts ...stockuserOption) *StockUserMutation {
+	m := &StockUserMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeStockUser,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withStockUserID sets the ID field of the mutation.
+func withStockUserID(id uuid.UUID) stockuserOption {
+	return func(m *StockUserMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *StockUser
+		)
+		m.oldValue = func(ctx context.Context) (*StockUser, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().StockUser.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withStockUser sets the old StockUser of the mutation.
+func withStockUser(node *StockUser) stockuserOption {
+	return func(m *StockUserMutation) {
+		m.oldValue = func(context.Context) (*StockUser, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m StockUserMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m StockUserMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of StockUser entities.
+func (m *StockUserMutation) SetID(id uuid.UUID) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *StockUserMutation) ID() (id uuid.UUID, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *StockUserMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uuid.UUID{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().StockUser.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *StockUserMutation) SetCreatedAt(t time.Time) {
+	m.created_at = &t
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *StockUserMutation) CreatedAt() (r time.Time, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *StockUserMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *StockUserMutation) SetUpdatedAt(t time.Time) {
+	m.updated_at = &t
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *StockUserMutation) UpdatedAt() (r time.Time, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *StockUserMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+}
+
+// SetStatus sets the "status" field.
+func (m *StockUserMutation) SetStatus(u uint8) {
+	m.status = &u
+	m.addstatus = nil
+}
+
+// Status returns the value of the "status" field in the mutation.
+func (m *StockUserMutation) Status() (r uint8, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old "status" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldStatus(ctx context.Context) (v uint8, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds u to the "status" field.
+func (m *StockUserMutation) AddStatus(u int8) {
+	if m.addstatus != nil {
+		*m.addstatus += u
+	} else {
+		m.addstatus = &u
+	}
+}
+
+// AddedStatus returns the value that was added to the "status" field in this mutation.
+func (m *StockUserMutation) AddedStatus() (r int8, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearStatus clears the value of the "status" field.
+func (m *StockUserMutation) ClearStatus() {
+	m.status = nil
+	m.addstatus = nil
+	m.clearedFields[stockuser.FieldStatus] = struct{}{}
+}
+
+// StatusCleared returns if the "status" field was cleared in this mutation.
+func (m *StockUserMutation) StatusCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldStatus]
+	return ok
+}
+
+// ResetStatus resets all changes to the "status" field.
+func (m *StockUserMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+	delete(m.clearedFields, stockuser.FieldStatus)
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *StockUserMutation) SetDeletedAt(t time.Time) {
+	m.deleted_at = &t
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *StockUserMutation) DeletedAt() (r time.Time, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldDeletedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// ClearDeletedAt clears the value of the "deleted_at" field.
+func (m *StockUserMutation) ClearDeletedAt() {
+	m.deleted_at = nil
+	m.clearedFields[stockuser.FieldDeletedAt] = struct{}{}
+}
+
+// DeletedAtCleared returns if the "deleted_at" field was cleared in this mutation.
+func (m *StockUserMutation) DeletedAtCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldDeletedAt]
+	return ok
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *StockUserMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	delete(m.clearedFields, stockuser.FieldDeletedAt)
+}
+
+// SetUsername sets the "username" field.
+func (m *StockUserMutation) SetUsername(s string) {
+	m.username = &s
+}
+
+// Username returns the value of the "username" field in the mutation.
+func (m *StockUserMutation) Username() (r string, exists bool) {
+	v := m.username
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUsername returns the old "username" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldUsername(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUsername is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUsername requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUsername: %w", err)
+	}
+	return oldValue.Username, nil
+}
+
+// ClearUsername clears the value of the "username" field.
+func (m *StockUserMutation) ClearUsername() {
+	m.username = nil
+	m.clearedFields[stockuser.FieldUsername] = struct{}{}
+}
+
+// UsernameCleared returns if the "username" field was cleared in this mutation.
+func (m *StockUserMutation) UsernameCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldUsername]
+	return ok
+}
+
+// ResetUsername resets all changes to the "username" field.
+func (m *StockUserMutation) ResetUsername() {
+	m.username = nil
+	delete(m.clearedFields, stockuser.FieldUsername)
+}
+
+// SetPassword sets the "password" field.
+func (m *StockUserMutation) SetPassword(s string) {
+	m.password = &s
+}
+
+// Password returns the value of the "password" field in the mutation.
+func (m *StockUserMutation) Password() (r string, exists bool) {
+	v := m.password
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPassword returns the old "password" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldPassword(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPassword is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPassword requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPassword: %w", err)
+	}
+	return oldValue.Password, nil
+}
+
+// ResetPassword resets all changes to the "password" field.
+func (m *StockUserMutation) ResetPassword() {
+	m.password = nil
+}
+
+// SetNickname sets the "nickname" field.
+func (m *StockUserMutation) SetNickname(s string) {
+	m.nickname = &s
+}
+
+// Nickname returns the value of the "nickname" field in the mutation.
+func (m *StockUserMutation) Nickname() (r string, exists bool) {
+	v := m.nickname
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNickname returns the old "nickname" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldNickname(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldNickname is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldNickname requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNickname: %w", err)
+	}
+	return oldValue.Nickname, nil
+}
+
+// ResetNickname resets all changes to the "nickname" field.
+func (m *StockUserMutation) ResetNickname() {
+	m.nickname = nil
+}
+
+// SetDescription sets the "description" field.
+func (m *StockUserMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *StockUserMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ClearDescription clears the value of the "description" field.
+func (m *StockUserMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[stockuser.FieldDescription] = struct{}{}
+}
+
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *StockUserMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldDescription]
+	return ok
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *StockUserMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, stockuser.FieldDescription)
+}
+
+// SetHomePath sets the "home_path" field.
+func (m *StockUserMutation) SetHomePath(s string) {
+	m.home_path = &s
+}
+
+// HomePath returns the value of the "home_path" field in the mutation.
+func (m *StockUserMutation) HomePath() (r string, exists bool) {
+	v := m.home_path
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldHomePath returns the old "home_path" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldHomePath(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldHomePath is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldHomePath requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldHomePath: %w", err)
+	}
+	return oldValue.HomePath, nil
+}
+
+// ResetHomePath resets all changes to the "home_path" field.
+func (m *StockUserMutation) ResetHomePath() {
+	m.home_path = nil
+}
+
+// SetMobile sets the "mobile" field.
+func (m *StockUserMutation) SetMobile(s string) {
+	m.mobile = &s
+}
+
+// Mobile returns the value of the "mobile" field in the mutation.
+func (m *StockUserMutation) Mobile() (r string, exists bool) {
+	v := m.mobile
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMobile returns the old "mobile" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldMobile(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMobile is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMobile requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMobile: %w", err)
+	}
+	return oldValue.Mobile, nil
+}
+
+// ClearMobile clears the value of the "mobile" field.
+func (m *StockUserMutation) ClearMobile() {
+	m.mobile = nil
+	m.clearedFields[stockuser.FieldMobile] = struct{}{}
+}
+
+// MobileCleared returns if the "mobile" field was cleared in this mutation.
+func (m *StockUserMutation) MobileCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldMobile]
+	return ok
+}
+
+// ResetMobile resets all changes to the "mobile" field.
+func (m *StockUserMutation) ResetMobile() {
+	m.mobile = nil
+	delete(m.clearedFields, stockuser.FieldMobile)
+}
+
+// SetEmail sets the "email" field.
+func (m *StockUserMutation) SetEmail(s string) {
+	m.email = &s
+}
+
+// Email returns the value of the "email" field in the mutation.
+func (m *StockUserMutation) Email() (r string, exists bool) {
+	v := m.email
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEmail returns the old "email" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldEmail(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEmail is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEmail requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEmail: %w", err)
+	}
+	return oldValue.Email, nil
+}
+
+// ClearEmail clears the value of the "email" field.
+func (m *StockUserMutation) ClearEmail() {
+	m.email = nil
+	m.clearedFields[stockuser.FieldEmail] = struct{}{}
+}
+
+// EmailCleared returns if the "email" field was cleared in this mutation.
+func (m *StockUserMutation) EmailCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldEmail]
+	return ok
+}
+
+// ResetEmail resets all changes to the "email" field.
+func (m *StockUserMutation) ResetEmail() {
+	m.email = nil
+	delete(m.clearedFields, stockuser.FieldEmail)
+}
+
+// SetAvatar sets the "avatar" field.
+func (m *StockUserMutation) SetAvatar(s string) {
+	m.avatar = &s
+}
+
+// Avatar returns the value of the "avatar" field in the mutation.
+func (m *StockUserMutation) Avatar() (r string, exists bool) {
+	v := m.avatar
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAvatar returns the old "avatar" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldAvatar(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAvatar is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAvatar requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAvatar: %w", err)
+	}
+	return oldValue.Avatar, nil
+}
+
+// ClearAvatar clears the value of the "avatar" field.
+func (m *StockUserMutation) ClearAvatar() {
+	m.avatar = nil
+	m.clearedFields[stockuser.FieldAvatar] = struct{}{}
+}
+
+// AvatarCleared returns if the "avatar" field was cleared in this mutation.
+func (m *StockUserMutation) AvatarCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldAvatar]
+	return ok
+}
+
+// ResetAvatar resets all changes to the "avatar" field.
+func (m *StockUserMutation) ResetAvatar() {
+	m.avatar = nil
+	delete(m.clearedFields, stockuser.FieldAvatar)
+}
+
+// SetLastLoginInfo sets the "last_login_info" field.
+func (m *StockUserMutation) SetLastLoginInfo(s string) {
+	m.last_login_info = &s
+}
+
+// LastLoginInfo returns the value of the "last_login_info" field in the mutation.
+func (m *StockUserMutation) LastLoginInfo() (r string, exists bool) {
+	v := m.last_login_info
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLastLoginInfo returns the old "last_login_info" field's value of the StockUser entity.
+// If the StockUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockUserMutation) OldLastLoginInfo(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLastLoginInfo is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLastLoginInfo requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLastLoginInfo: %w", err)
+	}
+	return oldValue.LastLoginInfo, nil
+}
+
+// ClearLastLoginInfo clears the value of the "last_login_info" field.
+func (m *StockUserMutation) ClearLastLoginInfo() {
+	m.last_login_info = nil
+	m.clearedFields[stockuser.FieldLastLoginInfo] = struct{}{}
+}
+
+// LastLoginInfoCleared returns if the "last_login_info" field was cleared in this mutation.
+func (m *StockUserMutation) LastLoginInfoCleared() bool {
+	_, ok := m.clearedFields[stockuser.FieldLastLoginInfo]
+	return ok
+}
+
+// ResetLastLoginInfo resets all changes to the "last_login_info" field.
+func (m *StockUserMutation) ResetLastLoginInfo() {
+	m.last_login_info = nil
+	delete(m.clearedFields, stockuser.FieldLastLoginInfo)
+}
+
+// Where appends a list predicates to the StockUserMutation builder.
+func (m *StockUserMutation) Where(ps ...predicate.StockUser) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the StockUserMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *StockUserMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.StockUser, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *StockUserMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *StockUserMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (StockUser).
+func (m *StockUserMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *StockUserMutation) Fields() []string {
+	fields := make([]string, 0, 13)
+	if m.created_at != nil {
+		fields = append(fields, stockuser.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, stockuser.FieldUpdatedAt)
+	}
+	if m.status != nil {
+		fields = append(fields, stockuser.FieldStatus)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, stockuser.FieldDeletedAt)
+	}
+	if m.username != nil {
+		fields = append(fields, stockuser.FieldUsername)
+	}
+	if m.password != nil {
+		fields = append(fields, stockuser.FieldPassword)
+	}
+	if m.nickname != nil {
+		fields = append(fields, stockuser.FieldNickname)
+	}
+	if m.description != nil {
+		fields = append(fields, stockuser.FieldDescription)
+	}
+	if m.home_path != nil {
+		fields = append(fields, stockuser.FieldHomePath)
+	}
+	if m.mobile != nil {
+		fields = append(fields, stockuser.FieldMobile)
+	}
+	if m.email != nil {
+		fields = append(fields, stockuser.FieldEmail)
+	}
+	if m.avatar != nil {
+		fields = append(fields, stockuser.FieldAvatar)
+	}
+	if m.last_login_info != nil {
+		fields = append(fields, stockuser.FieldLastLoginInfo)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *StockUserMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case stockuser.FieldCreatedAt:
+		return m.CreatedAt()
+	case stockuser.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case stockuser.FieldStatus:
+		return m.Status()
+	case stockuser.FieldDeletedAt:
+		return m.DeletedAt()
+	case stockuser.FieldUsername:
+		return m.Username()
+	case stockuser.FieldPassword:
+		return m.Password()
+	case stockuser.FieldNickname:
+		return m.Nickname()
+	case stockuser.FieldDescription:
+		return m.Description()
+	case stockuser.FieldHomePath:
+		return m.HomePath()
+	case stockuser.FieldMobile:
+		return m.Mobile()
+	case stockuser.FieldEmail:
+		return m.Email()
+	case stockuser.FieldAvatar:
+		return m.Avatar()
+	case stockuser.FieldLastLoginInfo:
+		return m.LastLoginInfo()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *StockUserMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case stockuser.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case stockuser.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case stockuser.FieldStatus:
+		return m.OldStatus(ctx)
+	case stockuser.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
+	case stockuser.FieldUsername:
+		return m.OldUsername(ctx)
+	case stockuser.FieldPassword:
+		return m.OldPassword(ctx)
+	case stockuser.FieldNickname:
+		return m.OldNickname(ctx)
+	case stockuser.FieldDescription:
+		return m.OldDescription(ctx)
+	case stockuser.FieldHomePath:
+		return m.OldHomePath(ctx)
+	case stockuser.FieldMobile:
+		return m.OldMobile(ctx)
+	case stockuser.FieldEmail:
+		return m.OldEmail(ctx)
+	case stockuser.FieldAvatar:
+		return m.OldAvatar(ctx)
+	case stockuser.FieldLastLoginInfo:
+		return m.OldLastLoginInfo(ctx)
+	}
+	return nil, fmt.Errorf("unknown StockUser field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *StockUserMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case stockuser.FieldCreatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case stockuser.FieldUpdatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case stockuser.FieldStatus:
+		v, ok := value.(uint8)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case stockuser.FieldDeletedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
+		return nil
+	case stockuser.FieldUsername:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUsername(v)
+		return nil
+	case stockuser.FieldPassword:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPassword(v)
+		return nil
+	case stockuser.FieldNickname:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNickname(v)
+		return nil
+	case stockuser.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
+		return nil
+	case stockuser.FieldHomePath:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetHomePath(v)
+		return nil
+	case stockuser.FieldMobile:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMobile(v)
+		return nil
+	case stockuser.FieldEmail:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEmail(v)
+		return nil
+	case stockuser.FieldAvatar:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAvatar(v)
+		return nil
+	case stockuser.FieldLastLoginInfo:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLastLoginInfo(v)
+		return nil
+	}
+	return fmt.Errorf("unknown StockUser field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *StockUserMutation) AddedFields() []string {
+	var fields []string
+	if m.addstatus != nil {
+		fields = append(fields, stockuser.FieldStatus)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *StockUserMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case stockuser.FieldStatus:
+		return m.AddedStatus()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *StockUserMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case stockuser.FieldStatus:
+		v, ok := value.(int8)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	}
+	return fmt.Errorf("unknown StockUser numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *StockUserMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(stockuser.FieldStatus) {
+		fields = append(fields, stockuser.FieldStatus)
+	}
+	if m.FieldCleared(stockuser.FieldDeletedAt) {
+		fields = append(fields, stockuser.FieldDeletedAt)
+	}
+	if m.FieldCleared(stockuser.FieldUsername) {
+		fields = append(fields, stockuser.FieldUsername)
+	}
+	if m.FieldCleared(stockuser.FieldDescription) {
+		fields = append(fields, stockuser.FieldDescription)
+	}
+	if m.FieldCleared(stockuser.FieldMobile) {
+		fields = append(fields, stockuser.FieldMobile)
+	}
+	if m.FieldCleared(stockuser.FieldEmail) {
+		fields = append(fields, stockuser.FieldEmail)
+	}
+	if m.FieldCleared(stockuser.FieldAvatar) {
+		fields = append(fields, stockuser.FieldAvatar)
+	}
+	if m.FieldCleared(stockuser.FieldLastLoginInfo) {
+		fields = append(fields, stockuser.FieldLastLoginInfo)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *StockUserMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *StockUserMutation) ClearField(name string) error {
+	switch name {
+	case stockuser.FieldStatus:
+		m.ClearStatus()
+		return nil
+	case stockuser.FieldDeletedAt:
+		m.ClearDeletedAt()
+		return nil
+	case stockuser.FieldUsername:
+		m.ClearUsername()
+		return nil
+	case stockuser.FieldDescription:
+		m.ClearDescription()
+		return nil
+	case stockuser.FieldMobile:
+		m.ClearMobile()
+		return nil
+	case stockuser.FieldEmail:
+		m.ClearEmail()
+		return nil
+	case stockuser.FieldAvatar:
+		m.ClearAvatar()
+		return nil
+	case stockuser.FieldLastLoginInfo:
+		m.ClearLastLoginInfo()
+		return nil
+	}
+	return fmt.Errorf("unknown StockUser nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *StockUserMutation) ResetField(name string) error {
+	switch name {
+	case stockuser.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case stockuser.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case stockuser.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case stockuser.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
+	case stockuser.FieldUsername:
+		m.ResetUsername()
+		return nil
+	case stockuser.FieldPassword:
+		m.ResetPassword()
+		return nil
+	case stockuser.FieldNickname:
+		m.ResetNickname()
+		return nil
+	case stockuser.FieldDescription:
+		m.ResetDescription()
+		return nil
+	case stockuser.FieldHomePath:
+		m.ResetHomePath()
+		return nil
+	case stockuser.FieldMobile:
+		m.ResetMobile()
+		return nil
+	case stockuser.FieldEmail:
+		m.ResetEmail()
+		return nil
+	case stockuser.FieldAvatar:
+		m.ResetAvatar()
+		return nil
+	case stockuser.FieldLastLoginInfo:
+		m.ResetLastLoginInfo()
+		return nil
+	}
+	return fmt.Errorf("unknown StockUser field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *StockUserMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *StockUserMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *StockUserMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *StockUserMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *StockUserMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *StockUserMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *StockUserMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown StockUser unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *StockUserMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown StockUser edge %s", name)
 }
 
 // TokenMutation represents an operation that mutates the Token nodes in the graph.

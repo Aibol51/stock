@@ -38,10 +38,10 @@ ProjectConf:
   DefaultDepartmentId: 1  # default department id when register
   DefaultPositionId: 1 # default position id when register
   EmailCaptchaExpiredTime: 600 # the expired time for email captcha
-  SmsTemplateId: xxx  # The template id for sms
-  SmsAppId: xxx  # the app id for sms
-  SmsSignName: xxx  # the signature name of sms
-  RegisterVerify: captcha # register captcha type, support captcha, email, sms, sms_or_email
+  SmsTemplateId: "2037925"  # The template id for sms
+  SmsAppId: "1400880359"  # the app id for sms
+  SmsSignName: 涂伯岳网络科技  # the signature name of sms
+  RegisterVerify: sms # register captcha type, support captcha, email, sms, sms_or_email
   LoginVerify: captcha # login captcha type, support captcha, email, sms, sms_or_email, all
   ResetVerify: email # reset captcha type, support email, sms, sms_or_email
   AllowInit: true # if false, ban initialization
@@ -84,7 +84,7 @@ JobRpc:
 
 McmsRpc:
   Target: 127.0.0.1:9106
-  Enabled: false
+  Enabled: true
   Timeout: 5000
 
 # Tracing Analysis
